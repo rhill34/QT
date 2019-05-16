@@ -39,7 +39,7 @@ Class Diagrams:
 
 ![](./img/classDiagram.png)
 ER Diagrams:
-![](./img/ER Diagram.png)
+![](./img/ERDiagram.png)
 
 ---
 
