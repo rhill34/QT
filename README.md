@@ -41,4 +41,7 @@ Class Diagrams:
 ER Diagrams:
 ![](./img/ER Diagram.png)
 
-![](file:///C:/Users/rhill/AppData/Local/Temp/msohtmlclip1/01/clip_image020.gif)
+---
+
+###051319 Add M.Britt informal Short Meeting:
+![](./img/05132019-informal.jpeg " Taken by Robert Hill")
