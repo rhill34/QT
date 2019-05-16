@@ -21,128 +21,24 @@ Making the most of your layovers.
 
 ## 
 
-<table cellpadding="0" cellspacing="0">
-
-<tbody>
-
-<tr>
-
-<td width="26" height="0"></td>
-
-</tr>
-
-<tr>
-
-<td></td>
-
-<td>![](file:///C:/Users/rhill/AppData/Local/Temp/msohtmlclip1/01/clip_image002.jpg)</td>
-
-</tr>
-
-</tbody>
-
-</table>
-
 Paper Prototype Pictures:
 
-![](file:///C:/Users/rhill/AppData/Local/Temp/msohtmlclip1/01/clip_image004.jpg)
+![](./img/1.jpg)
 
-<table cellpadding="0" cellspacing="0">
+![](./img/2.jpg)
 
-<tbody>
+![](./img/3.jpg)
 
-<tr>
+![](./img/4.jpg)
 
-<td width="70" height="0"></td>
+![](./img/5.jpg)
 
-<td width="760"></td>
-
-<td width="112"></td>
-
-<td width="994"></td>
-
-</tr>
-
-<tr>
-
-<td height="37"></td>
-
-<td rowspan="2" align="left" valign="top">![](file:///C:/Users/rhill/AppData/Local/Temp/msohtmlclip1/01/clip_image007.jpg)</td>
-
-</tr>
-
-<tr>
-
-<td height="433"></td>
-
-<td></td>
-
-<td rowspan="2" align="left" valign="top">![](file:///C:/Users/rhill/AppData/Local/Temp/msohtmlclip1/01/clip_image008.jpg)</td>
-
-</tr>
-
-<tr>
-
-<td height="295"></td>
-
-</tr>
-
-</tbody>
-
-</table>
-
-![](file:///C:/Users/rhill/AppData/Local/Temp/msohtmlclip1/01/clip_image010.jpg)
-
-<table cellpadding="0" cellspacing="0" align="left">
-
-<tbody>
-
-<tr>
-
-<td width="20" height="0"></td>
-
-</tr>
-
-<tr>
-
-<td></td>
-
-<td>![](file:///C:/Users/rhill/AppData/Local/Temp/msohtmlclip1/01/clip_image013.jpg)</td>
-
-</tr>
-
-</tbody>
-
-</table>
-
-![](file:///C:/Users/rhill/AppData/Local/Temp/msohtmlclip1/01/clip_image015.jpg)
-
-<table cellpadding="0" cellspacing="0">
-
-<tbody>
-
-<tr>
-
-<td width="26" height="0"></td>
-
-</tr>
-
-<tr>
-
-<td></td>
-
-<td>![](file:///C:/Users/rhill/AppData/Local/Temp/msohtmlclip1/01/clip_image017.jpg)</td>
-
-</tr>
-
-</tbody>
-
-</table>
+![](./img/6.jpg)
 
 Class Diagrams:
 
-![](file:///C:/Users/rhill/AppData/Local/Temp/msohtmlclip1/01/clip_image019.gif)
-
+![](./img/classDiagram.png)
 ER Diagrams:
+![](./img/ER Diagram.png)
 
 ![](file:///C:/Users/rhill/AppData/Local/Temp/msohtmlclip1/01/clip_image020.gif)
