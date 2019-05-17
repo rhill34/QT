@@ -1,0 +1,20 @@
+{
+  "name": "rhill/328/dating",
+  "authors": [
+    {
+      "name": "Ryan Guelzo",
+      "email": "rguelzo@mail.greenriver.edu"
+    },
+    {
+      "name": "Michael Britt",
+      "email": "mbritt@mail.greenriver.edu"
+    },
+    {
+      "name": "Robert Hill",
+      "email": "rhill@mail.greenriver.edu"
+    }
+  ],
+  "require": {
+    "bcosca/fatfree-core": "dev-master"
+  }
+}
