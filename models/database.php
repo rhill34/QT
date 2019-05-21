@@ -3,23 +3,17 @@
 /*CREATE TABLE users
   (
   	userId int AUTO_INCREMENT PRIMARY KEY,
-  	userName varchar(50) not null,
+  	email varchar(255);
   	passwords varchar(30) not null,
   	firstName varchar(255) not null,
   	lastName varchar(255) not null,
   	isDriver tinyint(1), not null
   	isAdmin tinyint(1) not null
+    phone varchar(11);
+  	credits int(11) not null,
+ 	userRating int(1) not null,
   );
 
-  CREATE TABLE travelers
-  (
-  	travId int AUTO_INCREMENT PRIMARY KEY,
-  	userId int not null,
-  	profilePic varchar(255),
-  	userRating int(1) not null,
-  	credits int(11) not null,
-  	FOREIGN KEY (userId) REFERENCES users(userId)
-  );
 
   CREATE TABLE driver
   (
@@ -27,6 +21,7 @@
   	userId int not null,
   	rating int(1) not null,
   	city varchar(22) not null,
+    state char(2)
   	profilePic varchar(255),
   	carPic varchar(255),
   	carMake varchar(20),
@@ -54,7 +49,7 @@
   CREATE TABLE appointment
   (
   	appntId int PRIMARY KEY AUTO_INCREMENT,
-  	travId int not null,
+  	userId int not null,
   	driverId int,
   	appntInterest int,
   	dateTimeRequested dateTime,
@@ -65,15 +60,67 @@
   	FOREIGN KEY (travId) REFERENCES travelers(travId),
   	FOREIGN KEY (driverId) REFERENCES driver(driverId),
   	FOREIGN KEY (appntInterest) REFERENCES inserest(interest_id)
-
+  );CREATE TABLE users
+  (
+  	userId int AUTO_INCREMENT PRIMARY KEY,
+  	email varchar(255),
+  	passwords varchar(30) not null,
+  	firstName varchar(255) not null,
+  	lastName varchar(255) not null,
+  	isDriver tinyint(1) not null,
+  	isAdmin tinyint(1) not null,
+    phone varchar(11),
+  	credits int(11) not null,
+ 	userRating int(1) not null
   );
 
-    ALTER TABLE users
-    ADD phone varchar(11);
-    ALTER TABLE users
-    ADD email varchar(255);
-    ALTER TABLE driver
-    ADD state char(2)
+
+  CREATE TABLE driver
+  (
+  	driverId int AUTO_INCREMENT PRIMARY KEY,
+  	userId int not null,
+  	rating int(1) not null,
+  	city varchar(22) not null,
+    state char(2),
+  	profilePic varchar(255),
+  	carPic varchar(255),
+  	carMake varchar(20),
+  	carModel varchar(20),
+  	carYear int(4),
+  	bio varchar(255)
+  );
+
+  CREATE TABLE interest
+  (
+      interest_id int PRIMARY KEY AUTO_INCREMENT,
+      interest varchar(100) not null,
+      type varchar(30) not null
+  );
+
+  CREATE TABLE userinterest
+  (
+      userId int,
+      interest_id int,
+      FOREIGN KEY (interest_id) REFERENCES inserest(interest_id),
+      FOREIGN KEY (userId) REFERENCES member(userId),
+      PRIMARY KEY (interest_id, userId)
+  );
+
+  CREATE TABLE appointment
+  (
+  	appntId int PRIMARY KEY AUTO_INCREMENT,
+  	userId int not null,
+  	driverId int,
+  	appntInterest int,
+  	dateTimeRequested dateTime,
+  	dateTimeRequestedTill dateTime,
+  	actualTimeStarted dateTime,
+  	actualTimeCompleted dateTime,
+  	completed tinyint,
+  	FOREIGN KEY (userId) REFERENCES users(userId),
+  	FOREIGN KEY (driverId) REFERENCES driver(driverId),
+  	FOREIGN KEY (appntInterest) REFERENCES inserest(interest_id)
+  );
 */
 require '/home2/mbrittgr/config.php';
 
