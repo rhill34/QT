@@ -166,17 +166,16 @@ Class database
     public function insertMember($member)
     {
         //prepare sql statement
-        $sql = "INSERT INTO member(username, passwords, firstName, lastName, 
-            isDriver, isAdmin, phone, email)
-            VALUES (:username, :userName, :password, :firstName, :lastName, 
-            :isDriver, :isAdmin, :phone, :email)";
+        $sql = "INSERT INTO member(passwords, firstName, lastName, 
+            isDriver, isAdmin, phone, email, credits, userRating)
+            VALUES ( :password, :firstName, :lastName, 
+            :isDriver, :isAdmin, :phone, :email, 1, -1)";
         //save prepared statement
         $statement = $this->dbh->prepare($sql);
 
         //assign values
         $fname = $member->getFname();
         $lname = $member->getLname();
-        $username = $member->getUserName();
         $password = $member->getPassword();
         $phone = $member->getPhone();
         $email = $member->getEmail();
@@ -213,11 +212,6 @@ Class database
         {
             $this->insertDriverInfo($member,id);
         }
-        elseif($member instanceof  User_Traveler)
-        {
-
-        }
-
     }
 
     private function insertDriverInfo($member, $lastId)
