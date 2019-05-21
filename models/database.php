@@ -192,7 +192,6 @@ Class database
         //bind params
         $statement->bindParam(':fname',$fname, PDO::PARAM_STR);
         $statement->bindParam(':lname', $lname, PDO::PARAM_STR);
-        $statement->bindParam(':username', $username, PDO::PARAM_STR);
         $statement->bindParam(':password', $password, PDO::PARAM_STR);
         $statement->bindParam(':phone', $phone, PDO::PARAM_STR);
         $statement->bindParam(':email', $email, PDO::PARAM_STR);
@@ -210,7 +209,7 @@ Class database
         //check if Driver member to insert
         if($member instanceof User_Driver)
         {
-            $this->insertDriverInfo($member,id);
+            $this->insertDriverInfo($member,$id);
         }
     }
 
