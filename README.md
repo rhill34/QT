@@ -23,25 +23,25 @@ Making the most of your layovers.
 
 Paper Prototype Pictures:
 
-![](./img/1.jpg)
+![](img/readme/1.jpg)
 
-![](./img/2.jpg)
+![](img/readme/2.jpg)
 
-![](./img/3.jpg)
+![](img/readme/3.jpg)
 
-![](./img/4.jpg)
+![](img/readme/4.jpg)
 
-![](./img/5.jpg)
+![](img/readme/5.jpg)
 
-![](./img/6.jpg)
+![](img/readme/6.jpg)
 
 Class Diagrams:
 
-![](./img/classDiagram.png)
+![](img/readme/classDiagram.png)
 ER Diagrams:
-![](./img/ERDiagram.png)
+![](img/readme/ERDiagram.png)
 
 ---
 
 ###051319 Add M.Britt informal Short Meeting:
-![](./img/05132019-informal.jpeg " Taken by Robert Hill")
+![](img/readme/05132019-informal.jpeg " Taken by Robert Hill")

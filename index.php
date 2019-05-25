@@ -5,15 +5,16 @@ error_reporting(E_ALL);
 
 session_start();
 
+
 require_once('vendor/autoload.php');
 
 $f3 = Base::instance();
 
 $f3->route('GET|POST /', function (){
-
+    session_destroy();
     //Need to create the home page.
     $view = new Template();
-    echo $view->render('views/home.html');
+    echo $view->render('views/home2.html');
 });
 
 $f3->route('GET|POST /basic-info', function ($f3){
