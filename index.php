@@ -5,7 +5,7 @@ error_reporting(E_ALL);
 
 session_start();
 
-require ("vendor/autoload.php");
+require_once('vendor/autoload.php');
 
 $f3 = Base::instance();
 
