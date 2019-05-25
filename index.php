@@ -7,6 +7,7 @@ session_start();
 
 
 require_once('vendor/autoload.php');
+require_once('models/validation.php');
 
 $f3 = Base::instance();
 
@@ -43,18 +44,30 @@ $f3->route('GET|POST /basic-info', function ($f3){
 
     if($_SERVER['REQUEST_METHOD'] == 'POST'){
 
-        //get the post information
-        $fname = $_POST['fname'];
-        $lname = $_POST['lname'];
-        $phone = $_POST['phone'];
-        $email = $_POST['email'];
+        $phone = stipPhone($_POST['phone']);
+        //error array
+        $arrayErr=array(
+            "fnameErr"=>validName($_POST['fname']),
+            "lnameErr"=>validName($_POST['lname']),
+            "phoneErr"=>validPhone($phone),
+            "emailErr"=>validEmail($_POST['email']),
+            "passErr"=>validPass($_POST['pass'], $_POST['pass1'])
+        );
 
-        $f3->set('fname', $fname);
-        $f3->set('lname', $lname);
-        $f3->set('phone', $phone);
-        $f3->set('email', $email);
+
+        //check if errors array is empty
+        if(checkErrArray($arrayErr))
+        {
+            if(isset($_POST['driver'])) {
+                $_SESSION['member'] = new User_Driver(trimFilter($_POST[fname]),trimFilter($_POST[lname]),$phone);
+            }else{
+                $_SESSION['member'] = new User(trimFilter($_POST[fname]),trimFilter($_POST[lname]),$phone);
+            }
+            $f3->reroute('/interest');
+        }
 
 
+        $f3->set('errors', $arrayErr);
         /*
         if(validatePersonal()) {
 
@@ -62,10 +75,17 @@ $f3->route('GET|POST /basic-info', function ($f3){
             $f3->reroute('views/form2.html');
         }
         */
+
     }
 
     $view = new Template();
     echo $view->render('views/form1.html');
+});
+
+$f3->route('GET|POST /interest', function($f3){
+
+    $view = new Template();
+    echo $view->render('views/interests.html');
 });
 
 $f3->route('GET|POST /driver', function ($f3) use ($states){

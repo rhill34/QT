@@ -89,7 +89,7 @@
                     </check>
                     >
                     <!--*******Error Span*************** -->
-                    <span class="text-danger">{{@errors.pass1Err}}</span>
+                    <span class="text-danger">{{@errors.passErr}}</span>
                 </div>
 
                 <!--Checks if wants to be a driver-->
@@ -119,17 +119,33 @@
 </div>
 
 
+<!--Modal diplays password requirement!-->
+<div class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h6>Password Must Contain:</h6>
+                <p>One UpperCase Letter</p>
+                <p>One LowerCase Letter</p>
+                <p>One Special Character</p>
+                <p>One number</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary">Save changes</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
         integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
         crossorigin="anonymous"></script>
-<script>
-$('#driver').change(function() {
-    if(this.checked) {
-        $('#next').html("Next");
-    }
-    else{
-        $('#next').html("Submit");
-    }});
-</script>
 </body>
 </html>
