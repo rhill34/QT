@@ -33,11 +33,13 @@ $f3->route('GET|POST /basic-info', function ($f3){
         $f3->set('email', $email);
 
 
+        /*
         if(validatePersonal()) {
 
 
             $f3->reroute('views/form2.html');
         }
+        */
     }
 
     $view = new Template();
