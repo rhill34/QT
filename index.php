@@ -77,10 +77,8 @@ $f3->route('GET|POST /basic-info', function ($f3)
         if (checkErrArray($arrayErr)) {
             if (isset($_POST['driver'])) {
                 $_SESSION['member'] = new User_Driver(trimFilter($_POST[fname]), trimFilter($_POST[lname]), $phone);
-                $f3->set('member', $_SESSION['member']);
             } else {
                 $_SESSION['member'] = new User(trimFilter($_POST[fname]), trimFilter($_POST[lname]), $phone);
-                $f3->set('member', $_SESSION['member']);
             }
             //s$f3->reroute('/interest');
         }
