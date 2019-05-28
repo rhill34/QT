@@ -67,12 +67,6 @@ $f3->route('GET|POST /basic-info', function ($f3)
             "passErr" => validPass($_POST['pass'], $_POST['pass1'])
         );
 
-        $f3->set('phone', $phone);
-        $f3->set('fname', $_POST['fname']);
-        $f3->set('lname', $_POST['lname']);
-        $f3->set('email', $_POST['email']);
-        $f3->set('pass', $_POST['pass']);
-
         //check if errors array is empty
         if (checkErrArray($arrayErr)) {
             if (isset($_POST['driver'])) {
@@ -80,7 +74,9 @@ $f3->route('GET|POST /basic-info', function ($f3)
             } else {
                 $_SESSION['member'] = new User(trimFilter($_POST[fname]), trimFilter($_POST[lname]), $phone);
             }
-            //s$f3->reroute('/interest');
+            $_SESSION['member']->setEmail(filter_var($_POST['email'],FILTER_VALIDATE_EMAIL));
+            $_SESSION['member']->setPasswords(trimFilter($_POST['pass']));
+            $f3->reroute('/interest');
         }
         $f3->set('errors', $arrayErr);
 
