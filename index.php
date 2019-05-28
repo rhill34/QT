@@ -82,7 +82,7 @@ $f3->route('GET|POST /basic-info', function ($f3)
                 $_SESSION['member'] = new User(trimFilter($_POST[fname]), trimFilter($_POST[lname]), $phone);
                 $f3->set('member', $_SESSION['member']);
             }
-            $f3->reroute('/interest');
+            //s$f3->reroute('/interest');
         }
         $f3->set('errors', $arrayErr);
 

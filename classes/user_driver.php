@@ -1,6 +1,6 @@
 <?php
 
-Class User_Driver extends User
+class User_Driver extends User
 {
     private $_driverId;
     private $_rating;
