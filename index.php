@@ -5,11 +5,17 @@ error_reporting(E_ALL);
 
 session_start();
 
+<<<<<<< HEAD
 //$user = $_SERVER['USER'];
 //require_once "home/$user/config.php";
 
 require_once("vendor/autoload.php");
 require_once("models/validation.php");
+=======
+
+require_once('vendor/autoload.php');
+require_once('models/validation.php');
+>>>>>>> 01d974e65bc45b2aaadf5a7c7ccf466419fdb622
 
 $f3 = Base::instance();
 
@@ -19,6 +25,10 @@ for ($i = 1900; $i <= date("Y"); $i++)
 {
     array_push($years,$i);
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 01d974e65bc45b2aaadf5a7c7ccf466419fdb622
 //all states
 $states = array
 (
@@ -33,10 +43,21 @@ $states = array
     'TN' => 'Tennessee', 'TX' => 'Texas', 'UT' => 'Utah', 'VT' => 'Vermont', 'VA' => 'Virginia', 'WA' => 'Washington',
     'WV' => 'West Virginia', 'WI' => 'Wisconsin', 'WY' => 'Wyoming'
 );
+<<<<<<< HEAD
+=======
+
+$f3->route('GET|POST /', function (){
+    session_destroy();
+    //Need to create the home page.
+    $view = new Template();
+    echo $view->render('views/home2.html');
+});
+>>>>>>> 01d974e65bc45b2aaadf5a7c7ccf466419fdb622
 
 
 //The following are the Routes
 
+<<<<<<< HEAD
 //$f3->route('GET|POST /test', function($f3){
 //    session_destroy();
 //
@@ -45,6 +66,29 @@ $states = array
 //    echo $view->render('views/driver.html');
 //});
 
+=======
+        $phone = stipPhone($_POST['phone']);
+        //error array
+        $arrayErr=array(
+            "fnameErr"=>validName($_POST['fname']),
+            "lnameErr"=>validName($_POST['lname']),
+            "phoneErr"=>validPhone($phone),
+            "emailErr"=>validEmail($_POST['email']),
+            "passErr"=>validPass($_POST['pass'], $_POST['pass1'])
+        );
+
+
+        //check if errors array is empty
+        if(checkErrArray($arrayErr))
+        {
+            if(isset($_POST['driver'])) {
+                $_SESSION['member'] = new User_Driver(trimFilter($_POST[fname]),trimFilter($_POST[lname]),$phone);
+            }else{
+                $_SESSION['member'] = new User(trimFilter($_POST[fname]),trimFilter($_POST[lname]),$phone);
+            }
+            $f3->reroute('/interest');
+        }
+>>>>>>> 01d974e65bc45b2aaadf5a7c7ccf466419fdb622
 
 $f3->route('GET|POST /', function (){
     session_destroy();
@@ -53,6 +97,12 @@ $f3->route('GET|POST /', function (){
     echo $view->render('views/landing.html');
 });
 
+<<<<<<< HEAD
+=======
+        $f3->set('errors', $arrayErr);
+        /*
+        if(validatePersonal()) {
+>>>>>>> 01d974e65bc45b2aaadf5a7c7ccf466419fdb622
 
 $f3->route('GET|POST /basic-info', function ($f3)
 {
@@ -76,13 +126,19 @@ $f3->route('GET|POST /basic-info', function ($f3)
             }
             $f3->reroute('/interest');
         }
+<<<<<<< HEAD
         $f3->set('errors', $arrayErr);
 //        $f3->reroute('/test');
+=======
+        */
+
+>>>>>>> 01d974e65bc45b2aaadf5a7c7ccf466419fdb622
     }
     $view = new Template();
     echo $view->render('views/personal.html');
 });
 
+<<<<<<< HEAD
     $f3->route('GET|POST /interest', function($f3){
         $view = new Template();
         echo $view->render('views/interests.html');
@@ -95,5 +151,20 @@ $f3->route('GET|POST /basic-info', function ($f3)
         echo $view->render('views/driverform.html');
     });
 
+=======
+$f3->route('GET|POST /interest', function($f3){
+
+    $view = new Template();
+    echo $view->render('views/interests.html');
+});
+
+$f3->route('GET|POST /driver', function ($f3) use ($states){
+    global $years;
+    $f3->set('states', $states);
+    $f3->set('years', $years);
+    $view = new Template();
+    echo $view->render('views/driverform.html');
+});
+>>>>>>> 01d974e65bc45b2aaadf5a7c7ccf466419fdb622
 //Run the framework
 $f3->run();

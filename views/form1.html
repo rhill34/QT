@@ -12,16 +12,23 @@
 <nav class="navbar navbar-light bg-light">
     <a href="./" span class="navbar-brand mb-0 h1">QuickTrip Website</span></a>
 </nav>
+<!--<<<<<<< HEAD-->
 
-<div class="container">
-    <div class="col-sm-12">
-    </div>
-</div>
+<!--<div class="container">-->
+<!--    <div class="col-sm-12">-->
+<!--    </div>-->
+<!--</div>-->
 
+<!--<div class="p-2 border rounded m-5">-->
+<!--    <form method="post" action="basic-info">-->
+<!--        <div class="form-row">-->
+<!--            <h1 class="border-bottom col">Traveler Information</h1>-->
+<!--=======-->
 <div class="p-2 border rounded m-5">
     <form method="post" action="basic-info">
         <div class="form-row">
-            <h1 class="border-bottom col">Traveler Information</h1>
+            <h1 class="border-bottom col">Tourist Information</h1>
+<!--&gt;>>>>>> 01d974e65bc45b2aaadf5a7c7ccf466419fdb622-->
         </div>
         <div class="form-row">
             <div class="col-md-8 h-100">
@@ -95,7 +102,11 @@
                     </check>
                     >
                     <!--*******Error Span*************** -->
-                    <span class="text-danger">{{@errors.pass1Err}}</span>
+<!--<<<<<<< HEAD-->
+<!--                    <span class="text-danger">{{@errors.pass1Err}}</span>-->
+<!--=======-->
+                    <span class="text-danger">{{@errors.passErr}}</span>
+<!--&gt;>>>>>> 01d974e65bc45b2aaadf5a7c7ccf466419fdb622-->
                 </div>
 
                 <!--Checks if wants to be a driver-->
@@ -125,17 +136,48 @@
 </div>
 
 
+<!--<<<<<<< HEAD-->
+<!--<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"-->
+<!--        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"-->
+<!--        crossorigin="anonymous"></script>-->
+<!--<script>-->
+<!--    $('#driver').change(function() {-->
+<!--        if(this.checked) {-->
+<!--            $('#next').html("Next");-->
+<!--        }-->
+<!--        else{-->
+<!--            $('#next').html("Submit");-->
+<!--        }});-->
+<!--</script>-->
+<!--=======-->
+<!--Modal diplays password requirement!-->
+<div class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h6>Password Must Contain:</h6>
+                <p>One UpperCase Letter</p>
+                <p>One LowerCase Letter</p>
+                <p>One Special Character</p>
+                <p>One number</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary">Save changes</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
         integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
         crossorigin="anonymous"></script>
-<script>
-    $('#driver').change(function() {
-        if(this.checked) {
-            $('#next').html("Next");
-        }
-        else{
-            $('#next').html("Submit");
-        }});
-</script>
+<!--&gt;>>>>>> 01d974e65bc45b2aaadf5a7c7ccf466419fdb622-->
 </body>
 </html>

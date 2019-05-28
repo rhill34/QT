@@ -1,6 +1,6 @@
 <?php
 
-Class USER_DRIVER extends User
+Class User_Driver extends User
 {
     private $_driverId;
     private $_rating;
@@ -12,6 +12,14 @@ Class USER_DRIVER extends User
     private $_carModel;
     private $_carYear;
     private $_bio;
+
+    /**
+     * Constructs from parent user
+     */
+    public function __construct($fname, $lname, $phone)
+    {
+        parent::__construct($fname, $lname, $phone);
+    }
 
     /**
      * @return mixed
@@ -176,3 +184,4 @@ Class USER_DRIVER extends User
 
 
 }
+?>

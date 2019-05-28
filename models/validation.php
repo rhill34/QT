@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Check string for alphabetical
  * @param $data Represents string form data for names
@@ -14,6 +15,7 @@ function validName($data)
         return "Invalid string. Contains numbers, special characters, or is empty.";
     }
 }
+
 /**
  * Checks to see if matches phone number
  * @param $data phone number inputted
@@ -28,6 +30,7 @@ function validPhone($data)
         return "Not a valid phone number. Phone number must be 10 digits";
     }
 }
+
 /**
  * Returns a trimmed phone number only containint numbers
  * @param $data String phone number
@@ -38,6 +41,7 @@ function stipPhone($data)
     $justNums = preg_replace("/[^0-9]/", '', $data);
     return $justNums;
 }
+
 /**
  * Checks if email provided is a valid email
  * @param $data email provided
@@ -52,6 +56,7 @@ function validEmail($data)
         return "Invalid email. Please enter email in format You@email.com";
     }
 }
+
 /**
  * Validates that values of checkboxes selected match original check boxes values
  * @param $data checkboxes selected values
@@ -69,6 +74,7 @@ function validCheckBoxArray($data , $array)
     }
     return "";
 }
+
 /**
  * validates a dropdown posted value returns a value inside its array
  * @param $data posted value for dropdown
@@ -83,10 +89,12 @@ function validateDropDown($data, $dropDownArray)
     }
     return "No dropdown value selected or value is invalide";
 }
+
 function trimFilter($data)
 {
     return filter_var(trim($data), FILTER_SANITIZE_STRING);
 }
+
 /**
  * Checks an error array has no set values if so no errors exist
  * @param $data error array
@@ -134,6 +142,7 @@ function checkPass($password)
     }
     return "";
 }
+
 function validPass($pass, $pass2)
 {
     if ($pass !== $pass2) {
