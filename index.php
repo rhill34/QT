@@ -66,18 +66,28 @@ $f3->route('GET|POST /basic-info', function ($f3)
             "emailErr" => validEmail($_POST['email']),
             "passErr" => validPass($_POST['pass'], $_POST['pass1'])
         );
+
+        $f3->set('phone', $phone);
+        $f3->set('fname', $_POST['fname']);
+        $f3->set('lname', $_POST['lname']);
+        $f3->set('email', $_POST['email']);
+        $f3->set('pass', $_POST['pass']);
+
         //check if errors array is empty
         if (count($arrayErr) == 0) {
             if (isset($_POST['driver'])) {
                 $_SESSION['member'] = new User_Driver(trimFilter($_POST[fname]), trimFilter($_POST[lname]), $phone);
+                $f3->set('member', $_SESSION['member']);
             } else {
                 $_SESSION['member'] = new User(trimFilter($_POST[fname]), trimFilter($_POST[lname]), $phone);
+                $f3->set('member', $_SESSION['member']);
             }
             $f3->reroute('/interest');
         }
         $f3->set('errors', $arrayErr);
 
     }
+
     $view = new Template();
     echo $view->render('views/personal.html');
 });
