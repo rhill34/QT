@@ -83,5 +83,17 @@ $f3->route('GET|POST /basic-info', function ($f3)
     echo $view->render('views/personal.html');
 });
 
+    $f3->route('GET|POST /interest', function($f3){
+        $view = new Template();
+        echo $view->render('views/interests.html');
+    });
+    $f3->route('GET|POST /driver', function ($f3) use ($states){
+        global $years;
+        $f3->set('states', $states);
+        $f3->set('years', $years);
+        $view = new Template();
+        echo $view->render('views/driverform.html');
+    });
+
 //Run the framework
 $f3->run();
