@@ -88,6 +88,18 @@ $f3->route('GET|POST /basic-info', function ($f3)
 
 $f3->route('GET|POST /interest', function($f3){
 
+    if(isset($_POST['intrests'])) {
+        $intrests = $_POST['intrests'];
+
+        $f3->set('interests', $intrests);
+
+        if(sizeof($intrests) < 3){
+            $error = "Need to select at least 3 interests.";
+            $f3->set('error', $error);
+        }
+
+    }
+
     $view = new Template();
     echo $view->render('views/interests.html');
 });
