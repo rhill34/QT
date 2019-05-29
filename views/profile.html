@@ -14,12 +14,12 @@
 </nav>
     <!-- User Page -->
     <div class="p-2 border rounded m-5">
+        <div class="text-center">
+            <a href="/appnointment" class="btn btn-primary mt-1">Book A QuickTrip</a>
+        </div>
         <div class="form-row ml-2 mt-2">
             <!--Left SIde-->
             <div class="col-md-6  border rounded p-2">
-                <p>User Rating</p>
-                <hr>
-                <!--
                 <p>Name: {{@SESSION.member->getFname()  }} {{@SESSION.member->getLname() }}</p>
                 <hr>
                 <p>Email: {{@SESSION.member->getEmail()}}</p>
@@ -30,7 +30,10 @@
                     </check>
                 </p>
                 <hr>
-                -->
+                <p>User Rating</p>
+                <hr>
+                <button id="passUpdate" class="btn btn-primary">Update Password</button>
+
             </div>
             <!--Right Side -->
             <div class="col-md-6  border rounded p-2">
