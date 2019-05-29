@@ -8,8 +8,9 @@ class User
     private $_phone;
     private $_credits;
     private $_userRating;
-    private $email;
-    private $passwords;
+    private $_email;
+    private $_passwords;
+    private $_interests;
 
     public function __construct($fname, $lname, $phone)
     {
@@ -119,7 +120,7 @@ class User
      */
     public function getEmail()
     {
-        return $this->email;
+        return $this->_email;
     }
 
     /**
@@ -127,7 +128,7 @@ class User
      */
     public function setEmail($email)
     {
-        $this->email = $email;
+        $this->_email = $email;
     }
 
     /**
@@ -135,7 +136,7 @@ class User
      */
     public function getPassword()
     {
-        return $this->passwords;
+        return $this->_passwords;
     }
 
     /**
@@ -143,9 +144,45 @@ class User
      */
     public function setPasswords($passwords)
     {
-        $this->passwords = $passwords;
+        $this->_passwords = $passwords;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getInterests()
+    {
+        return $this->_interests;
+    }
+
+    /**
+     * @param mixed $interests
+     */
+    public function setInterests($interests)
+    {
+        $this->_interests = $interests;
     }
 
 
+    public static function echoRating($rating)
+    {
+        if($rating==0)
+        {
+            echo "New User";
+            return;
+        }
+        for($i=1; $i<6;$i++)
+        {
+            if($rating>=i)
+            {
+                echo "<span class='fa fa-star checked'></span>";
+            }
+            else
+            {
+                echo "<span class='fa fa-star'></span>";
+            }
+
+        }
+    }
 
 }

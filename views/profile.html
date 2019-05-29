@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet"  type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="stylesheets/profile.css">
+    <title>Profile</title>
+</head>
+<body>
+<nav class="navbar navbar-light bg-light">
+    <a href="./" span class="navbar-brand mb-0 h1">QuickTrip Website</span></a>
+</nav>
+    <!-- User Page -->
+    <div class="p-2 border rounded m-5">
+        <div class="form-row ml-2 mt-2">
+            <!--Left SIde-->
+            <div class="col-md-6  border rounded p-2">
+                <p>User Rating</p>
+                <check if="{{SESSION.member->getUserRating()==0}}">
+                    <true><p>New member</p></true>
+                    <false>
+                        <span class="fa fa-star"></span>
+                        <span class="fa fa-star"></span>
+                        <span class="fa fa-star"></span>
+                        <span class="fa fa-star"></span>
+                        <span class="fa fa-star"></span>
+                    </false>
+                </check>
+                <hr>
+                <!--
+                <p>Name: {{@SESSION.member->getFname()  }} {{@SESSION.member->getLname() }}</p>
+                <hr>
+                <p>Email: {{@SESSION.member->getEmail()}}</p>
+                <hr>
+                <p>Interests #:
+                    <check if="{{@SESSION.member->getInterests()!=null}}">
+                        {{implode(",",@SESSION.member->getInterests())}}
+                    </check>
+                </p>
+                <hr>
+                -->
+            </div>
+            <!--Right Side -->
+            <div class="col-md-6  border rounded p-2">
+
+            </div>
+        </div>
+    </div>
+
+
+</body>
+</html>

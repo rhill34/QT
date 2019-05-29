@@ -99,5 +99,11 @@ $f3->route('GET|POST /driver', function ($f3) use ($states){
     $view = new Template();
     echo $view->render('views/driverform.html');
 });
+
+
+$f3->route('GET|POST /profile', function ($f3){
+    $view = new Template();
+    echo $view->render('views/profile.html');
+});
 //Run the framework
 $f3->run();
