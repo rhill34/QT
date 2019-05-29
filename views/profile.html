@@ -14,12 +14,51 @@
 </nav>
     <!-- User Page -->
     <div class="p-2 border rounded m-5">
+        <button id="trav">Traveler</button><button id="drive">Driver</button>
         <div class="text-center">
-            <a href="/appnointment" class="btn btn-primary mt-1">Book A QuickTrip</a>
+            <a href="/appointment" class="btn btn-primary mt-1 traveler">Book A QuickTrip</a>
         </div>
         <div class="form-row ml-2 mt-2">
-            <!--Left SIde-->
-            <div class="col-md-6  border rounded p-2">
+            <!--Driver Information-->
+            <!--Right Side -->
+            <check if="{{@SESSION.member instanceof User_Driver}}">
+                <true>
+                    <div class="col-md-6  border rounded p-2 d-none driver">
+                        <h2 class="border-bottom col">Driver Information</h2>
+                        <hr>
+                        <p>City : {{@SESSION.member->getCity}}</p>
+                        <hr>
+                        <p>State : {{@SESSION.member->getState}}</p>
+                        <hr>
+                        <p>Driver Rating</p>
+                        <hr>
+                        <p>Bio: {{@SESSION.member->getBio}}</p>
+                        <img src="img/testprofile.jpg" alt="Profile Pic" height="42" width="42">
+
+                    </div>
+                    <!--Right Side -->
+                    <div class="col-md-6  border rounded p-2 d-none">
+                        <h2 class="border-bottom col">Car Information</h2>
+                        <hr>
+                        <p>Car Make: {{@SESSION.member->getCarMake}}</p>
+                        <hr>
+                        <p>Car Model: {{@SESSION.member->getCarModel}}</p>
+                        <hr>
+                        <p>Car Year: {{@SESSION.member->getCarMake}}</p>
+                        <hr>
+                        <img src="img/testpic.jpeg" alt="Car Pic" height="42" width="42">
+                    </div>
+                </true>
+                <false>
+                    <div class="col-md-12 border rounded p-2 driver text-center d-none">
+                        <a  class="btn btn-primary" href="/driver">Become A Driver</a>
+                    </div>
+                </false>
+            </check>
+
+
+            <!--Traveler-->
+            <div class="col-md border rounded p-2 traveler">
                 <p>Name: {{@SESSION.member->getFname()  }} {{@SESSION.member->getLname() }}</p>
                 <hr>
                 <p>Email: {{@SESSION.member->getEmail()}}</p>
@@ -33,11 +72,6 @@
                 <p>User Rating</p>
                 <hr>
                 <button id="passUpdate" class="btn btn-primary">Update Password</button>
-
-            </div>
-            <!--Right Side -->
-            <div class="col-md-6  border rounded p-2">
-
             </div>
         </div>
     </div>

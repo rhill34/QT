@@ -11,5 +11,34 @@
 <nav class="navbar navbar-light bg-light">
     <a href="./" span class="navbar-brand mb-0 h1">QuickTrip Website</span></a>
 </nav>
+
+<div class="container">
+    <div class="col-sm-12">
+        <div class="card" id="personalInfoCard" style="padding: 5%;">
+            <h1 class="aTitle">Traveler Information</h1>
+            <hr>
+            <div class="row">
+                <!--First Fields-->
+                <div class="col-sm-8" id="interestForm">
+                    <!--POST user Inputs from Route-->
+                    <form action="#" method="post"
+                          id="interForm" name="interestTypes"
+                          value="Personal Information"
+                          enctype="multipart/form-data">
+                        <input type="checkbox" name="interests[]" id="animal" value="animal">Animal Excursion
+                        <input type="checkbox" name="interests[]" id="local" value="local">Local Landmarks
+                        <input type="checkbox" name="interests[]" id="water" value="waterfront">Waterfront Views
+                        <input type="checkbox" name="interests[]" id="club" value="club">Club Scene
+                        <input type="checkbox" name="interests[]" id="wine" value="wine">Wineries
+                        <input type="checkbox" name="interests[]" id="historical" value="historical">Historical Places
+                        <input type="checkbox" name="interests[]" id="TVfamous" value="tv">Locations from TV
+                        <input type="checkbox" name="interests[]" id="bar" value="bar">Bar Hoping
+                        <input type="checkbox" name="interests[]" id="food" value="restaurant">Local Cuisine
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 </html>

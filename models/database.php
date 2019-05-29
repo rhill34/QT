@@ -122,7 +122,8 @@
   	FOREIGN KEY (appntInterest) REFERENCES inserest(interest_id)
   );
 */
-require '/home2/mbrittgr/config.php';
+$user = $_SERVER['USER'];
+require_once "home2/$user/config.php";
 
 /**
  * @author Michael Britt
