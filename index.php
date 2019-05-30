@@ -121,6 +121,21 @@ $f3->route('GET|POST /driver', function ($f3){
             "stateErr"=> validString($_POST['state']),
             "cityErr"=> validString($_POST['city'])
         );
+
+        if(checkErrArray($arrayErr)) {
+            addFile($_FILES['proPic']);
+            addFile($_FILES['carPic']);
+            $_SESSION['member']->setProfilePic(filePlusDir($_FILES['proPic']));
+            $_SESSION['member']->setCarPic(filePlusDir($_FILES['carPic']));
+            $_SESSION['member']->setCarYear($_POST['year']);
+            $_SESSION['member']->setCarMake($_POST['make']);
+            $_SESSION['member']->setCarModel($_POST['model']);
+            $_SESSION['member']->setBio($_POST['bio']);
+            $_SESSION['member']->setState($_POST['state']);
+            $_SESSION['member']->setCity($_POST['city']);
+
+            $f3->reroute('/profile');
+        }
     }
     $f3->set('years', $years);
     $f3->set('errors',$arrayErr);

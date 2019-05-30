@@ -185,10 +185,6 @@ function validFile($file)
             return "File type is not an image";
         }
 
-        if (file_exists($target_file)) {
-            return "Sorry, file already exists.";
-        }
-
         if ($file["size"] > 500000) {
             return "Sorry, your file is too large.";
         }
@@ -211,12 +207,13 @@ function validFile($file)
  */
 function addFile($file)
 {
-    $target_dir = "profileImages/";
-    $target_file = $target_dir . basename($file["name"]);
-    if (move_uploaded_file($file["tmp_name"], $target_file)) {
-        return "";
-    } else {
-        return "Sorry, there was an error uploading your file.";
+    $target_file = filePlusDir($file);
+    if (!file_exists($target_file)) {
+        if (move_uploaded_file($file["tmp_name"], $target_file)) {
+            return "";
+        } else {
+            return "Sorry, there was an error uploading your file.";
+        }
     }
 }
 
@@ -227,6 +224,12 @@ function validString($variable)
     } else {
         return "Input can not be blank";
     }
+}
+
+function filePlusDir($file)
+{
+    $target_dir = "profileImages/";
+    return $target_dir . basename($file["name"]);
 }
 
 
