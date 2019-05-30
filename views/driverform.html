@@ -14,7 +14,7 @@
 </nav>
 <div class=" p-2 border rounded m-5">
     <!--Start of form -->
-    <form method="post" action="profileEntry">
+    <form method="post" action="#" enctype="multipart/form-data">
         <!--String fields -->
         <div class="form-row">
             <h1 class="border-bottom col">Profile</h1>
@@ -33,16 +33,21 @@
                 <select name="state" class="custom-select states order-alpha" id="stateId">
                     <option value="">Select State</option>
                 </select>
+                <span class="text-danger">{{@errors.stateErr}}</span>
+                <br>
                 <strong><label for="cityId">Chose a City</label></strong>
                 <select name="city" class="custom-select cities order-alpha" id="cityId">
                     <option value="">Select City</option>
                 </select>
+                <span class="text-danger">{{@errors.cityErr}}</span>
+                <br>
                 <!--Profile Pic-->
                 <label class="font-weight-bold" for="propic">Profile Pic</label>
                 <div class="custom-file" id="propic">
-                    <input type="file" class="custom-file-input" id="customFile1">
+                    <input type="file" class="custom-file-input" id="customFile1" name="proPic">
                     <label class="custom-file-label" for="customFile1">Choose file</label>
                 </div>
+                <span class="text-danger">{{@errors.proPicErr}}</span>
 
             </div>
 
@@ -58,6 +63,7 @@
 
                         </textarea>
                 </div>
+                <span class="text-danger">{{@errors.bioErr}}</span>
             </div>
             <!--End of right Side-->
         </div>
@@ -86,7 +92,7 @@
                 <!--Years-->
                 <div class="form-group">
                     <label class="font-weight-bold" for="year">Car Year</label>
-                    <select class="form-control" id="year" name="state">
+                    <select class="form-control" id="year" name="year">
                         <repeat group="{{ @years }}"
                                 key="{{ @key }}"
                                 value="{{ @value }}">
@@ -120,17 +126,17 @@
                 <!--Car Pic-->
                 <label class="font-weight-bold" for="carpic">Car Pic</label>
                 <div class="custom-file" id="carpic">
-                    <input type="file" class="custom-file-input" id="customFile">
+                    <input type="file" class="custom-file-input" id="customFile" name="carPic">
                     <label class="custom-file-label" for="customFile">Choose file</label>
                 </div>
+                <span class="text-danger">{{@errors.carPicErr}}</span>
             </div>
         </div>
 
-
-
-        </div>
         <div class="text-right">
             <button type="submit" class="btn btn-primary mt-1">Next</button>
+        </div>
+
         </div>
     </form>
 </div>

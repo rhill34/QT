@@ -1,6 +1,7 @@
 <?php
 //error reporting
 ini_set('display_errors', 1);
+ini_set('file_uploads',1);
 error_reporting(E_ALL);
 
 ////$user = $_SERVER['USER'];
@@ -13,7 +14,7 @@ $f3 = Base::instance();
 session_start();
 $years = array();
 //all years from 1900 to todays year
-for ($i = 1900; $i <= date("Y"); $i++)
+for ($i = date("Y"); $i >= 1900; $i--)
 {
     array_push($years,$i);
 }
@@ -107,10 +108,22 @@ $f3->route('GET|POST /interest', function($f3){
     echo $view->render('views/interests.html');
 });
 
-$f3->route('GET|POST /driver', function ($f3) use ($states){
+$f3->route('GET|POST /driver', function ($f3){
     global $years;
-    $f3->set('states', $states);
+    if($_SERVER['REQUEST_METHOD'] == 'POST'){
+        $arrayErr = array(
+            "yearErr" => validateDropDown($_POST['year'],$years),
+            "makeErr" => validString($_POST['make']),
+            "modelErr" => validString($_POST['model']),
+            "proPicErr"=> validFile($_FILES['proPic']),
+            "carPicErr"=> validFile($_FILES['carPic']),
+            "bioErr"=> validString($_POST['bio']),
+            "stateErr"=> validString($_POST['state']),
+            "cityErr"=> validString($_POST['city'])
+        );
+    }
     $f3->set('years', $years);
+    $f3->set('errors',$arrayErr);
     $view = new Template();
     echo $view->render('views/driverform.html');
 });

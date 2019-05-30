@@ -150,6 +150,12 @@ function checkPass($password)
     }
 }
 
+/**
+ * Accepts two password and check if they match
+ * @param $pass String first pass
+ * @param $pass2 String second pass
+ * @return string returns error message or nothing if no errors occurred
+ */
 function validPass($pass, $pass2)
 {
     if ($pass !== $pass2) {
@@ -163,3 +169,64 @@ function validPass($pass, $pass2)
         return "";
     }
 }
+
+/**
+ * Verifies that the file provided is secure and right filetype
+ * @param $file
+ */
+function validFile($file)
+{
+    if(!empty($file['name'])) {
+        $target_dir = "profileImages/";
+        $target_file = $target_dir . basename($file["name"]);
+        $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+        $check = getimagesize($file["tmp_name"]);
+        if(!$check) {
+            return "File type is not an image";
+        }
+
+        if (file_exists($target_file)) {
+            return "Sorry, file already exists.";
+        }
+
+        if ($file["size"] > 500000) {
+            return "Sorry, your file is too large.";
+        }
+        if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
+            && $imageFileType != "gif" ) {
+            return "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
+        }
+
+        return "";
+    }
+    else{
+        return "Field is required";
+    }
+}
+
+/**
+ * Adds a file to target location as long as directory is found
+ * @param $file file to be added to directory
+ * @return string error message if file can not be added
+ */
+function addFile($file)
+{
+    $target_dir = "profileImages/";
+    $target_file = $target_dir . basename($file["name"]);
+    if (move_uploaded_file($file["tmp_name"], $target_file)) {
+        return "";
+    } else {
+        return "Sorry, there was an error uploading your file.";
+    }
+}
+
+function validString($variable)
+{
+    if($variable != ""){
+        return "";//
+    } else {
+        return "Input can not be blank";
+    }
+}
+
+
