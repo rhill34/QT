@@ -173,7 +173,7 @@ class User
         }
         for($i=1; $i<6;$i++)
         {
-            if($rating>=i)
+            if($rating>=$i)
             {
                 echo "<span class='fa fa-star checked'></span>";
             }

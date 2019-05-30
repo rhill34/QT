@@ -3,9 +3,6 @@
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
-session_start();
-
-
 ////$user = $_SERVER['USER'];
 ////require_once "home/$user/config.php";
 
@@ -13,7 +10,7 @@ require_once("vendor/autoload.php");
 require_once("models/validation.php");
 
 $f3 = Base::instance();
-
+session_start();
 $years = array();
 //all years from 1900 to todays year
 for ($i = 1900; $i <= date("Y"); $i++)
@@ -64,32 +61,29 @@ $f3->route('GET|POST /basic-info', function ($f3)
             "lnameErr" => validName($_POST['lname']),
             "phoneErr" => validPhone($phone),
             "emailErr" => validEmail($_POST['email']),
-            "passErr" => validPass($_POST['pass'], $_POST['pass1'])
-        );
+            "passErr" => validPass($_POST['pass'], $_POST['pass1']) );
 
         //check if errors array is empty
         if (checkErrArray($arrayErr)) {
             if (isset($_POST['driver'])) {
-                $_SESSION['member'] = new User_Driver(trimFilter($_POST[fname]), trimFilter($_POST[lname]), $phone);
+                $_SESSION['member'] = new User_Driver(trimFilter($_POST['fname']), trimFilter($_POST['lname']), $phone);
             } else {
-                $_SESSION['member'] = new User(trimFilter($_POST[fname]), trimFilter($_POST[lname]), $phone);
+                $_SESSION['member'] = new User(trimFilter($_POST['fname']), trimFilter($_POST['lname']), $phone);
             }
             $_SESSION['member']->setEmail(filter_var($_POST['email'],FILTER_VALIDATE_EMAIL));
             $_SESSION['member']->setPasswords(trimFilter($_POST['pass']));
             $f3->reroute('/interest');
         }
         $f3->set('errors', $arrayErr);
-
     }
-
     $view = new Template();
     echo $view->render('views/personal.html');
 });
 
 $f3->route('GET|POST /interest', function($f3){
 
-    if(isset($_POST['intrests'])) {
-        $intrests = $_POST['intrests'];
+    if(isset($_POST['interests'])) {
+        $intrests = $_POST['interests'];
 
         $f3->set('interests', $intrests);
 

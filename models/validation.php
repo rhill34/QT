@@ -116,31 +116,38 @@ function checkErrArray($data)
  */
 function checkPass($password)
 {
-    $uppercase = preg_match('@[A-Z]@', $password);
-    $lowercase = preg_match('@[a-z]@', $password);
-    $number    = preg_match('@[0-9]@', $password);
-    $specialChars = preg_match('@[^\w]@', $password);
-    if(!$uppercase)
+    if(isset($password))
     {
-        return "Must contain an uppercase letter";
+        $uppercase = preg_match('@[A-Z]@', $password);
+        $lowercase = preg_match('@[a-z]@', $password);
+        $number    = preg_match('@[0-9]@', $password);
+        $specialChars = preg_match('@[^\w]@', $password);
+        if(!$uppercase)
+        {
+            return "Must contain an uppercase letter";
+        }
+        if(!$lowercase)
+        {
+            return "Must contain a lowercase letter";
+        }
+        if(!$number)
+        {
+            return "Must contain a number";
+        }
+        if(!$specialChars)
+        {
+            return "Must contain a special character";
+        }
+        if(strlen($password)<8)
+        {
+            return "Must be 8 digits long";
+        }
+        return "";
     }
-    if(!$lowercase)
+    else
     {
-        return "Must contain a lowercase letter";
+        return "Password cant be empty";
     }
-    if(!$number)
-    {
-        return "Must contain a number";
-    }
-    if(!$specialChars)
-    {
-        return "Must contain a special character";
-    }
-    if(strlen($password)<8)
-    {
-        return "Must be 8 digits long";
-    }
-    return "";
 }
 
 function validPass($pass, $pass2)
