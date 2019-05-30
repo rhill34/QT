@@ -23,35 +23,20 @@
         <div class="form-row">
             <div class="col-md-6 h-100">
 
-                <!--City-->
-                <div class="form-group">
-                    <label class="font-weight-bold" for="city">City</label>
-                    <input type="text" class="form-control" id="city" name="city" placeholder="Enter City"
-                    <check if="{{ isset(@POST.city)}}">
-                        <true>value="{{@POST.city}}"</true>
-                    </check>
-                    >
-                    <!--*******Error Span*************** -->
-                    <span class="text-danger">{{@errors.cityErr}}</span>
-                </div>
-
-                <!--State-->
-                <div class="form-group">
-                    <label class="font-weight-bold" for="state">State</label>
-                    <select class="form-control" id="state" name="state">
-                        <repeat group="{{ @states }}"
-                                key="{{ @key }}"
-                                value="{{ @value }}">
-                            <option value='{{@value}}'
-                            <check if="{{ @POST.state == @value}}">
-                                <true>selected</true>
-                            </check>
-                            >{{@value}}</option>
-                        </repeat>
-                    </select>
-                    <!--*******Error Span*************** -->
-                    <span class="text-danger">{{@errors.stateErr}}</span>
-                </div>
+                <strong><label for="countryId">Chose a Country</label></strong>
+                <select name="country" class="custom-select countries order-alpha include-US presel-byip  group-continents group-order-alpha"
+                        id="countryId">
+                    <option value="">Select Country</option>
+                </select>
+                <br>
+                <strong><label for="stateId">Chose a State</label></strong>
+                <select name="state" class="custom-select states order-alpha" id="stateId">
+                    <option value="">Select State</option>
+                </select>
+                <strong><label for="cityId">Chose a City</label></strong>
+                <select name="city" class="custom-select cities order-alpha" id="cityId">
+                    <option value="">Select City</option>
+                </select>
                 <!--Profile Pic-->
                 <label class="font-weight-bold" for="propic">Profile Pic</label>
                 <div class="custom-file" id="propic">
@@ -170,5 +155,7 @@
         $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
     });
 </script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="//geodata.solutions/includes/countrystatecity.js"></script>
 </body>
 </html>
