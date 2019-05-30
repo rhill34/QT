@@ -91,6 +91,15 @@ $f3->route('GET|POST /interest', function($f3){
             $error = "Need to select at least 3 interests.";
             $f3->set('error', $error);
         }
+        else
+        {
+            $_SESSION['member']->setInterests($_POST['interests']);
+            if($_SESSION['member'] instanceof User_Driver) {
+                $f3->reroute('/driver');
+            }else{
+                $f3->reroute('/profile');
+            }
+        }
 
     }
 

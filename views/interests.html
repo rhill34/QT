@@ -11,39 +11,99 @@
     <a href="./" span class="navbar-brand mb-0 h1">QuickTrip Website</span></a>
 </nav>
 
-<div class="container">
-    <div class="col-sm-12">
-        <div class="card" id="personalInfoCard" style="padding: 5%;">
-            <h1 class="aTitle">Traveler Information</h1>
-            <hr>
-            <div class="row">
-                <!--First Fields-->
-                <div class="form-row">
-                    <h1 class="border-bottom col">Interests</h1>
-                    <!--&gt;>>>>>> 01d974e65bc45b2aaadf5a7c7ccf466419fdb622-->
-                </div>
-                <div class="form-row ml-2 mt-2">
-                    <!--POST user Inputs from Route-->
-                    <form action="#" method="post"
-                          id="interForm" name="interestTypes"
-                          value="Personal Information"
-                          enctype="multipart/form-data">
-                        <input type="checkbox" name="interests[]" id="animal" value="animal">Animal Excursion
-                        <input type="checkbox" name="interests[]" id="local" value="local">Local Landmarks
-                        <input type="checkbox" name="interests[]" id="water" value="waterfront">Waterfront Views
-                        <input type="checkbox" name="interests[]" id="club" value="club">Club Scene
-                        <input type="checkbox" name="interests[]" id="wine" value="wine">Wineries
-                        <input type="checkbox" name="interests[]" id="historical" value="historical">Historical Places
-                        <input type="checkbox" name="interests[]" id="TVfamous" value="tv">Locations from TV
-                        <input type="checkbox" name="interests[]" id="bar" value="bar">Bar Hoping
-                        <input type="checkbox" name="interests[]" id="food" value="restaurant">Local Cuisine
-
-                        <button type="submit">Submit</button>
-                    </form>
-                </div>
-            </div>
-        </div>
+<div class=" p-2 border rounded m-5">
+    <h1 class="aTitle">Traveler Information</h1>
+    <hr>
+    <!--First Fields-->
+    <div class="form-row">
+        <h5 class="border-bottom col">Interests: <a class="font-italic text-danger">Must select 3</a></h5>
     </div>
+    <div class="form-row ml-2 mt-2">
+        <!--POST user Inputs from Route-->
+        <form action="#" method="post"
+              id="interForm" name="interestTypes"
+              value="Personal Information"
+              enctype="multipart/form-data">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="interests[]" id="animal" value="animal">
+                <label class="form-check-label" for="animal">Animal Excursion
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="interests[]" id="local" value="local">
+                <label class="form-check-label" for="local">
+                    Local Landmarks
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="interests[]" id="water" value="waterfront">
+                <label class="form-check-label" for="water">
+                    Waterfront Views
+                </label>
+            </div>
+
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="interests[]" id="club" value="club">
+                <label class="form-check-label" for="club">
+                    Club Scene
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="interests[]" id="wine" value="wine">
+                <label class="form-check-label" for="wine">
+                    Wineries
+                </label>
+            </div>
+
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="interests[]" id="historical" value="historical">
+                <label class="form-check-label" for="historical">
+                    Historical Places
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="interests[]" id="bar" value="bar">
+                <label class="form-check-label" for="bar">
+                    Bar Hoping
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="interests[]" id="TvFamous" value="tv">
+                <label class="form-check-label" for="TvFamous">
+                    Locations From Tv
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="interests[]" id="food" value="food">
+                <label class="form-check-label" for="food">
+                    Local Cuisine
+                </label>
+            </div>
+            <span class="text-danger">{{@error}}</span>
+    </div>
+    <div class="text-right">
+        <button type="submit" class="btn btn-primary mt-1">
+            <check if="{{@SESSION.member instanceof User_Driver}}">
+                <true>Next</true>
+                <false>Submit</false>
+            </check>
+
+        </button>
+    </div>
+    </form>
 </div>
+
+
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 </body>
 </html>

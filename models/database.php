@@ -291,15 +291,15 @@ Class database
      */
     private function insertInterest($array,$id)
     {
-        $sql = "INSERT INTO memberinterest(interest_id, member_id) VALUES (:interest, :member)";
+        $sql = "INSERT INTO userinterest(interest_id, user_id) VALUES (:interest, :user_id)";
         $statement = $this->dbh->prepare($sql);
 
-        //for each indoor interest bind and execute statemnt
+        //for each interest bind and execute statemnt
         foreach ($array as $value) {
             //bind interest id and member id
             $statement->bindParam(":interest", $this->getInterestID($value),
                 PDO::PARAM_INT);
-            $statement->bindParam(":member", $id, PDO::PARAM_INT);
+            $statement->bindParam(":user_id", $id, PDO::PARAM_INT);
 
             //execute
             $statement->execute();
