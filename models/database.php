@@ -121,6 +121,19 @@
   	FOREIGN KEY (driverId) REFERENCES driver(driverId),
   	FOREIGN KEY (appntInterest) REFERENCES inserest(interest_id)
   );
+
+
+
+    Insert INTO interest (interest)
+    VALUES("Animal Excursion"),
+    ("Local Landmarks"),
+    ("Waterfront Views"),
+    ("Club Scene"),
+    ("Wineries"),
+    ("Historical Places"),
+    ("Bar Hoping"),
+    ("Locations From Tv"),
+    ("Local Cuisine")
 */
 $user = $_SERVER['USER'];
 require_once "home2/$user/config.php";

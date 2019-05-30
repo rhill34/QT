@@ -14,7 +14,15 @@
 </nav>
     <!-- User Page -->
     <div class="p-2 border rounded m-5">
-        <button id="trav">Traveler</button><button id="drive">Driver</button>
+        <ul class="nav nav-tabs">
+            <li class="nav-item">
+                <a class="nav-link active" href="#" id="trav">Traveler Profile</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#" id="driver">Driver Profile</a>
+            </li>
+            </li>
+        </ul>
         <div class="text-center">
             <a href="/appointment" class="btn btn-primary mt-1 traveler">Book A QuickTrip</a>
         </div>
@@ -26,27 +34,27 @@
                     <div class="col-md-6  border rounded p-2 d-none driver">
                         <h2 class="border-bottom col">Driver Information</h2>
                         <hr>
-                        <p>City : {{@SESSION.member->getCity}}</p>
+                        <p>City : {{@SESSION.member->getCity()}}</p>
                         <hr>
-                        <p>State : {{@SESSION.member->getState}}</p>
+                        <p>State : {{@SESSION.member->getState()}}</p>
                         <hr>
                         <p>Driver Rating</p>
                         <hr>
-                        <p>Bio: {{@SESSION.member->getBio}}</p>
-                        <img src="img/testprofile.jpg" alt="Profile Pic" height="42" width="42">
+                        <p>Bio: {{@SESSION.member->getBio()}}</p>
+                        <img src="{{@SESSION.member->getProfilePic()}}" alt="Profile Pic" height="42" width="42">
 
                     </div>
                     <!--Right Side -->
-                    <div class="col-md-6  border rounded p-2 d-none">
+                    <div class="col-md-6  border rounded p-2 d-none driver">
                         <h2 class="border-bottom col">Car Information</h2>
                         <hr>
-                        <p>Car Make: {{@SESSION.member->getCarMake}}</p>
+                        <p>Car Make: {{@SESSION.member->getCarMake()}}</p>
                         <hr>
-                        <p>Car Model: {{@SESSION.member->getCarModel}}</p>
+                        <p>Car Model: {{@SESSION.member->getCarModel()}}</p>
                         <hr>
-                        <p>Car Year: {{@SESSION.member->getCarMake}}</p>
+                        <p>Car Year: {{@SESSION.member->getCarYear()}}</p>
                         <hr>
-                        <img src="img/testpic.jpeg" alt="Car Pic" height="42" width="42">
+                        <img src="{{@SESSION.member->getCarPic()}}" alt="Car Pic" height="42" width="42">
                     </div>
                 </true>
                 <false>
@@ -63,7 +71,7 @@
                 <hr>
                 <p>Email: {{@SESSION.member->getEmail()}}</p>
                 <hr>
-                <p>Interests #:
+                <p>Interests:
                     <check if="{{@SESSION.member->getInterests()!=null}}">
                         {{implode(",",@SESSION.member->getInterests())}}
                     </check>
@@ -76,6 +84,20 @@
         </div>
     </div>
 
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+<script>
+    $("#driver").on("click", function() {
+        $(".driver").removeClass("d-none");
+        $(".traveler").addClass("d-none");
+        $("#driver").addClass("active");
+        $("#trav").removeClass("active");
+    });
+    $("#trav").on("click", function() {
+        $(".driver").addClass("d-none");
+        $(".traveler").removeClass("d-none");
+        $("#driver").removeClass("active");
+        $("#trav").addClass("active");
+    });
+</script>
 </body>
 </html>
