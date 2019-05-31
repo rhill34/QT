@@ -175,7 +175,7 @@ class User
         {
             if($rating>=$i)
             {
-                echo "<span class='fa fa-star checked'></span>";
+                echo "<span class='fa fa-star starred'></span>";
             }
             else
             {

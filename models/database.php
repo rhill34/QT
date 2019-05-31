@@ -388,4 +388,32 @@ Class database
 
         return $result['interest'];
     }
+
+    /**
+     * Used to check if the email exists in the database
+     * @param $email String email
+     * @return A result of find this email in the user database
+     */
+    public function findEmail($email)
+    {
+        $sql = "SELECT * FROM user WHERE email=:email";
+        $statement = $this->dbh->prepare($sql);
+
+        $statement->bindParam(":email", $email, PDO::PARAM_STR);
+        $statement->execute();
+
+        $result = $statement->fetch(PDO::FETCH_ASSOC);
+        return $result;
+    }
+
+    /**
+     * Check if email exists in database
+     * @param $email String provided email address
+     * @return bool true if email exists in database
+     */
+    public function emailExists($email)
+    {
+       return  mysqli_num_rows($this->findEmail($email))>0;
+    }
+
 }

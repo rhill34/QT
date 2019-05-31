@@ -38,10 +38,10 @@
                         <hr>
                         <p>State : {{@SESSION.member->getState()}}</p>
                         <hr>
-                        <p>Driver Rating</p>
+                        <p>Driver Rating: {{@SESSION.member->echoRating(@SESSION.member->getRating())}}</p>
                         <hr>
                         <p>Bio: {{@SESSION.member->getBio()}}</p>
-                        <img src="{{@SESSION.member->getProfilePic()}}" alt="Profile Pic" height="42" width="42">
+                        <img src="{{@SESSION.member->getProfilePic()}}" alt="Profile Pic" height="60" width="60">
 
                     </div>
                     <!--Right Side -->
@@ -54,7 +54,7 @@
                         <hr>
                         <p>Car Year: {{@SESSION.member->getCarYear()}}</p>
                         <hr>
-                        <img src="{{@SESSION.member->getCarPic()}}" alt="Car Pic" height="42" width="42">
+                        <img src="{{@SESSION.member->getCarPic()}}" alt="Car Pic" height="60" width="60">
                     </div>
                 </true>
                 <false>
@@ -77,7 +77,7 @@
                     </check>
                 </p>
                 <hr>
-                <p>User Rating</p>
+                <p>User Rating: {{@SESSION.member->echoRating(@SESSION.member->getUserRating())}}</p>
                 <hr>
                 <button id="passUpdate" class="btn btn-primary">Update Password</button>
             </div>
