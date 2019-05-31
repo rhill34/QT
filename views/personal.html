@@ -90,7 +90,10 @@ Availability: http://rhill.greenriverdev.com/328/datingB/cap
                         </div>
                         <!-- Create Password -->
                         <div class="form-group">
-                            <label class="font-weight-bold" for="pass">Password</label>
+                            <label class="font-weight-bold" for="pass">Password<!-- Button trigger modal -->
+                                <button type="button" class="btn btn-outline-primary btn-sm" data-toggle="modal" data-target="#exampleModal">
+                                     View Password Requirements
+                                </button></label>
                             <input type="password" class="form-control" id="pass" name="pass" placeholder="Enter a new password"
                             <check if="{{ isset(@POST.pass)}}">
                                 <true>value="{{@POST.pass}}"</true>
@@ -154,6 +157,30 @@ Availability: http://rhill.greenriverdev.com/328/datingB/cap
                         <button type="submit" class="btn btn-primary btn-lg" form="perForm">Next></button>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Password Requirements</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <h6>Password Must Contain:</h6>
+                <p>One UpperCase Letter</p>
+                <p>One LowerCase Letter</p>
+                <p>One Special Character</p>
+                <p>One number</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             </div>
         </div>
     </div>
