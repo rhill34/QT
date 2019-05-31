@@ -12,6 +12,8 @@ require_once("models/validation.php");
 
 $f3 = Base::instance();
 session_start();
+//istantiate a db object
+$db = new database();
 $years = array();
 //all years from 1900 to todays year
 for ($i = date("Y"); $i >= 1900; $i--)
@@ -54,6 +56,7 @@ $f3->route('GET|POST /', function (){
 
 $f3->route('GET|POST /basic-info', function ($f3)
 {
+    global $db;
     if($_SERVER['REQUEST_METHOD'] == 'POST') {
         $phone = stipPhone($_POST['phone']);
         //error array
@@ -66,14 +69,20 @@ $f3->route('GET|POST /basic-info', function ($f3)
 
         //check if errors array is empty
         if (checkErrArray($arrayErr)) {
-            if (isset($_POST['driver'])) {
-                $_SESSION['member'] = new User_Driver(trimFilter($_POST['fname']), trimFilter($_POST['lname']), $phone);
+
+            //verify that the email is not registered already
+            if($db->findEmail($_POST['email'])) {
+                $arrayErr['emailErr']='Email already registered please login or use a new email';
             } else {
-                $_SESSION['member'] = new User(trimFilter($_POST['fname']), trimFilter($_POST['lname']), $phone);
+                if (isset($_POST['driver'])) {
+                    $_SESSION['member'] = new User_Driver(trimFilter($_POST['fname']), trimFilter($_POST['lname']), $phone);
+                } else {
+                    $_SESSION['member'] = new User(trimFilter($_POST['fname']), trimFilter($_POST['lname']), $phone);
+                }
+                $_SESSION['member']->setEmail(filter_var($_POST['email'],FILTER_VALIDATE_EMAIL));
+                $_SESSION['member']->setPasswords(trimFilter($_POST['pass']));
+                $f3->reroute('/interest');
             }
-            $_SESSION['member']->setEmail(filter_var($_POST['email'],FILTER_VALIDATE_EMAIL));
-            $_SESSION['member']->setPasswords(trimFilter($_POST['pass']));
-            $f3->reroute('/interest');
         }
         $f3->set('errors', $arrayErr);
     }
@@ -83,6 +92,7 @@ $f3->route('GET|POST /basic-info', function ($f3)
 
 $f3->route('GET|POST /interest', function($f3){
 
+    global $db;
     if(isset($_POST['interests'])) {
         $intrests = $_POST['interests'];
 
@@ -90,17 +100,25 @@ $f3->route('GET|POST /interest', function($f3){
 
         if(sizeof($intrests) < 3){
             $error = "Need to select at least 3 interests.";
-            $f3->set('error', $error);
         }
         else
         {
-            $_SESSION['member']->setInterests($_POST['interests']);
-            if($_SESSION['member'] instanceof User_Driver) {
-                $f3->reroute('/driver');
-            }else{
-                $f3->reroute('/profile');
+            //check if email is duplicate or session does not exist return default if true
+            $email= $db->findEmail($_SESSION['member']->getEmail());
+            if(!$_SESSION || $email) {
+                $f3->reroute('/');
             }
+            else {
+                $_SESSION['member']->setInterests($_POST['interests']);
+                if($_SESSION['member'] instanceof User_Driver) {
+                    $f3->reroute('/driver');
+                }else{
+                    $f3->reroute('/profile');
+                }
+            }
+
         }
+        $f3->set('error', $error);
 
     }
 
@@ -110,6 +128,7 @@ $f3->route('GET|POST /interest', function($f3){
 
 $f3->route('GET|POST /driver', function ($f3){
     global $years;
+    global $db;
     if($_SERVER['REQUEST_METHOD'] == 'POST'){
         $arrayErr = array(
             "yearErr" => validateDropDown($_POST['year'],$years),
@@ -123,18 +142,29 @@ $f3->route('GET|POST /driver', function ($f3){
         );
 
         if(checkErrArray($arrayErr)) {
-            addFile($_FILES['proPic']);
-            addFile($_FILES['carPic']);
-            $_SESSION['member']->setProfilePic(filePlusDir($_FILES['proPic']));
-            $_SESSION['member']->setCarPic(filePlusDir($_FILES['carPic']));
-            $_SESSION['member']->setCarYear($_POST['year']);
-            $_SESSION['member']->setCarMake($_POST['make']);
-            $_SESSION['member']->setCarModel($_POST['model']);
-            $_SESSION['member']->setBio($_POST['bio']);
-            $_SESSION['member']->setState($_POST['state']);
-            $_SESSION['member']->setCity($_POST['city']);
+            //that person did not hit back button and resubmit creating duplicate emails
 
-            $f3->reroute('/profile');
+            $email= $db->findEmail($_SESSION['member']->getEmail());
+            if(!$_SESSION || $email) {
+                $f3->reroute("/");
+            }else{
+                addFile($_FILES['proPic']);
+                addFile($_FILES['carPic']);
+                $_SESSION['member']->setProfilePic(filePlusDir($_FILES['proPic']));
+                $_SESSION['member']->setCarPic(filePlusDir($_FILES['carPic']));
+                $_SESSION['member']->setCarYear($_POST['year']);
+                $_SESSION['member']->setCarMake($_POST['make']);
+                $_SESSION['member']->setCarModel($_POST['model']);
+                $_SESSION['member']->setBio($_POST['bio']);
+                $_SESSION['member']->setState($_POST['state']);
+                $_SESSION['member']->setCity($_POST['city']);
+
+
+                //add to the data base
+                $db->insertMember($_SESSION['member']);
+
+                $f3->reroute('/profile');
+            }
         }
     }
     $f3->set('years', $years);

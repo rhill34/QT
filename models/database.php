@@ -136,7 +136,7 @@
     ("Local Cuisine")
 */
 $user = $_SERVER['USER'];
-require_once "home2/$user/config.php";
+require_once("/home2/$user/config2.php");
 
 /**
  * @author Michael Britt
@@ -144,7 +144,7 @@ require_once "home2/$user/config.php";
  * Date: 5/18/2019
  * Class database connects to database for dating website, inserts members, inserts interests
  */
-Class database
+class database
 {
     private $dbh;
     private $errormessage;
@@ -180,10 +180,10 @@ Class database
     public function insertMember($member)
     {
         //prepare sql statement
-        $sql = "INSERT INTO member(passwords, firstName, lastName, 
+        $sql = "INSERT INTO users(passwords, firstName, lastName, 
             isDriver, isAdmin, phone, email, credits, userRating)
             VALUES ( :password, :firstName, :lastName, 
-            :isDriver, :isAdmin, :phone, :email, 1, -1)";
+            :isDriver, :isAdmin, :phone, :email, :credits, :userRating)";
         //save prepared statement
         $statement = $this->dbh->prepare($sql);
 
@@ -194,23 +194,24 @@ Class database
         $phone = $member->getPhone();
         $email = $member->getEmail();
         $isAdmin = 0;
-        if($member instanceof  User_Driver)
-        {
+        if($member instanceof  User_Driver) {
             $isDriver=1;
-        }
-        else if($member instanceof User_Traveler)
-        {
+        } else {
             $isDriver=0;
         }
+        $credits=1;
+        $userRating=-1;
 
         //bind params
-        $statement->bindParam(':fname',$fname, PDO::PARAM_STR);
-        $statement->bindParam(':lname', $lname, PDO::PARAM_STR);
+        $statement->bindParam(':firstName',$fname, PDO::PARAM_STR);
+        $statement->bindParam(':lastName', $lname, PDO::PARAM_STR);
         $statement->bindParam(':password', $password, PDO::PARAM_STR);
         $statement->bindParam(':phone', $phone, PDO::PARAM_STR);
         $statement->bindParam(':email', $email, PDO::PARAM_STR);
         $statement->bindParam(':isDriver', $isDriver, PDO::PARAM_STR);
         $statement->bindParam(':isAdmin', $isAdmin, PDO::PARAM_INT);
+        $statement->bindParam(':credits', $credits, PDO::PARAM_INT);
+        $statement->bindParam(':userRating', $userRating, PDO::PARAM_INT);
 
         //execute insert into users
         $statement->execute();
@@ -218,6 +219,7 @@ Class database
         //grab id of insert
         $id = $this->dbh->lastInsertId();
 
+        $this->insertInterest($member->getInterests(),$id);
 
 
         //check if Driver member to insert
@@ -251,7 +253,7 @@ Class database
         $statement->bindParam(':userId',$userId, PDO::PARAM_INT);
         $statement->bindParam(':rating', $rating, PDO::PARAM_INT);
         $statement->bindParam(':city', $city, PDO::PARAM_STR);
-        $statement->bindPara(':state', $state, PDO::PARAM_STR);
+        $statement->bindParam(':state', $state, PDO::PARAM_STR);
         $statement->bindParam(':profilePic', $profilePic, PDO::PARAM_STR);
         $statement->bindParam(':carPic', $carPic, PDO::PARAM_STR);
         $statement->bindParam(':carMake', $carMake, PDO::PARAM_STR);
@@ -261,24 +263,6 @@ Class database
 
         $statement->execute();
 
-    }
-
-    private function inserTravelInfo($member, $lastId)
-    {
-        $sql="INSERT INTO driver(userId, profilePic, userRating, credits) 
-            VALUES (:userId, :profilePic, :rating,, :credits)";
-
-        $statement= $this->dbh->prepare($sql);
-
-        $userId=$lastId;
-        $rating=-1;
-        $profilePic=$member->getProfilePic();
-        $credits= $member->getCredits();
-        $statement->bindParam(':profilePic', $profilePic, PDO::PARAM_STR);
-        $statement->bindParam(':userId',$userId, PDO::PARAM_INT);
-        $statement->bindParam(':rating', $rating, PDO::PARAM_INT);
-        $statement->bindParam(':credits', $credits, PDO::PARAM_STR);
-        $statement->execute();
     }
 
     /**
@@ -304,7 +288,7 @@ Class database
      */
     private function insertInterest($array,$id)
     {
-        $sql = "INSERT INTO userinterest(interest_id, user_id) VALUES (:interest, :user_id)";
+        $sql = "INSERT INTO userinterest(interest_id, userid) VALUES (:interest, :user_id)";
         $statement = $this->dbh->prepare($sql);
 
         //for each interest bind and execute statemnt
@@ -396,7 +380,7 @@ Class database
      */
     public function findEmail($email)
     {
-        $sql = "SELECT * FROM user WHERE email=:email";
+        $sql = "SELECT * FROM `users` WHERE email=:email;";
         $statement = $this->dbh->prepare($sql);
 
         $statement->bindParam(":email", $email, PDO::PARAM_STR);
@@ -404,16 +388,6 @@ Class database
 
         $result = $statement->fetch(PDO::FETCH_ASSOC);
         return $result;
-    }
-
-    /**
-     * Check if email exists in database
-     * @param $email String provided email address
-     * @return bool true if email exists in database
-     */
-    public function emailExists($email)
-    {
-       return  mysqli_num_rows($this->findEmail($email))>0;
     }
 
 }
