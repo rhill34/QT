@@ -401,7 +401,7 @@ class database
         //check if email in db error to register if not
         if(!$this->findEmail($email))
         {
-            "Email does not exist please register";
+            return "Email does not exist please register";
         }
 
         $member=0;
@@ -412,10 +412,9 @@ class database
         $statement->execute();
         $result = $statement->fetch(PDO::FETCH_ASSOC);
         //check if result was reutrned
-        if(!result)
+        if(!$result)
         {
-            echo "Password doest not match email";
-            return;
+            return "Password doest not match email";
         }
         elseif($result['isDriver']==1)
         {

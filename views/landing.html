@@ -166,11 +166,16 @@ Availability: http://rhill.greenriverdev.com/328/QT/
                 <span class="text-danger" id="login"></span>
             </div>
             <div class="modal-footer d-flex justify-content-center">
-                <button class="btn btn-primary">Login</button>
+                <button id="btn" class="btn btn-primary">Login</button>
             </div>
         </div>
     </div>
 </div>
+
+<form method="post" class="d-none">
+    <button id="redirect" type="submit"></button>
+</form>
+
 
 <script>
     $('.carousel').carousel({
@@ -186,16 +191,19 @@ Availability: http://rhill.greenriverdev.com/328/QT/
         $.post(
             "models/ajax/login.php",
 
-            {email:email},
-            {pass:pass},
+                {email:email, pass:pass},
 
-            function(result)
-            {
-                $('#show').html(result);
-            }
+                function(result)
+                {
+                    $('#login').html(result);
+                    if($('#login').text()=="")
+                    {
+                        alert(result);
+                    }
+                }
         );
+        alert($.sessionStorage)
     });
-
 </script>
 </body>
 </html>
