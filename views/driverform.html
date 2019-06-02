@@ -27,7 +27,12 @@
                 <strong><label for="countryId">Chose a Country</label></strong>
                 <select name="country" class="custom-select countries order-alpha include-US presel-byip  group-continents group-order-alpha"
                         id="countryId">
-                    <option value="">Select Country</option>
+                    <option value="">
+                        <check if="{{isset(@POST.country)}}">
+                            <true>Select Counry</true>
+                            <false>{{@POST.country}}</false>
+                        </check>
+                    </option>
                 </select>
                 <br>
                 <strong><label for="stateId">Chose a State</label></strong>

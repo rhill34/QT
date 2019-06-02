@@ -390,4 +390,70 @@ class database
         return $result;
     }
 
+    /**
+     * Retrieves a member form a username and password
+     * @param $email String Email provided from login
+     * @param $password String password provided from login
+     * @return String/Object error message if could not find/member object returned
+     */
+    public function getMember($email, $password)
+    {
+        //check if email in db error to register if not
+        if(!$this->findEmail($email))
+        {
+            "Email does not exist please register";
+        }
+
+        $member=0;
+        $sql = "SELECT * FROM `users` WHERE email=:email and passwords=:password";
+        $statement= $this->dbh->prepare($sql);
+        $statement->bindParam(":email", $email, PDO::PARAM_STR);
+        $statement->bindParam(":password", $password, PDO::PARAM_STR);
+        $statement->execute();
+        $result = $statement->fetch(PDO::FETCH_ASSOC);
+        //check if result was reutrned
+        if(!result)
+        {
+            echo "Password doest not match email";
+            return;
+        }
+        elseif($result['isDriver']==1)
+        {
+            $member= new User_Driver($result['firstName'],$result['lastName'], $result['phone']);
+            $driver = $this->getDriver($result['userId']);
+            $member->setBio($driver['bio']);
+            $member->setCarMake($driver['carMake']);
+            $member->setCarModel($driver['carModel']);
+            $member->setCarYear($driver['carYear']);
+            $member->setCarPic($driver['carPic']);
+            $member->setProfilePic($driver['profilePic']);
+            $member->setState($driver['state']);
+            $member->setCity($driver['city']);
+            $member->setRating($driver['rating']);
+        }
+        else
+        {
+            $member= new User($result['firstName'],$result['lastName'], $result['phone']);
+        }
+
+        //assemble member object
+        $member->setEmail($email);
+        $member->setPasswords($password);
+        $member->setUserRating($result['userRating']);
+        $member->setUserId($result['userId']);
+        $member->setCredits($result['credits']);
+        $member->setInterests($this->getInterests($result['userId']));
+        return $member;
+
+    }
+
+    public function getDriver($memberId)
+    {
+        $sql= "SELECT * FROM driver WHERE userId=:userId";
+        $statement= $this->dbh->prepare($sql);
+        $statement->bindParam(":userId", $memberId, PDO::PARAM_STR);
+        $statement->execute();
+        $result = $statement->fetch(PDO::FETCH_ASSOC);
+        return $result;
+    }
 }
