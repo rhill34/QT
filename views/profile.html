@@ -12,6 +12,7 @@
 <nav class="navbar navbar-light bg-light">
     <a href="./" span class="navbar-brand mb-0 h1">QuickTrip Website</span></a>
 </nav>
+<a id="id" class="d-none">{{@SESSION.member->getUserId()}}</a>
     <!-- User Page -->
     <div class="p-2 border rounded m-5">
         <ul class="nav nav-tabs">
@@ -48,13 +49,18 @@
                     <div class="col-md-6  border rounded p-2 d-none driver">
                         <h2 class="border-bottom col">Car Information</h2>
                         <hr>
-                        <p>Car Make: {{@SESSION.member->getCarMake()}}</p>
+                        <p id="make">Car Make: {{@SESSION.member->getCarMake()}}</p>
                         <hr>
-                        <p>Car Model: {{@SESSION.member->getCarModel()}}</p>
+                        <p id="model">Car Model: {{@SESSION.member->getCarModel()}}</p>
                         <hr>
-                        <p>Car Year: {{@SESSION.member->getCarYear()}}</p>
+                        <p id="years">Car Year: {{@SESSION.member->getCarYear()}}</p>
                         <hr>
                         <img src="{{@SESSION.member->getCarPic()}}" alt="Car Pic" height="60" width="60">
+                        <div class="text-center">
+                        <br>
+                        <a id="carButton" class="btn btn-primary btn-lg btn-lg text-white" role="button"
+                           data-toggle="modal" data-target="#modalLoginForm">Edit Car Information</a>
+                        </div>
                     </div>
                 </true>
                 <false>
@@ -88,20 +94,54 @@
         <div class="col-md  border rounded p-2 d-none driver"></div>
     </div>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
-<script>
-    $("#driver").on("click", function() {
-        $(".driver").removeClass("d-none");
-        $(".traveler").addClass("d-none");
-        $("#driver").addClass("active");
-        $("#trav").removeClass("active");
-    });
-    $("#trav").on("click", function() {
-        $(".driver").addClass("d-none");
-        $(".traveler").removeClass("d-none");
-        $("#driver").removeClass("active");
-        $("#trav").addClass("active");
-    });
-</script>
+
+<!--Car Edit Modal-->
+<div class="modal fade" id="modalLoginForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header text-center">
+                <h4 class="modal-title w-100 font-weight-bold">Car Information</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body mx-3">
+                <div class="md-form mb-5">
+                    <input type="text" id="carMake" class="form-control validate" value="{{@SESSION.member->getCarMake()}}">
+                    <label data-error="wrong" data-success="right" for="carMake">Car Make</label>
+                </div>
+                <div class="md-form mb-5">
+                    <input type="text" id="carModel" class="form-control validate" value="{{@SESSION.member->getCarModel()}}">
+                    <label data-error="wrong" data-success="right" for="carModel">Car Model</label>
+                </div>
+                <div class="md-form mb-5">
+                    <select class="form-control" id="year" name="year" value="{{@SESSION.member->getCarYear()}}">
+                        <repeat group="{{ @years }}"
+                                key="{{ @key }}"
+                                value="{{ @value }}">
+                            <option value='{{@value}}'
+                            <check if="{{ @POST.year == @value}}">
+                                <true>selected</true>
+                            </check>
+                            >{{@value}}</option>
+                        </repeat>
+                    </select>
+                    <label data-error="wrong" data-success="right" for="carMake">Car Year</label>
+                </div>
+            </div>
+            <div class="modal-footer d-flex justify-content-center">
+                <button id="btn" class="btn btn-primary">Login</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<!-- Popper JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script src="models/js/profile.js"></script>
 </body>
 </html>

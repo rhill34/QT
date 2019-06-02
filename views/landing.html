@@ -122,7 +122,7 @@ Availability: http://rhill.greenriverdev.com/328/QT/
                     <div class="col-sm-6 mx-auto">
                         <div style="text-align: center;">
                             <!--Login Button-->
-                            <a href="./" class="btn btn-primary btn-lg btn-block" role="button"
+                            <a class="btn btn-primary btn-lg btn-block text-white" role="button"
                                data-toggle="modal" data-target="#modalLoginForm">Login</a>
                         </div>
                         <br>
@@ -176,34 +176,7 @@ Availability: http://rhill.greenriverdev.com/328/QT/
     <button id="redirect" type="submit"></button>
 </form>
 
-
-<script>
-    $('.carousel').carousel({
-        interval: 3500
-    })
-</script>
-
-<script>
-    $('#btn').on('click', function () {
-        var email = $('#emails').val();
-        var pass = $('#pass').val();
-
-        $.post(
-            "models/ajax/login.php",
-
-                {email:email, pass:pass},
-
-                function(result)
-                {
-                    $('#login').html(result);
-                    if($('#login').text()=="")
-                    {
-                        alert(result);
-                    }
-                }
-        );
-        alert($.sessionStorage)
-    });
+<script src="models/js/login.js">
 </script>
 </body>
 </html>

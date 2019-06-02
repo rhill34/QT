@@ -218,6 +218,7 @@ class database
 
         //grab id of insert
         $id = $this->dbh->lastInsertId();
+        $member->setUserId($id);
 
         $this->insertInterest($member->getInterests(),$id);
 
@@ -446,6 +447,11 @@ class database
 
     }
 
+    /**
+     * Retrieves driver information
+     * @param $memberId userid in database
+     * @return Associative Array
+     */
     public function getDriver($memberId)
     {
         $sql= "SELECT * FROM driver WHERE userId=:userId";
@@ -454,5 +460,19 @@ class database
         $statement->execute();
         $result = $statement->fetch(PDO::FETCH_ASSOC);
         return $result;
+    }
+
+    public function updateCarInfo($memberId, $carmake, $carModel, $carYear)
+    {
+        $sql="UPDATE driver
+        SET carMake = :carMake, carModel= :carModel, carYear= :carYear
+        WHERE userId = :userId";
+
+        $statement= $this->dbh->prepare($sql);
+        $statement->bindParam(":userId", $memberId, PDO::PARAM_STR);
+        $statement->bindParam(":carMake", $carmake, PDO::PARAM_STR);
+        $statement->bindParam(":carModel", $carModel, PDO::PARAM_STR);
+        $statement->bindParam(":carYear", $carYear, PDO::PARAM_STR);
+        $statement->execute();
     }
 }
