@@ -13,18 +13,14 @@ $("#trav").on("click", function() {
 
 
 $('#btn').on('click', function () {
-    var fd = new FormData();
-    var files = $('#customFile')[0].files[0];
-    fd.append('file', files);
     var carmake = $('#carMake').val();
     var carmodel = $('#carModel').val();
     var carYear = $('#year').val();
-    var id = $('#id').text();
 
     $.post(
-        "models/ajax/profile.php",
+        "models/ajax/car.php",
 
-        {carmake:carmake,carmodel:carmodel,carYear:carYear, id:id},
+        {carmake:carmake,carmodel:carmodel,carYear:carYear},
 
         function(result)
         {
@@ -34,7 +30,32 @@ $('#btn').on('click', function () {
                 $('#make').text(carmake);
                 $('#model').text(carmodel);
                 $('#years').text(carYear);
-              $('#carErr').html("Updated Successfully");
+                $('#carErr').html("Updated Successfully");
+            }
+        }
+    );
+});
+
+
+$('#btn1').on('click', function () {
+    var state = $('#stateId').val();
+    var city = $('#cityId').val();
+    var bios = $('#bios').val();
+
+    $.post(
+        "models/ajax/driver.php",
+
+        {state:state, city:city, bios:bios},
+
+        function(result)
+        {
+            $('#carErr').html(result);
+
+            if(result=="") {
+                $('#make').text(carmake);
+                $('#model').text(carmodel);
+                $('#years').text(carYear);
+                $('#proErr').html("Updated Successfully");
             }
         }
     );

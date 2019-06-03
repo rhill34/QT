@@ -12,7 +12,6 @@
 <nav class="navbar navbar-light bg-light">
     <a href="./" span class="navbar-brand mb-0 h1">QuickTrip Website</span></a>
 </nav>
-<a id="id" class="d-none">{{@SESSION.member->getUserId()}}</a>
     <!-- User Page -->
     <div class="p-2 border rounded m-5">
         <ul class="nav nav-tabs">
@@ -32,21 +31,24 @@
             <!--Right Side -->
             <check if="{{@SESSION.member instanceof User_Driver}}">
                 <true>
-                    <div class="col-md-6  border rounded p-2 d-none driver">
+                    <div class="col-md-6  border rounded p-2 d-none driver border-bottom-0">
                         <h2 class="border-bottom col">Driver Information</h2>
                         <hr>
-                        <p>City : {{@SESSION.member->getCity()}}</p>
+                        <p id="city">City : {{@SESSION.member->getCity()}}</p>
                         <hr>
-                        <p>State : {{@SESSION.member->getState()}}</p>
+                        <p id="state">State : {{@SESSION.member->getState()}}</p>
                         <hr>
                         <p>Driver Rating: {{@SESSION.member->echoRating(@SESSION.member->getRating())}}</p>
                         <hr>
-                        <p>Bio: {{@SESSION.member->getBio()}}</p>
-                        <img src="{{@SESSION.member->getProfilePic()}}" alt="Profile Pic" height="60" width="60">
-
+                        <p id="bio">Bio: {{@SESSION.member->getBio()}}</p>
+                        <div class="text-center">
+                        <img src="{{@SESSION.member->getProfilePic()}}" alt="Profile Pic" height="200" width="200">
+                        </div>
                     </div>
+
+
                     <!--Right Side -->
-                    <div class="col-md-6  border rounded p-2 d-none driver">
+                    <div class="col-md-6  border rounded p-2 d-none driver border-bottom-0">
                         <h2 class="border-bottom col">Car Information</h2>
                         <hr>
                         <p id="make">Car Make: {{@SESSION.member->getCarMake()}}</p>
@@ -55,13 +57,27 @@
                         <hr>
                         <p id="years">Car Year: {{@SESSION.member->getCarYear()}}</p>
                         <hr>
-                        <img src="{{@SESSION.member->getCarPic()}}" alt="Car Pic" height="60" width="60">
                         <div class="text-center">
-                        <br>
-                        <a id="carButton" class="btn btn-primary btn-lg btn-lg text-white" role="button"
-                           data-toggle="modal" data-target="#modalLoginForm">Edit Car Information</a>
+                           <img src="{{@SESSION.member->getCarPic()}}" alt="Car Pic" height="200" width="200">
                         </div>
                     </div>
+
+                    <div class="col-md-6  border rounded p-2 d-none driver border-top-0">
+                        <div class="text-center">
+                            <br>
+                            <a id="proButton" class="btn btn-primary btn-lg btn-lg text-white" role="button"
+                               data-toggle="modal" data-target="#modalLoginForm1">Edit Driver Information</a>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6  border rounded p-2 d-none driver border-top-0">
+                        <div class="text-center">
+                            <br>
+                            <a id="carButton" class="btn btn-primary btn-lg btn-lg text-white" role="button"
+                               data-toggle="modal" data-target="#modalLoginForm">Edit Car Information</a>
+                        </div>
+                    </div>
+
                 </true>
                 <false>
                     <div class="col-md-12 border rounded p-2 driver text-center d-none">
@@ -129,9 +145,69 @@
                     </select>
                     <label data-error="wrong" data-success="right" for="carMake">Car Year</label>
                 </div>
+                <span id="carErr" class="text-danger"></span>
             </div>
             <div class="modal-footer d-flex justify-content-center">
-                <button id="btn" class="btn btn-primary">Login</button>
+                <button id="btn" class="btn btn-primary">Submit</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!--Profile Edit Modal-->
+<div class="modal fade" id="modalLoginForm1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header text-center">
+                <h4 class="modal-title w-100 font-weight-bold">Driver Informatio</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <!--Start of form-->
+            <div class="modal-body mx-3">
+                <div class="md-form mb-5">
+                    <strong><label for="countryId">Chose a Country</label></strong>
+                    <select name="country" class="custom-select countries order-alpha include-US presel-byip  group-continents group-order-alpha"
+                            id="countryId">
+                        <option value="">
+                            <check if="{{isset(@POST.country)}}">
+                                <true>Select Counry</true>
+                                <false>{{@POST.country}}</false>
+                            </check>
+                        </option>
+                    </select>
+                </div>
+
+                <div class="md-form mb-5">
+                    <strong><label for="stateId">Chose a State</label></strong>
+                    <select name="state" class="custom-select states order-alpha" id="stateId">
+                        <option value="">Select State</option>
+                    </select>
+                </div>
+
+                <div class="md-form mb-5">
+                    <strong><label for="cityId">Chose a City</label></strong>
+                    <select name="city" class="custom-select cities order-alpha" id="cityId">
+                        <option value="">Select City</option>
+                    </select>
+                </div>
+
+                <div class="md-form mb-5">
+                    <label class="font-weight-bold" for="bios">Biography</label>
+                    <textarea class="form-control" id="bios" name="bio" rows="6">
+                        {{@SESSION.member->getBio()}}
+                    </textarea>
+                    <span id="proErr" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="modal-footer d-flex justify-content-center">
+                <button id="btn1" class="btn btn-primary">Submit</button>
             </div>
         </div>
     </div>
@@ -143,5 +219,6 @@
 <!-- Latest compiled JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 <script src="models/js/profile.js"></script>
+<script src="//geodata.solutions/includes/countrystatecity.js"></script>
 </body>
 </html>

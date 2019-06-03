@@ -83,11 +83,11 @@ function validCheckBoxArray($data , $array)
  */
 function validateDropDown($data, $dropDownArray)
 {
-    if(in_array($data, $dropDownArray, TRUE))
+    if(in_array($data, $dropDownArray))
     {
         return "";
     }
-    return "No dropdown value selected or value is invalide";
+    return "No dropdown value selected or value is invalid";
 }
 
 function trimFilter($data)

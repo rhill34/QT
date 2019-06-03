@@ -462,6 +462,13 @@ class database
         return $result;
     }
 
+    /**
+     * Updates car information within the database
+     * @param $memberId represents the unique id of the member
+     * @param $carmake represent the provided make of the car to be updated
+     * @param $carModel represents the provide car model to be updated
+     * @param $carYear represents the provided car year to be updated
+     */
     public function updateCarInfo($memberId, $carmake, $carModel, $carYear)
     {
         $sql="UPDATE driver
@@ -473,6 +480,28 @@ class database
         $statement->bindParam(":carMake", $carmake, PDO::PARAM_STR);
         $statement->bindParam(":carModel", $carModel, PDO::PARAM_STR);
         $statement->bindParam(":carYear", $carYear, PDO::PARAM_STR);
+        $statement->execute();
+    }
+
+    /**
+     * Updates driver information
+     * @param $memberId represents the unique id of the member
+     * @param $city represent the provide make of the city to be updated
+     * @param $state represents the provided state to be updated
+     * @param $bio represnt the provide bio to be updated
+     */
+    public function updateDriverInfo($memberId, $city, $state, $bio)
+    {
+        $sql="UPDATE driver
+        SET city = :city, state= :state, bio= :bio
+        WHERE userId = :userId";
+
+
+        $statement= $this->dbh->prepare($sql);
+        $statement->bindParam(":userId", $memberId, PDO::PARAM_STR);
+        $statement->bindParam(":city", $city, PDO::PARAM_STR);
+        $statement->bindParam(":state", $state, PDO::PARAM_STR);
+        $statement->bindParam(":bio", $bio, PDO::PARAM_STR);
         $statement->execute();
     }
 }
