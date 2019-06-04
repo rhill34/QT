@@ -27,12 +27,16 @@
             <a href="/appointment" class="btn btn-primary mt-1 traveler">Book A QuickTrip</a>
         </div>
         <div class="form-row ml-2 mt-2">
+
+
+
             <!--Driver Information-->
-            <!--Right Side -->
             <check if="{{@SESSION.member instanceof User_Driver}}">
                 <true>
+
+                    <!--Left Side -->
                     <div class="col-md-6  border rounded p-2 d-none driver border-bottom-0">
-                        <h2 class="border-bottom col">Driver Information</h2>
+                        <h2 class="border-bottom col">Driver Information <span id="proSuccess" class="text-success"></span></h2>
                         <hr>
                         <p id="city">City : {{@SESSION.member->getCity()}}</p>
                         <hr>
@@ -49,7 +53,7 @@
 
                     <!--Right Side -->
                     <div class="col-md-6  border rounded p-2 d-none driver border-bottom-0">
-                        <h2 class="border-bottom col">Car Information</h2>
+                        <h2 class="border-bottom col">Car Information <span id="carSuccess" class="text-success"></span></h2>
                         <hr>
                         <p id="make">Car Make: {{@SESSION.member->getCarMake()}}</p>
                         <hr>
@@ -62,6 +66,7 @@
                         </div>
                     </div>
 
+                    <!--Buttons Left-->
                     <div class="col-md-6  border rounded p-2 d-none driver border-top-0">
                         <div class="text-center">
                             <br>
@@ -70,6 +75,7 @@
                         </div>
                     </div>
 
+                    <!--Buttons Right-->
                     <div class="col-md-6  border rounded p-2 d-none driver border-top-0">
                         <div class="text-center">
                             <br>
@@ -89,24 +95,37 @@
 
             <!--Traveler-->
             <div class="col-md border rounded p-2 traveler">
-                <p>Name: {{@SESSION.member->getFname()  }} {{@SESSION.member->getLname() }}</p>
+                <div class="form-row">
+                    <p id="Names">Name: {{@SESSION.member->getFname()  }} {{@SESSION.member->getLname() }}</p>
+                    <a class="pl-1 pr-1 text-primary" role="button"
+                            data-toggle="modal" data-target="#modalLoginForm2">Edit</a>
+                </div>
+                <a class="text-success" id="nameSuccess"></a>
                 <hr>
-                <p>Email: {{@SESSION.member->getEmail()}}</p>
+                <div class="form-row">
+                    <p id="emails">Email: {{@SESSION.member->getEmail()}}</p>
+                    <a id="email" class="pl-1 pr-1 text-primary" role="button"
+                       data-toggle="modal" data-target="#modalLoginForm2">Edit</a>
+                </div>
                 <hr>
-                <p>Interests:
-                    <check if="{{@SESSION.member->getInterests()!=null}}">
-                        {{implode(",",@SESSION.member->getInterests())}}
-                    </check>
-                </p>
+                <div class="form-row">
+                    <p id="interests">Interests:
+                        <check if="{{@SESSION.member->getInterests()!=null}}">
+                            {{implode(",",@SESSION.member->getInterests())}}
+                        </check>
+                    </p>
+                    <a id="interest" class="pl-1 pr-1 text-primary" role="button"
+                            data-toggle="modal" data-target="#modalLoginForm2">Edit</a>
+                </div>
                 <hr>
-                <p>User Rating: {{@SESSION.member->echoRating(@SESSION.member->getUserRating())}}</p>
+                <p>User Rating: {{@SESSION.member->echoRating(@SESSION.member->getUserRating())}}</p></p>
                 <hr>
                 <button id="passUpdate" class="btn btn-primary">Update Password</button>
             </div>
         </div>
 
 
-        <!--Driver Appointments -->
+        <!--Driver Appointments TODO-->
         <div class="col-md  border rounded p-2 d-none driver"></div>
     </div>
 
@@ -118,7 +137,7 @@
         <div class="modal-content">
             <div class="modal-header text-center">
                 <h4 class="modal-title w-100 font-weight-bold">Car Information</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button type="button" id="closeCar" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -137,7 +156,7 @@
                                 key="{{ @key }}"
                                 value="{{ @value }}">
                             <option value='{{@value}}'
-                            <check if="{{ @POST.year == @value}}">
+                            <check if="{{ @SESSION.member->getCarYear() == @value}}">
                                 <true>selected</true>
                             </check>
                             >{{@value}}</option>
@@ -156,14 +175,14 @@
 
 
 
-<!--Profile Edit Modal-->
+<!--Driver Edit Modal-->
 <div class="modal fade" id="modalLoginForm1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
      aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header text-center">
-                <h4 class="modal-title w-100 font-weight-bold">Driver Informatio</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <h4 class="modal-title w-100 font-weight-bold">Driver Information</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="proClose">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -171,7 +190,7 @@
             <!--Start of form-->
             <div class="modal-body mx-3">
                 <div class="md-form mb-5">
-                    <strong><label for="countryId">Chose a Country</label></strong>
+                    <strong><label for="countryId">Choose a Country</label></strong>
                     <select name="country" class="custom-select countries order-alpha include-US presel-byip  group-continents group-order-alpha"
                             id="countryId">
                         <option value="">
@@ -184,14 +203,14 @@
                 </div>
 
                 <div class="md-form mb-5">
-                    <strong><label for="stateId">Chose a State</label></strong>
+                    <strong><label for="stateId">Choose a State</label></strong>
                     <select name="state" class="custom-select states order-alpha" id="stateId">
                         <option value="">Select State</option>
                     </select>
                 </div>
 
                 <div class="md-form mb-5">
-                    <strong><label for="cityId">Chose a City</label></strong>
+                    <strong><label for="cityId">Choose a City</label></strong>
                     <select name="city" class="custom-select cities order-alpha" id="cityId">
                         <option value="">Select City</option>
                     </select>
@@ -199,15 +218,50 @@
 
                 <div class="md-form mb-5">
                     <label class="font-weight-bold" for="bios">Biography</label>
-                    <textarea class="form-control" id="bios" name="bio" rows="6">
-                        {{@SESSION.member->getBio()}}
-                    </textarea>
+                    <textarea class="form-control" id="bios" name="bio" rows="6">{{@SESSION.member->getBio()}}</textarea>
                     <span id="proErr" class="text-danger"></span>
                 </div>
             </div>
 
             <div class="modal-footer d-flex justify-content-center">
                 <button id="btn1" class="btn btn-primary">Submit</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!--Name Edit Modal-->
+<div class="modal fade" id="modalLoginForm2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header text-center">
+                <h4 class="modal-title w-100 font-weight-bold">Update Name</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="firstClose">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <!--Start of form-->
+            <div class="modal-body mx-3">
+                <!--Get the First Name-->
+                <div class="md-form mb-5">
+                    <label class="font-weight-bold" for="fname">First Name</label>
+                    <input type="text" class="form-control" id="fname" name="fname"
+                           placeholder="Enter First Name Here" value="{{@SESSION.member->getFName()}}">
+                </div>
+                <div class="md-form mb-5">
+                    <label class="font-weight-bold" for="lname">Last Name</label>
+                    <input type="text" class="form-control" id="lname"  name="lname"
+                           placeholder= "Enter Last Name Here" value="{{@SESSION.member->getLName()}}">
+                    <span id="nameErr" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="modal-footer d-flex justify-content-center">
+                <button id="btn2" class="btn btn-primary">Submit</button>
             </div>
         </div>
     </div>

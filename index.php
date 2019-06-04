@@ -56,7 +56,6 @@ $f3->route('GET|POST /', function (){
 
 $f3->route('GET|POST /basic-info', function ($f3)
 {
-    var_dump($_SESSION);
     global $db;
     if($_SERVER['REQUEST_METHOD'] == 'POST') {
         $phone = stipPhone($_POST['phone']);
@@ -175,6 +174,11 @@ $f3->route('GET|POST /driver', function ($f3){
 
 
 $f3->route('GET|POST /profile', function ($f3){
+    $valid = $_SESSION['member']->getUserId();
+    if(!isset($valid))
+    {
+        $f3->reroute('/');
+    }
     global $years;
     $f3->set('years', $years);
     $view = new Template();

@@ -166,7 +166,8 @@ class User
 
     public static function echoRating($rating)
     {
-        if($rating==0)
+        $rating=intval($rating);
+        if($rating<=0)
         {
             echo "New User";
             return;
@@ -175,6 +176,7 @@ class User
         {
             if($rating>=$i)
             {
+
                 echo "<span class='fa fa-star starred'></span>";
             }
             else

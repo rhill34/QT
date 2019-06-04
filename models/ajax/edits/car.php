@@ -19,6 +19,12 @@ $id=$_SESSION['member']->getUserId();
 $carMakeErr = validString($carMake);
 $carModelErr = validString($carModel);
 $carYearErr = validString($carYear);
+if($_SESSION['member']->getCarmake()==$carMake && $_SESSION['member']->getCarModel()==$carModel &&
+$_SESSION['member']->getCarYear()==$carYear)
+{
+    echo 'No changes were made';
+    return;
+}
 
 if($carMakeErr=="") {
     if($carModelErr=="") {

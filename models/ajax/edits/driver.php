@@ -17,10 +17,16 @@ $bioErr= validString($bios);
 $stateErr =validString($state);
 $cityErr =validString($city);
 
+if($state ==$_SESSION['member']->getState() && $city == $_SESSION['member']->getCity() &&
+    $_SESSION['member']->getBio()==$bios) {
+    echo 'No changes made';
+    return;
+}
+
 if($bioErr=="") {
     if($stateErr=="") {
         if($cityErr=="") {
-            $db->updateDriverInfo($id,$carMake,$carModel,$carYear);
+            $db->updateDriverInfo($id,$city,$state,$bios);
             $_SESSION['member']->setBio($bios);
             $_SESSION['member']->setCity($city);
             $_SESSION['member']->setState($state);

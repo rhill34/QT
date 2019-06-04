@@ -21,7 +21,7 @@
   	userId int not null,
   	rating int(1) not null,
   	city varchar(22) not null,
-    state char(2)
+    state varchar(20)
   	profilePic varchar(255),
   	carPic varchar(255),
   	carMake varchar(20),
@@ -230,6 +230,11 @@ class database
         }
     }
 
+    /**
+     * Inserts Driver Information into the database
+     * @param $member Object Member object holding information
+     * @param $lastId Int id of member
+     */
     private function insertDriverInfo($member, $lastId)
     {
         $sql="INSERT INTO driver(userId, rating, state, city, profilePic, carPic, carMake,
@@ -504,4 +509,23 @@ class database
         $statement->bindParam(":bio", $bio, PDO::PARAM_STR);
         $statement->execute();
     }
+
+    /**
+     * Updated first and last names of user
+     * @param $memberId Int users id for table reference
+     * @param $firstName String first name to be updated
+     * @param $lastName String last name to be updated
+     */
+    public function updateName($memberId, $firstName, $lastName)
+    {
+        $sql="UPDATE users
+        SET firstName = :first, lastName= :last
+        WHERE userId = :userId";
+        $statement= $this->dbh->prepare($sql);
+        $statement->bindParam(":userId", $memberId, PDO::PARAM_STR);
+        $statement->bindParam(":first", $firstName, PDO::PARAM_STR);
+        $statement->bindParam(":last", $lastName, PDO::PARAM_STR);
+        $statement->execute();
+    }
+
 }
