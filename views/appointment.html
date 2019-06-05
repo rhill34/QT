@@ -8,6 +8,25 @@
     <title>Appointments</title>
 </head>
 <body>
-
+    <form method="post" action="#" enctype="multipart/form-data">
+        <strong><label for="pickup-time">Pick-Up Time
+            <input type="time" id="pickup-time">
+        </label></strong>
+        <strong><label for="pickup-time">Drop-off Time
+            <input type="time" id="dropoff-time">
+        </label></strong>
+        <strong><label for="stateId">Chose a State</label></strong>
+        <select name="state" class="custom-select states order-alpha" id="stateId">
+            <option value="">Select State</option>
+        </select>
+        <span class="text-danger">{{@errors.stateErr}}</span>
+        <br>
+        <strong><label for="cityId">Chose a City</label></strong>
+        <select name="city" class="custom-select cities order-alpha" id="cityId">
+            <option value="">Select City</option>
+        </select>
+        <span class="text-danger">{{@errors.cityErr}}</span>
+        <br>
+    </form>
 </body>
 </html>
