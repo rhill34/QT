@@ -146,8 +146,8 @@ require_once("/home2/$user/config2.php");
  */
 class database
 {
-    private $dbh;
-    private $errormessage;
+    private $_dbh;
+    private $_errormessage;
 
     /**
      * database constructor. Start out disconnected
@@ -164,11 +164,11 @@ class database
     public function connect()
     {
         try{
-            $this->dbh = new PDO(DB_DSN, DB_USERNAME, DB_PASSWORD
+            $this->_dbh = new PDO(DB_DSN, DB_USERNAME, DB_PASSWORD
             );
         } catch (PDOException $e)
         {
-            $this->errormessage = $e->getMessage();
+            $this->_errormessage = $e->getMessage();
         }
     }
 
@@ -185,7 +185,7 @@ class database
             VALUES ( :password, :firstName, :lastName, 
             :isDriver, :isAdmin, :phone, :email, :credits, :userRating)";
         //save prepared statement
-        $statement = $this->dbh->prepare($sql);
+        $statement = $this->_dbh->prepare($sql);
 
         //assign values
         $fname = $member->getFname();
@@ -217,7 +217,7 @@ class database
         $statement->execute();
 
         //grab id of insert
-        $id = $this->dbh->lastInsertId();
+        $id = $this->_dbh->lastInsertId();
         $member->setUserId($id);
 
         $this->insertInterest($member->getInterests(),$id);
@@ -242,7 +242,7 @@ class database
             VALUES (:userId, :rating, :state, :city, :profilePic, :carPic, :carMake,
             :carModel, :carYear, :bio)";
 
-        $statement= $this->dbh->prepare($sql);
+        $statement= $this->_dbh->prepare($sql);
 
         $userId=$lastId;
         $rating=-1;
@@ -279,7 +279,7 @@ class database
     private function getInterestID($interest)
     {
         $sql = "SELECT interest_id FROM interest WHERE interest = :interest";
-        $statement = $this->dbh->prepare($sql);
+        $statement = $this->_dbh->prepare($sql);
         $statement->bindParam(':interest', $interest, PDO::PARAM_STR);
         $statement->execute();
         $row = $statement->fetch(PDO::FETCH_ASSOC);
@@ -295,7 +295,7 @@ class database
     private function insertInterest($array,$id)
     {
         $sql = "INSERT INTO userinterest(interest_id, userid) VALUES (:interest, :user_id)";
-        $statement = $this->dbh->prepare($sql);
+        $statement = $this->_dbh->prepare($sql);
 
         //for each interest bind and execute statemnt
         foreach ($array as $value) {
@@ -316,7 +316,7 @@ class database
     public function getUsers()
     {
         $sql = "SELECT * FROM users ORDER BY lname ASC";
-        $statement = $this->dbh->prepare($sql);
+        $statement = $this->_dbh->prepare($sql);
         $statement->execute();
         return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
@@ -329,9 +329,21 @@ class database
     public function getUser($member_id)
     {
         $sql = "SELECT * FROM member WHERE userId = :id";
-        $statement = $this->dbh->prepare($sql);
+        $statement = $this->_dbh->prepare($sql);
 
         $statement->bindParam(":id", $member_id, PDO::PARAM_INT);
+        $statement->execute();
+        return $statement->fetch(PDO::FETCH_ASSOC);
+    }
+
+    public function getDrivers($city, $state){
+        $sql = "SELECT * FROM driver INNER JOIN users ON driver.userId = users.userId 
+                WHERE city = :city AND state = :state";
+        $statement = $this->_dbh->prepare($sql);
+
+        $statement->bindParam(":city", $city, PDO::PARAM_STR);
+        $statement->bindParam(":state", $state, PDO::PARAM_STR);
+
         $statement->execute();
         return $statement->fetch(PDO::FETCH_ASSOC);
     }
@@ -344,7 +356,7 @@ class database
     public function getInterests($member_id)
     {
         $sql = "SELECT * FROM userinterest WHERE userId = :id";
-        $statement = $this->dbh->prepare($sql);
+        $statement = $this->_dbh->prepare($sql);
 
         $statement->bindParam(":id", $member_id, PDO::PARAM_INT);
         $statement->execute();
@@ -369,7 +381,7 @@ class database
     private function getInterestString($interest_id)
     {
         $sql = "SELECT * FROM interest WHERE interest_id = :id";
-        $statement = $this->dbh->prepare($sql);
+        $statement = $this->_dbh->prepare($sql);
 
         $statement->bindParam(":id", $interest_id, PDO::PARAM_INT);
         $statement->execute();
@@ -387,7 +399,7 @@ class database
     public function findEmail($email)
     {
         $sql = "SELECT * FROM `users` WHERE email=:email;";
-        $statement = $this->dbh->prepare($sql);
+        $statement = $this->_dbh->prepare($sql);
 
         $statement->bindParam(":email", $email, PDO::PARAM_STR);
         $statement->execute();
@@ -412,7 +424,7 @@ class database
 
         $member=0;
         $sql = "SELECT * FROM `users` WHERE email=:email and passwords=:password";
-        $statement= $this->dbh->prepare($sql);
+        $statement= $this->_dbh->prepare($sql);
         $statement->bindParam(":email", $email, PDO::PARAM_STR);
         $statement->bindParam(":password", $password, PDO::PARAM_STR);
         $statement->execute();
@@ -460,7 +472,7 @@ class database
     public function getDriver($memberId)
     {
         $sql= "SELECT * FROM driver WHERE userId=:userId";
-        $statement= $this->dbh->prepare($sql);
+        $statement= $this->_dbh->prepare($sql);
         $statement->bindParam(":userId", $memberId, PDO::PARAM_STR);
         $statement->execute();
         $result = $statement->fetch(PDO::FETCH_ASSOC);
@@ -480,7 +492,7 @@ class database
         SET carMake = :carMake, carModel= :carModel, carYear= :carYear
         WHERE userId = :userId";
 
-        $statement= $this->dbh->prepare($sql);
+        $statement= $this->_dbh->prepare($sql);
         $statement->bindParam(":userId", $memberId, PDO::PARAM_STR);
         $statement->bindParam(":carMake", $carmake, PDO::PARAM_STR);
         $statement->bindParam(":carModel", $carModel, PDO::PARAM_STR);
@@ -502,7 +514,7 @@ class database
         WHERE userId = :userId";
 
 
-        $statement= $this->dbh->prepare($sql);
+        $statement= $this->_dbh->prepare($sql);
         $statement->bindParam(":userId", $memberId, PDO::PARAM_STR);
         $statement->bindParam(":city", $city, PDO::PARAM_STR);
         $statement->bindParam(":state", $state, PDO::PARAM_STR);
@@ -521,7 +533,7 @@ class database
         $sql="UPDATE users
         SET firstName = :first, lastName= :last
         WHERE userId = :userId";
-        $statement= $this->dbh->prepare($sql);
+        $statement= $this->_dbh->prepare($sql);
         $statement->bindParam(":userId", $memberId, PDO::PARAM_STR);
         $statement->bindParam(":first", $firstName, PDO::PARAM_STR);
         $statement->bindParam(":last", $lastName, PDO::PARAM_STR);
@@ -538,7 +550,7 @@ class database
         $sql="UPDATE users
         SET email = :email
         WHERE userId = :userId";
-        $statement= $this->dbh->prepare($sql);
+        $statement= $this->_dbh->prepare($sql);
         $statement->bindParam(":userId", $memberId, PDO::PARAM_STR);
         $statement->bindParam(":email", $email, PDO::PARAM_STR);
         $statement->execute();
@@ -554,7 +566,7 @@ class database
     {
         $sql="SELECT passwords FROM users
         WHERE userId = :userId and passwords= :password";
-        $statement= $this->dbh->prepare($sql);
+        $statement= $this->_dbh->prepare($sql);
         $statement->bindParam(":userId", $memberId, PDO::PARAM_STR);
         $statement->bindParam(":password", $password, PDO::PARAM_STR);
         $statement->execute();
@@ -576,7 +588,7 @@ class database
         $sql="UPDATE users
         SET passwords = :passwords
         WHERE userId = :userId";
-        $statement= $this->dbh->prepare($sql);
+        $statement= $this->_dbh->prepare($sql);
         $statement->bindParam(":userId", $memberId, PDO::PARAM_STR);
         $statement->bindParam(":passwords", $pass, PDO::PARAM_STR);
         $statement->execute();
