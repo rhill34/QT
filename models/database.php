@@ -338,7 +338,7 @@ class database
 
     public function getDrivers($city, $state){
         $sql = "SELECT * FROM driver INNER JOIN users ON driver.userId = users.userId 
-                WHERE city = :city AND state = :state";
+                WHERE driver.city = :city AND driver.state = :state";
         $statement = $this->_dbh->prepare($sql);
 
         $statement->bindParam(":city", $city, PDO::PARAM_STR);

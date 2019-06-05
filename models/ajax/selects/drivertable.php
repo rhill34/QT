@@ -18,14 +18,14 @@ echo "<tr>
         <th>Car Model</th>
         <th>Car Year</th>
       </tr>";
-while($results as $result){
-    if($result){
+while($results){
+    if($results){
         echo "<tr>
-                <td>".$result['firstname']."</td>
-                <td>".$result['lastname']."</td>
-                <td>".$result['carMake']."</td>
-                <td>".$result['carModel']."</td>
-                <td>".$result['carYear']."</td>
+                <td>".$results['firstname']."</td>
+                <td>".$results['lastname']."</td>
+                <td>".$results['carMake']."</td>
+                <td>".$results['carModel']."</td>
+                <td>".$results['carYear']."</td>
               </tr>";
        }
 }
