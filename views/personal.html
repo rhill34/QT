@@ -91,9 +91,9 @@ Availability: http://rhill.greenriverdev.com/328/datingB/cap
                         <!-- Create Password -->
                         <div class="form-group">
                             <label class="font-weight-bold" for="pass">Password<!-- Button trigger modal --></label>
-                                <button type="button" class="btn btn-outline-primary btn-sm" data-toggle="modal" data-target="#exampleModal">
+                                <a class="pl-1 pr-1 text-primary pointer" data-toggle="modal" data-target="#exampleModal">
                                      View Password Requirements
-                                </button></label>
+                                </a></label>
                             <input type="password" class="form-control" id="pass" name="pass" placeholder="Enter a new password"
                             <check if="{{ isset(@POST.pass)}}">
                                 <true>value="{{@POST.pass}}"</true>
