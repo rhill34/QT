@@ -10,7 +10,8 @@
 </head>
 <body>
 <nav class="navbar navbar-light bg-light">
-    <a href="./" span class="navbar-brand mb-0 h1">QuickTrip Website</span></a>
+    <a href="profile"><span class="navbar-brand mb-0 h1">QuickTrip Profile</span></a>
+    <a href="logout"><span class="navbar-brand mb-0 h1">Logout</span></a>
 </nav>
     <!-- User Page -->
     <div class="p-2 border rounded m-5">
@@ -30,7 +31,7 @@
 
 
 
-            <!--Driver Information-->
+            <!--Driver Information--------------------------------------------------------------------------------->
             <check if="{{@SESSION.member instanceof User_Driver}}">
                 <true>
 
@@ -93,20 +94,21 @@
             </check>
 
 
-            <!--Traveler-->
+            <!--Traveler----------------------------------------------------------------------->
             <div class="col-md border rounded p-2 traveler">
                 <div class="form-row">
                     <p id="Names">Name: {{@SESSION.member->getFname()  }} {{@SESSION.member->getLname() }}</p>
-                    <a class="pl-1 pr-1 text-primary" role="button"
+                    <a class="pl-1 pr-1 text-primary pointer" role="button"
                             data-toggle="modal" data-target="#modalLoginForm2">Edit</a>
                 </div>
                 <a class="text-success" id="nameSuccess"></a>
                 <hr>
                 <div class="form-row">
                     <p id="emails">Email: {{@SESSION.member->getEmail()}}</p>
-                    <a id="email" class="pl-1 pr-1 text-primary" role="button"
-                       data-toggle="modal" data-target="#modalLoginForm2">Edit</a>
+                    <a id="email" class="pl-1 pr-1 text-primary pointer" role="button"
+                       data-toggle="modal" data-target="#modalLoginForm3">Edit</a>
                 </div>
+                <a class="text-success" id="emailSuccess"></a>
                 <hr>
                 <div class="form-row">
                     <p id="interests">Interests:
@@ -114,13 +116,12 @@
                             {{implode(",",@SESSION.member->getInterests())}}
                         </check>
                     </p>
-                    <a id="interest" class="pl-1 pr-1 text-primary" role="button"
-                            data-toggle="modal" data-target="#modalLoginForm2">Edit</a>
                 </div>
                 <hr>
                 <p>User Rating: {{@SESSION.member->echoRating(@SESSION.member->getUserRating())}}</p></p>
                 <hr>
-                <button id="passUpdate" class="btn btn-primary">Update Password</button>
+                <button id="passUpdate" class="btn btn-primary" role="button"
+                        data-toggle="modal" data-target="#modalLoginForm4">Update Password</button>
             </div>
         </div>
 
@@ -267,6 +268,76 @@
     </div>
 </div>
 
+
+<!--Email Edit Modal-->
+<div class="modal fade" id="modalLoginForm3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header text-center">
+                <h4 class="modal-title w-100 font-weight-bold">Update Email</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="emailClose">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <!--Start of form-->
+            <div class="modal-body mx-3">
+                <div class="md-form mb-5">
+                    <!--Get the Email-->
+                    <label class="font-weight-bold" for="email">Email</label>
+                    <input type="email" class="form-control" id="formEmail" name="email" placeholder="Enter Email Here"
+                           value="{{@SESSION.member->getEmail()}}">
+                    <!--*******Error Span*************** -->
+                    <span id="emailErr" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="modal-footer d-flex justify-content-center">
+                <button id="btn3" class="btn btn-primary">Submit</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Email Edit Modal-->
+<div class="modal fade" id="modalLoginForm4" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header text-center">
+                <h4 class="modal-title w-100 font-weight-bold">Update Password</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="passClose">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <!--Start of form-->
+            <div class="modal-body mx-3">
+                <div class="md-form mb-5">
+                    <label class="font-weight-bold" for="confirmPass">Confirm Original Password</label>
+                    <input type="password" class="form-control" id="confirmPass" name="pass" placeholder="Enter a original password"
+                    value="{{@POST.confirm}}">
+                </div>
+                <div class="md-form mb-5">
+                    <label class="font-weight-bold" for="newPass">New Password</label>
+                    <input type="password" class="form-control" id="newPass" name="pass1" placeholder="Enter a new password"
+                           value="{{@POST.pass}}">
+                </div>
+                <div class="md-form mb-5">
+                    <label class="font-weight-bold" for="newPass2">Confirm New Password</label>
+                    <input type="password" class="form-control" id="newPass2" name="pass2" placeholder="Confirm new password"
+                           value="{{@POST.pass2}}">
+                    <span id="passErr" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="modal-footer d-flex justify-content-center">
+                <button id="btn4" class="btn btn-primary">Submit</button>
+            </div>
+        </div>
+    </div>
+</div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <!-- Popper JS -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>

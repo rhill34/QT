@@ -47,7 +47,14 @@ $states = array
 //});
 
 
-$f3->route('GET|POST /', function (){
+$f3->route('GET|POST /', function ($f3){
+    if(isset($_SESSION['member']))
+    {
+        if($_SESSION['member']->getUserId()!=nuill)
+        {
+            $f3->reroute('profile');
+        }
+    }
     session_destroy();
     //Need to create the home page.
     $view = new Template();
@@ -183,6 +190,17 @@ $f3->route('GET|POST /profile', function ($f3){
     $f3->set('years', $years);
     $view = new Template();
     echo $view->render('views/profile.html');
+});
+
+$f3->route('GET|POST /logout', function ($f3){
+    session_destroy();
+    $f3->reroute('/');
+});
+
+$f3->route('GET|POST /appointment', function ($f3){
+    $f3->reroute('/');
+    $view = new Template();
+    echo $view->render('views/appointment.html');
 });
 //Run the framework
 $f3->run();

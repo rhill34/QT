@@ -528,4 +528,57 @@ class database
         $statement->execute();
     }
 
+    /**
+     * Updates email in data bast
+     * @param $memberId Int user id in db
+     * @param $email String email provided by user
+     */
+    public function updateEmail($memberId, $email)
+    {
+        $sql="UPDATE users
+        SET email = :email
+        WHERE userId = :userId";
+        $statement= $this->dbh->prepare($sql);
+        $statement->bindParam(":userId", $memberId, PDO::PARAM_STR);
+        $statement->bindParam(":email", $email, PDO::PARAM_STR);
+        $statement->execute();
+    }
+
+    /**
+     * Check database for password and check if it exists
+     * @param $memberId Int user id in db
+     * @param $password provided password to be verified
+     * @return Boolean returne true if found
+     */
+    public function findPassWord($memberId,$password)
+    {
+        $sql="SELECT passwords FROM users
+        WHERE userId = :userId and passwords= :password";
+        $statement= $this->dbh->prepare($sql);
+        $statement->bindParam(":userId", $memberId, PDO::PARAM_STR);
+        $statement->bindParam(":password", $password, PDO::PARAM_STR);
+        $statement->execute();
+        $result = $statement->fetch(PDO::FETCH_ASSOC);
+        if(!$result)
+        {
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Update password in db
+     * @param $memberId Int user to be update
+     * @param $pass
+     */
+    public function updatePass($memberId, $pass)
+    {
+        $sql="UPDATE users
+        SET passwords = :passwords
+        WHERE userId = :userId";
+        $statement= $this->dbh->prepare($sql);
+        $statement->bindParam(":userId", $memberId, PDO::PARAM_STR);
+        $statement->bindParam(":passwords", $pass, PDO::PARAM_STR);
+        $statement->execute();
+    }
 }

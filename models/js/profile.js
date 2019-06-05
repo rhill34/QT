@@ -69,6 +69,7 @@ $('#btn1').on('click', function () {
     );
 });
 
+//on modal submission update name
 $('#btn2').on('click', function () {
     var first = $('#fname').val();
     var last = $('#lname').val();
@@ -90,3 +91,51 @@ $('#btn2').on('click', function () {
         }
     );
 });
+
+//on modal submission update email
+$('#btn3').on('click', function () {
+    var email = $('#formEmail').val();
+    console.log(email);
+
+    $.post(
+        "models/ajax/edits/email.php",
+
+        {email:email},
+
+        function(result)
+        {
+            $('#emailErr').html(result);
+
+            if(result=="") {
+                $('#emails').text("Email:" + email);
+                $('#emailSuccess').html("Updated Successfully");
+                $('#emailClose').click();
+            }
+        }
+    );
+});
+
+
+//on modal submission update password
+$('#btn4').on('click', function () {
+    var confirm = $('#confirmPass').val();
+    var pass= $('#newPass').val();
+    var pass2=$('#newPass2').val();
+
+    $.post(
+        "models/ajax/edits/password.php",
+
+        {confirm:confirm, pass:pass, pass2:pass2},
+
+        function(result)
+        {
+            $('#passErr').html(result);
+
+            if(result=="") {
+                $('#passSuccess').html("Updated Successfully");
+                $('#passClose').click();
+            }
+        }
+    );
+});
+

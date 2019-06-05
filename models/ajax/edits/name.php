@@ -1,6 +1,6 @@
 <?php
-require_once("../../vendor/autoload.php");
-require_once("../validation.php");
+require_once("../../../vendor/autoload.php");
+require_once("../../validation.php");
 
 session_start();
 $db = new database();

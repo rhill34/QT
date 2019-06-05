@@ -1,3 +1,7 @@
 .starred {
     color: orange;
 }
+
+.pointer {
+    cursor: pointer;
+}
