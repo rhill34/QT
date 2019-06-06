@@ -136,7 +136,13 @@
     ("Local Cuisine")
 */
 $user = $_SERVER['USER'];
-require_once("/home2/$user/config2.php");
+if($user == ryanguel){
+    $path = "/home/$user/config2.php";
+}
+else{
+    $path = "/home2/$user/config2.php";
+}
+require_once($path);
 
 /**
  * @author Michael Britt
