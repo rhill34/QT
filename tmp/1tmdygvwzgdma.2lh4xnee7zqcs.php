@@ -48,36 +48,36 @@ Availability: http://rhill.greenriverdev.com/328/datingB/cap
                         <div class="form-group">
                             <label class="font-weight-bold" for="fname">First Name</label>
                             <input type="text" class="form-control" id="fname" name="fname"
-                                   placeholder="Enter First Name Here" value="{{@POST.fname}}">
+                                   placeholder="Enter First Name Here" value="<?= ($POST['fname']) ?>">
                             <!--*******Error Span*************** -->
-                            <span class="text-danger">{{@errors.fnameErr}}</span>
+                            <span class="text-danger"><?= ($errors['fnameErr']) ?></span>
                         </div>
 
                         <!--Get the Last Name-->
                         <div class="form-group">
                             <label class="font-weight-bold" for="lname">Last Name</label>
                             <input type="text" class="form-control" id="lname"  name="lname"
-                                   placeholder= "Enter Last Name Here" value="{{@POST.lname}}">
+                                   placeholder= "Enter Last Name Here" value="<?= ($POST['lname']) ?>">
                             <!--*******Error Span*************** -->
-                            <span class="text-danger">{{@errors.lnameErr}}</span>
+                            <span class="text-danger"><?= ($errors['lnameErr']) ?></span>
                         </div>
 
                         <!--Get user Phone#-->
                         <div class="form-group mt-1">
                             <label class="font-weight-bold"  for="phone">Phone Number</label>
                             <input type="tel" class="form-control" id="phone" name="phone" placeholder="222-333-4444"
-                            value="{{@POST.phone}}">
+                            value="<?= ($POST['phone']) ?>">
                             <!--*******Error Span*************** -->
-                            <span class="text-danger">{{@errors.phoneErr}}</span>
+                            <span class="text-danger"><?= ($errors['phoneErr']) ?></span>
                         </div>
 
                         <!--Get user Email-->
                         <div class="form-group">
                             <label class="font-weight-bold" for="email">Email</label>
                             <input type="email" class="form-control" id="email" name="email" placeholder="Enter Email Here"
-                            value="{{@POST.email}}">
+                            value="<?= ($POST['email']) ?>">
                             <!--*******Error Span*************** -->
-                            <span class="text-danger">{{@errors.emailErr}}</span>
+                            <span class="text-danger"><?= ($errors['emailErr']) ?></span>
                         </div>
 
                         <!-- Create Password -->
@@ -87,27 +87,27 @@ Availability: http://rhill.greenriverdev.com/328/datingB/cap
                                      View Password Requirements
                                 </a></label>
                             <input type="password" class="form-control" id="pass" name="pass" placeholder="Enter a new password"
-                            value="{{@POST.pass}}">
+                            value="<?= ($POST['pass']) ?>">
                             <!--*******Error Span*************** -->
-                            <span class="text-danger">{{@errors.passErr}}</span>
+                            <span class="text-danger"><?= ($errors['passErr']) ?></span>
                         </div>
 
                         <!--Confirm Password-->
                         <div class="form-group">
                             <label class="font-weight-bold" for="pass1">Confirm Password</label>
                             <input type="password" class="form-control" id="pass1" name="pass1" placeholder="Confirm password"
-                            value="{{@POST.pass1}}">
+                            value="<?= ($POST['pass1']) ?>">
                             <!--*******Error Span*************** -->
-                            <span class="text-danger">{{@errors.pass1Err}}</span>
+                            <span class="text-danger"><?= ($errors['pass1Err']) ?></span>
                         </div>
 
                         <!--Checks if user wants to be a driver-->
                         <label class="font-weight-bold" for="premium">Become A Driver</label>
                         <div class="form-check" id="premium">
                             <input class="form-check-input" type="checkbox" value="" id="driver" name="driver"
-                            <check if="{{isset(@POST.driver)}}">
-                                <true>checked</true>
-                            </check>
+                            <?php if (isset($POST['driver'])): ?>
+                                checked
+                            <?php endif; ?>
                             >
                             <label class="form-check-label" for="driver">
                                 I want to apply to be a driver!
@@ -128,9 +128,9 @@ Availability: http://rhill.greenriverdev.com/328/datingB/cap
                         <div class="form-check" id="eula">
                             <input class="form-check-input" type="checkbox" value="" id="consent" name="consent" required
                                    form="perForm"
-                            <check if="{{isset(@POST.consent)}}">
-                                <true>checked</true>
-                            </check>
+                            <?php if (isset($POST['consent'])): ?>
+                                checked
+                            <?php endif; ?>
                             >
                             <label class="form-check-label" for="consent">
                                 I have read the Quick Trip user, (travelers, and drivers) agreements, and I am

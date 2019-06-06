@@ -20,6 +20,16 @@ $('#results').on('click', '.book', function () {
     //contains driver id data
     var id = $(this).attr('value');
     //assign to modals div for future ajax request using index on session variable
+    $.post(
+        "models/ajax/changePicture.php",
+
+        {id:id},
+
+        function(results)
+        {
+            $('#proPic').attr('src', results);
+        }
+    );
     $('#driverIndex').attr('value', id);
 });
 

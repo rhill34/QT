@@ -12,7 +12,7 @@
 <nav class="navbar navbar-light bg-light">
     <a href="./" span class="navbar-brand mb-0 h1">QuickTrip Website</span></a>
 </nav>
-<span class="text-danger">{{@errors.emailErr}}</span>
+<span class="text-danger"><?= ($errors['emailErr']) ?></span>
 <div class="card m-5">
     <div class=" p-2 border rounded m-5">
         <!--Start of form -->
@@ -29,10 +29,10 @@
                     <select name="country" class="custom-select countries order-alpha include-US presel-byip  group-continents group-order-alpha"
                             id="countryId">
                         <option value="">
-                            <check if="{{isset(@POST.country)}}">
-                                <true>Select Counry</true>
-                                <false>{{@POST.country}}</false>
-                            </check>
+                            <?php if (isset($POST['country'])): ?>
+                                Select Counry
+                                <?php else: ?><?= ($POST['country']) ?>
+                            <?php endif; ?>
                         </option>
                     </select>
                     <br>
@@ -40,13 +40,13 @@
                     <select name="state" class="custom-select states order-alpha" id="stateId">
                         <option value="">Select State</option>
                     </select>
-                    <span class="text-danger">{{@errors.stateErr}}</span>
+                    <span class="text-danger"><?= ($errors['stateErr']) ?></span>
                     <br>
                     <strong><label for="cityId">Chose a City</label></strong>
                     <select name="city" class="custom-select cities order-alpha" id="cityId">
                         <option value="">Select City</option>
                     </select>
-                    <span class="text-danger">{{@errors.cityErr}}</span>
+                    <span class="text-danger"><?= ($errors['cityErr']) ?></span>
                     <br>
                     <!--Profile Pic-->
                     <label class="font-weight-bold" for="propic">Profile Pic</label>
@@ -54,7 +54,7 @@
                         <input type="file" class="custom-file-input" id="customFile1" name="proPic">
                         <label class="custom-file-label" for="customFile1">Choose file</label>
                     </div>
-                    <span class="text-danger">{{@errors.proPicErr}}</span>
+                    <span class="text-danger"><?= ($errors['proPicErr']) ?></span>
 
                 </div>
 
@@ -63,9 +63,9 @@
                 <div class="col-md-6 h-100">
                     <div class="form-group">
                         <label class="font-weight-bold" for="bio">Biography</label>
-                        <textarea class="form-control" id="bio" name="bio" rows="6">{{@POST.bio}}</textarea>
+                        <textarea class="form-control" id="bio" name="bio" rows="6"><?= ($POST['bio']) ?></textarea>
                     </div>
-                    <span class="text-danger">{{@errors.bioErr}}</span>
+                    <span class="text-danger"><?= ($errors['bioErr']) ?></span>
                 </div>
                 <!--End of right Side-->
             </div>
@@ -83,30 +83,28 @@
                     <div class="form-group">
                         <label class="font-weight-bold" for="make">Car Make</label>
                         <input type="text" class="form-control" id="make" name="make" placeholder="Enter Car Make"
-                        <check if="{{ isset(@POST.make)}}">
-                            <true>value="{{@POST.make}}"</true>
-                        </check>
+                        <?php if (isset($POST['make'])): ?>
+                            value="<?= ($POST['make']) ?>"
+                        <?php endif; ?>
                         >
                         <!--*******Error Span*************** -->
-                        <span class="text-danger">{{@errors.makeErr}}</span>
+                        <span class="text-danger"><?= ($errors['makeErr']) ?></span>
                     </div>
 
                     <!--Years-->
                     <div class="form-group">
                         <label class="font-weight-bold" for="year">Car Year</label>
                         <select class="form-control" id="year" name="year">
-                            <repeat group="{{ @years }}"
-                                    key="{{ @key }}"
-                                    value="{{ @value }}">
-                                <option value='{{@value}}'
-                                <check if="{{ @POST.year == @value}}">
-                                    <true>selected</true>
-                                </check>
-                                >{{@value}}</option>
-                            </repeat>
+                            <?php foreach (($years?:[]) as $key=>$value): ?>
+                                <option value='<?= ($value) ?>'
+                                <?php if ($POST['year'] == $value): ?>
+                                    selected
+                                <?php endif; ?>
+                                ><?= ($value) ?></option>
+                            <?php endforeach; ?>
                         </select>
                         <!--*******Error Span*************** -->
-                        <span class="text-danger">{{@errors.yearErr}}</span>
+                        <span class="text-danger"><?= ($errors['yearErr']) ?></span>
                     </div>
 
                 </div>
@@ -118,12 +116,12 @@
                     <div class="form-group">
                         <label class="font-weight-bold" for="model">Car Model</label>
                         <input type="text" class="form-control" id="model" name="model" placeholder="Enter Car Model"
-                        <check if="{{ isset(@POST.model)}}">
-                            <true>value="{{@POST.model}}"</true>
-                        </check>
+                        <?php if (isset($POST['model'])): ?>
+                            value="<?= ($POST['model']) ?>"
+                        <?php endif; ?>
                         >
                         <!--*******Error Span*************** -->
-                        <span class="text-danger">{{@errors.modelErr}}</span>
+                        <span class="text-danger"><?= ($errors['modelErr']) ?></span>
                     </div>
                     <!--Car Pic-->
                     <label class="font-weight-bold" for="carpic">Car Pic</label>
@@ -131,7 +129,7 @@
                         <input type="file" class="custom-file-input" id="customFile" name="carPic">
                         <label class="custom-file-label" for="customFile">Choose file</label>
                     </div>
-                    <span class="text-danger">{{@errors.carPicErr}}</span>
+                    <span class="text-danger"><?= ($errors['carPicErr']) ?></span>
                 </div>
             </div>
 

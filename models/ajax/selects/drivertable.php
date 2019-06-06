@@ -21,6 +21,7 @@ $results = $db->getDrivers($city, $state);
 if($results) {
     //array to store driver id as session data in order
     $array =[];
+    $pictureArray =[];
 
     //index location of specific driver in array
     $index=0;
@@ -53,11 +54,15 @@ if($results) {
 
         //add driver id to array
         $array.array_push($array,$row["driverId"]);
+
+        //add driver pice to array
+        $pictureArray.array_push($pictureArray,$row['profilePic']);
         //increase index for next loop
         $index++;
     }
     //array of driver id assigned to session variable
     $_SESSION['drivers']=$array;
+    $_SESSION['driversPic']=$pictureArray;
 } else{
     echo "<h3> No drivers found in the area</h3>";
 }

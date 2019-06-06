@@ -34,22 +34,22 @@
 
 
             <!--Driver Information--------------------------------------------------------------------------------->
-            <check if="{{@SESSION.member instanceof User_Driver}}">
-                <true>
+            <?php if ($SESSION['member'] instanceof User_Driver): ?>
+                
 
                     <!--Left Side -->
                     <div class="col-md-6  border rounded p-2 d-none driver border-bottom-0">
                         <h2 class="border-bottom col">Driver Information <span id="proSuccess" class="text-success"></span></h2>
                         <hr>
-                        <p id="city">City : {{@SESSION.member->getCity()}}</p>
+                        <p id="city">City : <?= ($SESSION['member']->getCity()) ?></p>
                         <hr>
-                        <p id="state">State : {{@SESSION.member->getState()}}</p>
+                        <p id="state">State : <?= ($SESSION['member']->getState()) ?></p>
                         <hr>
-                        <p>Driver Rating: {{@SESSION.member->echoRating(@SESSION.member->getRating())}}</p>
+                        <p>Driver Rating: <?= ($SESSION['member']->echoRating($SESSION['member']->getRating())) ?></p>
                         <hr>
-                        <p id="bio">Bio: {{@SESSION.member->getBio()}}</p>
+                        <p id="bio">Bio: <?= ($SESSION['member']->getBio()) ?></p>
                         <div class="text-center">
-                        <img src="{{@SESSION.member->getProfilePic()}}" alt="Profile Pic" height="200" width="200">
+                        <img src="<?= ($SESSION['member']->getProfilePic()) ?>" alt="Profile Pic" height="200" width="200">
                         </div>
                     </div>
 
@@ -58,14 +58,14 @@
                     <div class="col-md-6  border rounded p-2 d-none driver border-bottom-0">
                         <h2 class="border-bottom col">Car Information <span id="carSuccess" class="text-success"></span></h2>
                         <hr>
-                        <p id="make">Car Make: {{@SESSION.member->getCarMake()}}</p>
+                        <p id="make">Car Make: <?= ($SESSION['member']->getCarMake()) ?></p>
                         <hr>
-                        <p id="model">Car Model: {{@SESSION.member->getCarModel()}}</p>
+                        <p id="model">Car Model: <?= ($SESSION['member']->getCarModel()) ?></p>
                         <hr>
-                        <p id="years">Car Year: {{@SESSION.member->getCarYear()}}</p>
+                        <p id="years">Car Year: <?= ($SESSION['member']->getCarYear()) ?></p>
                         <hr>
                         <div class="text-center">
-                           <img src="{{@SESSION.member->getCarPic()}}" alt="Car Pic" height="200" width="200">
+                           <img src="<?= ($SESSION['member']->getCarPic()) ?>" alt="Car Pic" height="200" width="200">
                         </div>
                     </div>
 
@@ -87,26 +87,26 @@
                         </div>
                     </div>
 
-                </true>
-                <false>
+                
+                <?php else: ?>
                     <div class="col-md-12 border rounded p-2 driver text-center d-none">
                         <a  class="btn btn-primary" href="/driver">Become A Driver</a>
                     </div>
-                </false>
-            </check>
+                
+            <?php endif; ?>
 
 
             <!--Traveler----------------------------------------------------------------------->
             <div class="col-md border rounded p-2 traveler">
                 <div class="form-row">
-                    <p id="Names">Name: {{@SESSION.member->getFname()  }} {{@SESSION.member->getLname() }}</p>
+                    <p id="Names">Name: <?= ($SESSION['member']->getFname()) ?> <?= ($SESSION['member']->getLname()) ?></p>
                     <a class="pl-1 pr-1 text-primary pointer" role="button"
                             data-toggle="modal" data-target="#modalLoginForm2">Edit</a>
                 </div>
                 <a class="text-success" id="nameSuccess"></a>
                 <hr>
                 <div class="form-row">
-                    <p id="emails">Email: {{@SESSION.member->getEmail()}}</p>
+                    <p id="emails">Email: <?= ($SESSION['member']->getEmail()) ?></p>
                     <a id="email" class="pl-1 pr-1 text-primary pointer" role="button"
                        data-toggle="modal" data-target="#modalLoginForm3">Edit</a>
                 </div>
@@ -114,13 +114,14 @@
                 <hr>
                 <div class="form-row">
                     <p id="interests">Interests:
-                        <check if="{{@SESSION.member->getInterests()!=null}}">
-                            {{implode(",",@SESSION.member->getInterests())}}
-                        </check>
+                        <?php if ($SESSION['member']->getInterests()!=null): ?>
+                            <?= (implode(",",$SESSION['member']->getInterests()))."
+" ?>
+                        <?php endif; ?>
                     </p>
                 </div>
                 <hr>
-                <p>User Rating: {{@SESSION.member->echoRating(@SESSION.member->getUserRating())}}</p>
+                <p>User Rating: <?= ($SESSION['member']->echoRating($SESSION['member']->getUserRating())) ?></p>
                 <hr>
                 <button id="passUpdate" class="btn btn-primary" role="button"
                         data-toggle="modal" data-target="#modalLoginForm4">Update Password</button>
@@ -146,24 +147,22 @@
             </div>
             <div class="modal-body mx-3">
                 <div class="md-form mb-5">
-                    <input type="text" id="carMake" class="form-control validate" value="{{@SESSION.member->getCarMake()}}">
+                    <input type="text" id="carMake" class="form-control validate" value="<?= ($SESSION['member']->getCarMake()) ?>">
                     <label data-error="wrong" data-success="right" for="carMake">Car Make</label>
                 </div>
                 <div class="md-form mb-5">
-                    <input type="text" id="carModel" class="form-control validate" value="{{@SESSION.member->getCarModel()}}">
+                    <input type="text" id="carModel" class="form-control validate" value="<?= ($SESSION['member']->getCarModel()) ?>">
                     <label data-error="wrong" data-success="right" for="carModel">Car Model</label>
                 </div>
                 <div class="md-form mb-5">
-                    <select class="form-control" id="year" name="year" value="{{@SESSION.member->getCarYear()}}">
-                        <repeat group="{{ @years }}"
-                                key="{{ @key }}"
-                                value="{{ @value }}">
-                            <option value='{{@value}}'
-                            <check if="{{ @SESSION.member->getCarYear() == @value}}">
-                                <true>selected</true>
-                            </check>
-                            >{{@value}}</option>
-                        </repeat>
+                    <select class="form-control" id="year" name="year" value="<?= ($SESSION['member']->getCarYear()) ?>">
+                        <?php foreach (($years?:[]) as $key=>$value): ?>
+                            <option value='<?= ($value) ?>'
+                            <?php if ($SESSION['member']->getCarYear() == $value): ?>
+                                selected
+                            <?php endif; ?>
+                            ><?= ($value) ?></option>
+                        <?php endforeach; ?>
                     </select>
                     <label data-error="wrong" data-success="right" for="carMake">Car Year</label>
                 </div>
@@ -197,10 +196,10 @@
                     <select name="country" class="custom-select countries order-alpha include-US presel-byip  group-continents group-order-alpha"
                             id="countryId">
                         <option value="">
-                            <check if="{{isset(@POST.country)}}">
-                                <true>Select Counry</true>
-                                <false>{{@POST.country}}</false>
-                            </check>
+                            <?php if (isset($POST['country'])): ?>
+                                Select Counry
+                                <?php else: ?><?= ($POST['country']) ?>
+                            <?php endif; ?>
                         </option>
                     </select>
                 </div>
@@ -221,7 +220,7 @@
 
                 <div class="md-form mb-5">
                     <label class="font-weight-bold" for="bios">Biography</label>
-                    <textarea class="form-control" id="bios" name="bio" rows="6">{{@SESSION.member->getBio()}}</textarea>
+                    <textarea class="form-control" id="bios" name="bio" rows="6"><?= ($SESSION['member']->getBio()) ?></textarea>
                     <span id="proErr" class="text-danger"></span>
                 </div>
             </div>
@@ -253,12 +252,12 @@
                 <div class="md-form mb-5">
                     <label class="font-weight-bold" for="fname">First Name</label>
                     <input type="text" class="form-control" id="fname" name="fname"
-                           placeholder="Enter First Name Here" value="{{@SESSION.member->getFName()}}">
+                           placeholder="Enter First Name Here" value="<?= ($SESSION['member']->getFName()) ?>">
                 </div>
                 <div class="md-form mb-5">
                     <label class="font-weight-bold" for="lname">Last Name</label>
                     <input type="text" class="form-control" id="lname"  name="lname"
-                           placeholder= "Enter Last Name Here" value="{{@SESSION.member->getLName()}}">
+                           placeholder= "Enter Last Name Here" value="<?= ($SESSION['member']->getLName()) ?>">
                     <span id="nameErr" class="text-danger"></span>
                 </div>
             </div>
@@ -289,7 +288,7 @@
                     <!--Get the Email-->
                     <label class="font-weight-bold" for="email">Email</label>
                     <input type="email" class="form-control" id="formEmail" name="email" placeholder="Enter Email Here"
-                           value="{{@SESSION.member->getEmail()}}">
+                           value="<?= ($SESSION['member']->getEmail()) ?>">
                     <!--*******Error Span*************** -->
                     <span id="emailErr" class="text-danger"></span>
                 </div>
@@ -319,17 +318,17 @@
                 <div class="md-form mb-5">
                     <label class="font-weight-bold" for="confirmPass">Confirm Original Password</label>
                     <input type="password" class="form-control" id="confirmPass" name="pass" placeholder="Enter a original password"
-                    value="{{@POST.confirm}}">
+                    value="<?= ($POST['confirm']) ?>">
                 </div>
                 <div class="md-form mb-5">
                     <label class="font-weight-bold" for="newPass">New Password</label>
                     <input type="password" class="form-control" id="newPass" name="pass1" placeholder="Enter a new password"
-                           value="{{@POST.pass}}">
+                           value="<?= ($POST['pass']) ?>">
                 </div>
                 <div class="md-form mb-5">
                     <label class="font-weight-bold" for="newPass2">Confirm New Password</label>
                     <input type="password" class="form-control" id="newPass2" name="pass2" placeholder="Confirm new password"
-                           value="{{@POST.pass2}}">
+                           value="<?= ($POST['pass2']) ?>">
                     <span id="passErr" class="text-danger"></span>
                 </div>
             </div>

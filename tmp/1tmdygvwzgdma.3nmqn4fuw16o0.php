@@ -33,14 +33,14 @@
             <select name="state" class="custom-select states order-alpha" id="stateId">
                 <option value="">Select State</option>
             </select>
-            <span class="text-danger">{{@errors.stateErr}}</span>
+            <span class="text-danger"><?= ($errors['stateErr']) ?></span>
             <br>
 
             <strong><label for="cityId">Chose a City</label></strong>
             <select name="city" class="custom-select cities order-alpha" id="cityId">
                 <option value="">Select City</option>
             </select>
-            <span class="text-danger">{{@errors.cityErr}}</span>
+            <span class="text-danger"><?= ($errors['cityErr']) ?></span>
             <br>
 
             <button class="btn btn-primary mt-2" id="search">Search</button>

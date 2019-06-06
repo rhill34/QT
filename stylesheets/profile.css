@@ -11,3 +11,7 @@
     height: 15vw;
     object-fit: cover;
 }
+
+body {
+    background: url("../img/main.jpg") no-repeat fixed left center;
+}

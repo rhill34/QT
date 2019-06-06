@@ -82,14 +82,14 @@
                         Local Cuisine
                     </label>
                 </div>
-                <span class="text-danger">{{@error}}</span>
+                <span class="text-danger"><?= ($error) ?></span>
         </div>
         <div class="text-right">
             <button type="submit" class="btn btn-primary mt-1">
-                <check if="{{@SESSION.member instanceof User_Driver}}">
-                    <true>Next</true>
-                    <false>Submit</false>
-                </check>
+                <?php if ($SESSION['member'] instanceof User_Driver): ?>
+                    Next
+                    <?php else: ?>Submit
+                <?php endif; ?>
 
             </button>
         </div>

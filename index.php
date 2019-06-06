@@ -30,7 +30,7 @@ $f3->route('GET|POST /', function ($f3){
     if(isset($_SESSION['member']))
     {
         //if so access userId if it exits then still logged in redirect to profile page
-        if($_SESSION['member']->getUserId()!=nuill)
+        if($_SESSION['member']->getUserId()!=null)
         {
             $f3->reroute('profile');
         }
@@ -173,6 +173,9 @@ $f3->route('GET|POST /driver', function ($f3){
 
 //profile page route
 $f3->route('GET|POST /profile', function ($f3){
+    if(!isset($_SESSION)) {
+        $f3->reroute('/');
+    }
     //check that user has reached this location after being verified
     $valid = $_SESSION['member']->getUserId();
     //not valid reroute to home page which will destory their data
@@ -193,6 +196,9 @@ $f3->route('GET|POST /logout', function ($f3){
 });
 
 //appointment route
+if(!isset($_SESSION)) {
+    $f3->reroute('/');
+}
 $f3->route('GET|POST /appointment', function ($f3){
     $view = new Template();
     echo $view->render('views/appointment.html');
