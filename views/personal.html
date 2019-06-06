@@ -42,77 +42,64 @@ Availability: http://rhill.greenriverdev.com/328/datingB/cap
                           id="perForm" name="formName"
                           value="Personal Information"
                           enctype="multipart/form-data">
+
                         <!--Get the First Name-->
                         <div class="form-group">
                             <label class="font-weight-bold" for="fname">First Name</label>
                             <input type="text" class="form-control" id="fname" name="fname"
-                                   placeholder="Enter First Name Here"
-                            <check if="{{ isset(@POST.fname)}}">
-                                <true>value="{{@POST.fname}}"</true>
-                            </check>
-                            >
+                                   placeholder="Enter First Name Here" value="{{@POST.fname}}">
                             <!--*******Error Span*************** -->
                             <span class="text-danger">{{@errors.fnameErr}}</span>
                         </div>
+
                         <!--Get the Last Name-->
                         <div class="form-group">
                             <label class="font-weight-bold" for="lname">Last Name</label>
                             <input type="text" class="form-control" id="lname"  name="lname"
-                                   placeholder= "Enter Last Name Here"
-                            <check if="{{ isset(@POST.lname)}}">
-                                <true>value="{{@POST.lname}}"</true>
-                            </check>
-                            >
+                                   placeholder= "Enter Last Name Here" value="{{@POST.lname}}">
                             <!--*******Error Span*************** -->
                             <span class="text-danger">{{@errors.lnameErr}}</span>
                         </div>
+
                         <!--Get user Phone#-->
                         <div class="form-group mt-1">
                             <label class="font-weight-bold"  for="phone">Phone Number</label>
                             <input type="tel" class="form-control" id="phone" name="phone" placeholder="222-333-4444"
-                            <check if="{{ isset(@POST.phone)}}">
-                                <true>value="{{@POST.phone}}"</true>
-                            </check>
-                            >
+                            value="{{@POST.phone}}">
                             <!--*******Error Span*************** -->
                             <span class="text-danger">{{@errors.phoneErr}}</span>
                         </div>
+
                         <!--Get user Email-->
                         <div class="form-group">
                             <label class="font-weight-bold" for="email">Email</label>
                             <input type="email" class="form-control" id="email" name="email" placeholder="Enter Email Here"
-                            <check if="{{ isset(@POST.email)}}">
-                                <true>value="{{@POST.email}}"</true>
-                            </check>
-                            >
+                            value="{{@POST.email}}">
                             <!--*******Error Span*************** -->
                             <span class="text-danger">{{@errors.emailErr}}</span>
                         </div>
+
                         <!-- Create Password -->
                         <div class="form-group">
-                            <label class="font-weight-bold" for="pass">Password<!-- Button trigger modal --></label>
+                            <label class="font-weight-bold" for="pass">Password</label>
                                 <a class="pl-1 pr-1 text-primary pointer" data-toggle="modal" data-target="#exampleModal">
                                      View Password Requirements
                                 </a></label>
                             <input type="password" class="form-control" id="pass" name="pass" placeholder="Enter a new password"
-                            <check if="{{ isset(@POST.pass)}}">
-                                <true>value="{{@POST.pass}}"</true>
-                            </check>
-                            >
+                            value="{{@POST.pass}}">
                             <!--*******Error Span*************** -->
                             <span class="text-danger">{{@errors.passErr}}</span>
                         </div>
+
                         <!--Confirm Password-->
                         <div class="form-group">
                             <label class="font-weight-bold" for="pass1">Confirm Password</label>
                             <input type="password" class="form-control" id="pass1" name="pass1" placeholder="Confirm password"
-                            <check if="{{ isset(@POST.pass1)}}">
-                                <true>value="{{@POST.pass1}}"</true>
-                            </check>
-                            >
+                            value="{{@POST.pass1}}">
                             <!--*******Error Span*************** -->
                             <span class="text-danger">{{@errors.pass1Err}}</span>
                         </div>
+
                         <!--Checks if user wants to be a driver-->
                         <label class="font-weight-bold" for="premium">Become A Driver</label>
                         <div class="form-check" id="premium">
@@ -127,6 +114,7 @@ Availability: http://rhill.greenriverdev.com/328/datingB/cap
                         </div>
                     </form>
                 </div>
+
                 <!--Second Fields-->
                 <div class="col-sm-4" id="postPerForm">
                     <!--EULA -->

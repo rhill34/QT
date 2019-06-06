@@ -198,9 +198,6 @@ $f3->route('GET|POST /logout', function ($f3){
 });
 
 $f3->route('GET|POST /appointment', function ($f3){
-
-
-
     $view = new Template();
     echo $view->render('views/appointment.html');
 });

@@ -345,7 +345,7 @@ class database
         $statement->bindParam(":state", $state, PDO::PARAM_STR);
 
         $statement->execute();
-        return $statement->fetch(PDO::FETCH_ASSOC);
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
 
     /**
