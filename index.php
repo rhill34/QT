@@ -8,11 +8,11 @@ error_reporting(E_ALL);
 require_once("vendor/autoload.php");
 require_once("models/validation.php");
 
-//istantiate fat free and session
+//instantiate fat free and session
 $f3 = Base::instance();
 session_start();
 
-//istantiate a db object
+//instantiate a db object
 $db = new database();
 $years = array();
 
