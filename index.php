@@ -4,66 +4,51 @@ ini_set('display_errors', 1);
 ini_set('file_uploads',1);
 error_reporting(E_ALL);
 
-////$user = $_SERVER['USER'];
-////require_once "home/$user/config.php";
-
+//required files for classes and validation
 require_once("vendor/autoload.php");
 require_once("models/validation.php");
 
+//istantiate fat free and session
 $f3 = Base::instance();
 session_start();
+
 //istantiate a db object
 $db = new database();
 $years = array();
+
 //all years from 1900 to todays year
 for ($i = date("Y"); $i >= 1900; $i--)
 {
     array_push($years,$i);
 }
-//all states
-$states = array
-(
-    'AL' => 'Alabama', 'AK' => 'Alaska', 'AZ' => 'Arizona', 'AR' => 'Arkansas', 'CA' => 'California','CO' => 'Colorado',
-    'CT' => 'Connecticut', 'DE' => 'Delaware', 'DC' => 'District Of Columbia', 'FL' => 'Florida', 'GA' => 'Georgia',
-    'HI' => 'Hawaii', 'ID' => 'Idaho', 'IL' => 'Illinois', 'IN' => 'Indiana', 'IA' => 'Iowa', 'KS' => 'Kansas',
-    'KY' => 'Kentucky', 'LA' => 'Louisiana', 'ME' => 'Maine', 'MD' => 'Maryland', 'MA' => 'Massachusetts',
-    'MI' => 'Michigan', 'MN' => 'Minnesota', 'MS' => 'Mississippi', 'MO' => 'Missouri', 'MT' => 'Montana',
-    'NE' => 'Nebraska', 'NV' => 'Nevada', 'NH' => 'New Hampshire', 'NJ' => 'New Jersey', 'NM' => 'New Mexico',
-    'NY' => 'New York', 'NC' => 'North Carolina', 'ND' => 'North Dakota', 'OH' => 'Ohio', 'OK' => 'Oklahoma',
-    'OR' => 'Oregon', 'PA' => 'Pennsylvania', 'RI' => 'Rhode Island', 'SC' => 'South Carolina', 'SD' => 'South Dakota',
-    'TN' => 'Tennessee', 'TX' => 'Texas', 'UT' => 'Utah', 'VT' => 'Vermont', 'VA' => 'Virginia', 'WA' => 'Washington',
-    'WV' => 'West Virginia', 'WI' => 'Wisconsin', 'WY' => 'Wyoming'
-);
 
 //The following are the Routes
 
-
-//$f3->route('GET|POST /test', function($f3){
-//    session_destroy();
-//
-//    $view = new Template();
-////    echo $view->render('views/driverRegister.html');
-//    echo $view->render('views/driver.html');
-//});
-
-
+//default route
 $f3->route('GET|POST /', function ($f3){
+    //checks if member object exits
     if(isset($_SESSION['member']))
     {
+        //if so access userId if it exits then still logged in redirect to profile page
         if($_SESSION['member']->getUserId()!=nuill)
         {
             $f3->reroute('profile');
         }
     }
+
+    //destroy old sessions
     session_destroy();
+
     //Need to create the home page.
     $view = new Template();
     echo $view->render('views/landing.html');
 });
 
+//route to first form
 $f3->route('GET|POST /basic-info', function ($f3)
 {
     global $db;
+    //check if post request
     if($_SERVER['REQUEST_METHOD'] == 'POST') {
         $phone = stipPhone($_POST['phone']);
         //error array
@@ -81,9 +66,9 @@ $f3->route('GET|POST /basic-info', function ($f3)
             if($db->findEmail($_POST['email'])) {
                 $arrayErr['emailErr']='Email already registered please login or use a new email';
             } else {
-                if (isset($_POST['driver'])) {
+                if (isset($_POST['driver'])) {//check if the user is a driver assign user dirver if so
                     $_SESSION['member'] = new User_Driver(trimFilter($_POST['fname']), trimFilter($_POST['lname']), $phone);
-                } else {
+                } else {//just a user
                     $_SESSION['member'] = new User(trimFilter($_POST['fname']), trimFilter($_POST['lname']), $phone);
                 }
                 $_SESSION['member']->setEmail(filter_var($_POST['email'],FILTER_VALIDATE_EMAIL));
@@ -97,6 +82,7 @@ $f3->route('GET|POST /basic-info', function ($f3)
     echo $view->render('views/personal.html');
 });
 
+//interest page route
 $f3->route('GET|POST /interest', function($f3){
 
     global $db;
@@ -133,10 +119,16 @@ $f3->route('GET|POST /interest', function($f3){
     echo $view->render('views/interests.html');
 });
 
+
+//driver form route
 $f3->route('GET|POST /driver', function ($f3){
-    global $years;
-    global $db;
+    global $years;//years from 1900-this year
+    global $db;//database object
+
+    //if method is post
     if($_SERVER['REQUEST_METHOD'] == 'POST'){
+
+        //validate
         $arrayErr = array(
             "yearErr" => validateDropDown($_POST['year'],$years),
             "makeErr" => validString($_POST['make']),
@@ -179,9 +171,11 @@ $f3->route('GET|POST /driver', function ($f3){
     echo $view->render('views/driverform.html');
 });
 
-
+//profile page route
 $f3->route('GET|POST /profile', function ($f3){
+    //check that user has reached this location after being verified
     $valid = $_SESSION['member']->getUserId();
+    //not valid reroute to home page which will destory their data
     if(!isset($valid))
     {
         $f3->reroute('/');
@@ -192,11 +186,13 @@ $f3->route('GET|POST /profile', function ($f3){
     echo $view->render('views/profile.html');
 });
 
+//logout route destorys session then loads default route
 $f3->route('GET|POST /logout', function ($f3){
     session_destroy();
     $f3->reroute('/');
 });
 
+//appointment route
 $f3->route('GET|POST /appointment', function ($f3){
     $view = new Template();
     echo $view->render('views/appointment.html');
