@@ -1,4 +1,8 @@
 <?php
+/**
+ * This file holds functions that validate data to be provided in forms
+ */
+
 
 /**
  * Check string for alphabetical
@@ -34,6 +38,7 @@ function validPhone($data)
 /**
  * Returns a trimmed phone number only containint numbers
  * @param $data String phone number
+ * @return String a number string stripped to just 9 digits
  */
 function stipPhone($data)
 {
@@ -173,26 +178,33 @@ function validPass($pass, $pass2)
 /**
  * Verifies that the file provided is secure and right filetype
  * @param $file
+ * @return String error message if not valid or empty string if valid
  */
 function validFile($file)
 {
+    //check if file is not empy
     if(!empty($file['name'])) {
+        //directory to save files too
         $target_dir = "profileImages/";
         $target_file = $target_dir . basename($file["name"]);
         $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+
+        //check if file type is an image
         $check = getimagesize($file["tmp_name"]);
         if(!$check) {
             return "File type is not an image";
         }
 
+        //check  if file is too large
         if ($file["size"] > 500000) {
             return "Sorry, your file is too large.";
         }
+        //check if image type match jpg jpeg or gif
         if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
             && $imageFileType != "gif" ) {
             return "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
         }
-
+        //error free
         return "";
     }
     else{
@@ -217,6 +229,11 @@ function addFile($file)
     }
 }
 
+/**
+ * Check if string has values
+ * @param $variable String check if string is empty
+ * @return string error message if empty else empty string
+ */
 function validString($variable)
 {
     if($variable != ""){
@@ -226,6 +243,11 @@ function validString($variable)
     }
 }
 
+/**
+ * Takes a file name and adds it to the target directory
+ * @param $file file provided
+ * @return string directory + file name
+ */
 function filePlusDir($file)
 {
     $target_dir = "profileImages/";

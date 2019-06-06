@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Class User
+ * Creates a User Class for all general users of a website
+ */
 class User
 {
     private $_userId;
@@ -12,6 +16,12 @@ class User
     private $_passwords;
     private $_interests;
 
+    /**
+     * User constructor.
+     * @param $fname String first name of user
+     * @param $lname String last name of a user
+     * @param $phone String phone number of user
+     */
     public function __construct($fname, $lname, $phone)
     {
          $this->_fName=$fname;
@@ -20,7 +30,8 @@ class User
     }
 
     /**
-     * @return mixed
+     * Retrieves that value assigned to userId
+     * @return Int user id
      */
     public function getUserId()
     {
@@ -28,7 +39,8 @@ class User
     }
 
     /**
-     * @param mixed $userId
+     * Sets the value of userId
+     * @param Int $userId
      */
     public function setUserId($userId)
     {
@@ -36,7 +48,8 @@ class User
     }
 
     /**
-     * @return mixed
+     * Gets the value of this users first name
+     * @return String first name of user
      */
     public function getFName()
     {
@@ -44,7 +57,8 @@ class User
     }
 
     /**
-     * @param mixed $fName
+     * Sets teh value of the users first name
+     * @param $fName String first name to be set
      */
     public function setFName($fName)
     {
@@ -52,7 +66,8 @@ class User
     }
 
     /**
-     * @return mixed
+     * Gets the last name of the user
+     * @return String last name of this user
      */
     public function getLName()
     {
@@ -60,7 +75,8 @@ class User
     }
 
     /**
-     * @param mixed $lName
+     * Sets the last name of the user
+     * @param String $lName last name of the user
      */
     public function setLName($lName)
     {
@@ -68,7 +84,8 @@ class User
     }
 
     /**
-     * @return mixed
+     * Gets the phone number of the user
+     * @return String phone number of the user
      */
     public function getPhone()
     {
@@ -76,7 +93,8 @@ class User
     }
 
     /**
-     * @param mixed $phone
+     * Sets the phone number of the user
+     * @param String $phone sets the phone number of this user
      */
     public function setPhone($phone)
     {
@@ -84,7 +102,8 @@ class User
     }
 
     /**
-     * @return mixed
+     * Gets the credit amount of the user
+     * @return Int credits user has
      */
     public function getCredits()
     {
@@ -92,7 +111,8 @@ class User
     }
 
     /**
-     * @param mixed $credits
+     * Sets the credits of the user
+     * @param Int $credits credits to assign to the user
      */
     public function setCredits($credits)
     {
@@ -100,7 +120,8 @@ class User
     }
 
     /**
-     * @return mixed
+     * Gets the user rating of this user
+     * @return Int user rating
      */
     public function getUserRating()
     {
@@ -108,7 +129,8 @@ class User
     }
 
     /**
-     * @param mixed $userRating
+     * Sets the user rating of the user
+     * @param Int $userRating The user rating of the user
      */
     public function setUserRating($userRating)
     {
@@ -116,7 +138,8 @@ class User
     }
 
     /**
-     * @return mixed
+     * Gets the email of the user
+     * @return String the email of this user
      */
     public function getEmail()
     {
@@ -124,7 +147,8 @@ class User
     }
 
     /**
-     * @param mixed $email
+     * Sets the email of this user
+     * @param String $email of this user
      */
     public function setEmail($email)
     {
@@ -132,7 +156,8 @@ class User
     }
 
     /**
-     * @return mixed
+     * Gets the password of this user
+     * @return String password of this user
      */
     public function getPassword()
     {
@@ -140,7 +165,8 @@ class User
     }
 
     /**
-     * @param mixed $passwords
+     * Sets the password of this user
+     * @param String $passwords sets the password of this user
      */
     public function setPasswords($passwords)
     {
@@ -148,7 +174,8 @@ class User
     }
 
     /**
-     * @return mixed
+     * Gets the interest of this user
+     * @return array an array of interests of this user
      */
     public function getInterests()
     {
@@ -156,7 +183,8 @@ class User
     }
 
     /**
-     * @param mixed $interests
+     * Set the interest of the user
+     * @param array $interests array of interests that user has
      */
     public function setInterests($interests)
     {
@@ -164,9 +192,15 @@ class User
     }
 
 
+    /**
+     * Takes a rating number and produces spans that echo either filled in stars with class of starred or empty stars
+     * Between 0-5 stars
+     * @param $rating Int the rating number of the user
+     */
     public static function echoRating($rating)
     {
         $rating=intval($rating);
+        //if 0 stars or less then declare as new user
         if($rating<=0)
         {
             echo "New User";

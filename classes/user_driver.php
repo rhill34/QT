@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * This class defines a driver who is an extensino of a user with an id,rating,city,state,profilepic,carpic,carmake,
+ * carmodel, caryear, and bio.
+ * Class User_Driver
+ */
 class User_Driver extends User
 {
     private $_driverId;
@@ -15,6 +20,9 @@ class User_Driver extends User
 
     /**
      * Constructs from parent user
+     * @param $fname String first name of this driver
+     * @param $lname String last name of this driver
+     * @param $phone String phone number of this driver
      */
     public function __construct($fname, $lname, $phone)
     {
@@ -22,7 +30,8 @@ class User_Driver extends User
     }
 
     /**
-     * @return mixed
+     * Gets the driver id of this driver
+     * @return Int driver id
      */
     public function getDriverId()
     {
@@ -30,7 +39,8 @@ class User_Driver extends User
     }
 
     /**
-     * @param mixed $driverId
+     * Sets the driver if of this driver
+     * @param Int $driverId the driver id to be set
      */
     public function setDriverId($driverId)
     {
@@ -38,7 +48,8 @@ class User_Driver extends User
     }
 
     /**
-     * @return mixed
+     * Gets the rating of this driver
+     * @return Int this drivers rating
      */
     public function getRating()
     {
@@ -46,7 +57,8 @@ class User_Driver extends User
     }
 
     /**
-     * @param mixed $rating
+     * Set the rating of this user
+     * @param Int $rating
      */
     public function setRating($rating)
     {
@@ -54,7 +66,8 @@ class User_Driver extends User
     }
 
     /**
-     * @return mixed
+     * Gets the city of this driver
+     * @return String city of the driver
      */
     public function getCity()
     {
@@ -62,7 +75,8 @@ class User_Driver extends User
     }
 
     /**
-     * @param mixed $city
+     * Sets the city of the driver
+     * @param String $city city to be set
      */
     public function setCity($city)
     {
@@ -70,7 +84,8 @@ class User_Driver extends User
     }
 
     /**
-     * @return mixed
+     * Gets the state of the driver
+     * @return String state to be retireved
      */
     public function getState()
     {
@@ -78,7 +93,8 @@ class User_Driver extends User
     }
 
     /**
-     * @param mixed $state
+     * Sets the state of the driver
+     * @param String $state state to be set
      */
     public function setState($state)
     {
@@ -86,7 +102,8 @@ class User_Driver extends User
     }
 
     /**
-     * @return mixed
+     * Gets the profile pic string of this user
+     * @return String file path for profile pic
      */
     public function getProfilePic()
     {
@@ -94,7 +111,8 @@ class User_Driver extends User
     }
 
     /**
-     * @param mixed $profilePic
+     * Sets the profile pic path for this user
+     * @param String $profilePic the path to image of profile pic
      */
     public function setProfilePic($profilePic)
     {
@@ -102,7 +120,8 @@ class User_Driver extends User
     }
 
     /**
-     * @return mixed
+     * Gets the car pic path for this user
+     * @return String The path of this users car pic
      */
     public function getCarPic()
     {
@@ -110,7 +129,8 @@ class User_Driver extends User
     }
 
     /**
-     * @param mixed $carPic
+     * Sets the car pic path for this user
+     * @param String $carPic sets the file path for the car pic
      */
     public function setCarPic($carPic)
     {
@@ -118,7 +138,8 @@ class User_Driver extends User
     }
 
     /**
-     * @return mixed
+     * Gets teh car make of this driver
+     * @return String car make of this driver
      */
     public function getCarMake()
     {
@@ -126,7 +147,8 @@ class User_Driver extends User
     }
 
     /**
-     * @param mixed $carMake
+     * Sets the car make of this driver
+     * @param String $carMake car make to be set
      */
     public function setCarMake($carMake)
     {
@@ -134,7 +156,8 @@ class User_Driver extends User
     }
 
     /**
-     * @return mixed
+     * Gets the car model of this driver
+     * @return String car model of this driver
      */
     public function getCarModel()
     {
@@ -142,7 +165,8 @@ class User_Driver extends User
     }
 
     /**
-     * @param mixed $carModel
+     * Sets the car model of this driver
+     * @param String $carModel car model to be set
      */
     public function setCarModel($carModel)
     {
@@ -150,7 +174,8 @@ class User_Driver extends User
     }
 
     /**
-     * @return mixed
+     * Gets the car year of this driver
+     * @return String car year of this driver
      */
     public function getCarYear()
     {
@@ -158,7 +183,8 @@ class User_Driver extends User
     }
 
     /**
-     * @param mixed $carYear
+     * Sets the car year of this driver
+     * @param String $carYear the car year of this driver
      */
     public function setCarYear($carYear)
     {
@@ -166,7 +192,8 @@ class User_Driver extends User
     }
 
     /**
-     * @return mixed
+     * Gets the bio of this driver
+     * @return String biography of this driver
      */
     public function getBio()
     {
@@ -174,7 +201,8 @@ class User_Driver extends User
     }
 
     /**
-     * @param mixed $bio
+     * Sets the bio of this driver
+     * @param String $bio sets the bio of this user
      */
     public function setBio($bio)
     {
