@@ -255,4 +255,42 @@ function filePlusDir($file)
 }
 
 
+/**
+ * Check selected time against
+ * Current time.
+ *
+ * @param $time selected time
+ * @return error message if the time is earlier than the current time
+ */
+function validPickTime($time)
+{
+    if(strtotime($time) <= strtotime('now'))
+    {
+        return "Please pick a time that is at least an hour in advance.";
+    } else{
+        return "";
+    }
 
+}
+
+/**
+ * Measures the picked End time against
+ * the start time
+ *
+ * @param $date
+ * @return error message time is later than
+ */
+function validDateEnd($start, $end)
+{
+    //check if more time has elapsed since current time
+    if( strtotime($start) > strtotime('now') && strotime($end) > strtotime('now'))
+    {
+        if (strtotime($end) <= strtotime($start))
+        {
+            return "Time you chose to start is equal to the time you chose to end.
+            or the Check out time is earlier than your Checkin time";
+        }
+        //if so it is a valid time
+        return "";
+    }
+}
