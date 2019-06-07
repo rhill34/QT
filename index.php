@@ -8,19 +8,31 @@ error_reporting(E_ALL);
 require_once("vendor/autoload.php");
 require_once("models/validation.php");
 
-//instantiate fat free and session
+//istantiate fat free and session
 $f3 = Base::instance();
 session_start();
 
-//instantiate a db object
+//istantiate a db object
 $db = new database();
 $years = array();
-
 //all years from 1900 to todays year
 for ($i = date("Y"); $i >= 1900; $i--)
 {
     array_push($years,$i);
 }
+
+$interests = array(
+    "Animal Excursion"=>"animal",
+    "Local Landmarks"=>"local",
+    "Waterfront Views"=>"water",
+    "Club Scene"=>"club",
+    "Wineries"=>"wine",
+    "Historical Places"=>'historical',
+    "Bar Hoping"=>'bar',
+    "Locations From Tv"=>'TvFamous',
+    "Local Cuisine"=>'foot'
+
+);
 
 //The following are the Routes
 
@@ -84,7 +96,6 @@ $f3->route('GET|POST /basic-info', function ($f3)
 
 //interest page route
 $f3->route('GET|POST /interest', function($f3){
-
     global $db;
     if(isset($_POST['interests'])) {
         $intrests = $_POST['interests'];
@@ -200,6 +211,8 @@ if(!isset($_SESSION)) {
     $f3->reroute('/');
 }
 $f3->route('GET|POST /appointment', function ($f3){
+    global $interests;
+    $f3->set('interest', $interests);
     $view = new Template();
     echo $view->render('views/appointment.html');
 });

@@ -70,6 +70,15 @@
             <!--Start of form-->
             <div class="modal-body mx-3">
                 <div class="md-form mb-5">
+                    <label class="font-weight-bold" for="interest">Pick your Excursion</label>
+                    <select class="form-control" id="interest" name="interest">
+                        <?php foreach (($interest?:[]) as $key=>$value): ?>
+                            <option value='<?= ($key) ?>' ><?= ($key) ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+
+                <div class="md-form mb-5">
                     <div class="form-group row">
                         <label for="date" class="col-2 col-form-label">Date</label>
                         <div class="col-10">
