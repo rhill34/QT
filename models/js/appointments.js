@@ -1,25 +1,21 @@
 //submit
 $('#submitAppt').on('click', function () {
-    console.log('test');
-    let date = $('#date').val();
-    let interest = $('#interest').val();
-    let start = $('#timeIn').val();
-    let end = $('#timeOut').val();
+    var date = $('#date').val();
+    var interest = $('#interest').val();
+    var start = $('#timeIn').val();
+    var end = $('#timeOut').val();
+    var driver = $('#driverIndex').attr('value');
 
     $.post(
         "models/ajax/creates-posts/appointments.php",
 
-        {date : date},
-        {interest : interest},
-        {start : start},
-        {end : end},
+        {date : date, interest : interest, start : start, end : end, id:driver},
 
         function(results)
         {
             $('#driverIndex').html(results);
         }
     );
-
 });
 
 //set on click for seach button refining result by city/state
