@@ -616,22 +616,23 @@ class database
 //FOREIGN KEY (appntInterest) REFERENCES inserest(interest_id)
 //);
 
-public function postAppointment($interest, $date, $start, $end)
+public function postAppointment($interest, $start, $end, $userId, $driverId)
 {
+    echo'test';
     //Define the query
-    $sql = "INSERT INTO appointments(dateTimeRequested, dateTimeRequestedTill, userId) 
-	  VALUES (:dateTimeRequested, :dateTimeRequestedTill, :userId)";
+    $sql = "INSERT INTO appointment(userId, driverId, appntInterest, dateTimeRequested, 
+    dateTimeRequestedTill) 
+	  VALUES (:uid, :did, :aInt, :dtr, :dtrT)";
 
 //Prepare the statement
-    $statement = $dbh->prepare($sql);
+    $statement = $this->_dbh->prepare($sql);
 
 //Bind the parameters
-    $type = 'kangaroo';
-    $name = 'Joey';
-    $color = 'purple';
-    $statement->bindParam(':dateTimeRequested', $date, PDO::PARAM_STR);
-    $statement->bindParam(':name', $name, PDO::PARAM_STR);
-    $statement->bindParam(':color', $color, PDO::PARAM_STR);
+    $statement->bindParam(":uid", $userId, PDO::PARAM_STR);
+    $statement->bindParam(":did", $driverId, PDO::PARAM_STR);
+    $statement->bindParam(":aInt", $interest, PDO::PARAM_STR);
+    $statement->bindParam(":dtr", $start, PDO::PARAM_STR);
+    $statement->bindParam(":dtrT", $end, PDO::PARAM_STR);
 
 //Execute
     $statement->execute();

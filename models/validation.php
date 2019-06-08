@@ -279,14 +279,15 @@ function validDate($date)
  */
 function validTime($start, $end)
 {
+
     //check if more time has elapsed since current time
-    if( strtotime('now') < strtotime($start))
+    if( strtotime('now') < strtotime("$start"))
     {
-        if (strtotime($end) == strtotime($start))
+        if (strtotime("$end") == strtotime("$start"))
         {
             return "Check In time you chose is equal to the time you chose to end.";
         }
-        if(strtotime($start) > strtotime($end))
+        if(strtotime("$start") > strtotime("$end"))
         {
             return "The Check Out time is earlier than the Checkin time you chose";
         }
