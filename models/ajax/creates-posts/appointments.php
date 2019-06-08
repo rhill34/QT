@@ -7,7 +7,7 @@ session_start();
 $db = new database();
 
 //get UI input
-$interest = $_POST['interest'];
+$interest = $db->getInterestID($_POST['interest']);
 $timeIn = $_POST['timeIn'];
 $timeOut = $_POST['timeOut'];
 $date = $_POST['date'];
@@ -26,8 +26,6 @@ var_dump($merge);
 
 if ($timeInErr == "") {
     if ($dateErr == "") {
-        $db->updateCarInfo($id, $carMake, $carModel, $carYear);
-
         } else {
             echo "<p> Invalid Appointment date  " . $dateErr . "</p>";
         }

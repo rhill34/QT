@@ -282,7 +282,7 @@ class database
      * @param $interest String interests name
      * @return Int interest id
      */
-    private function getInterestID($interest)
+    public function getInterestID($interest)
     {
         $sql = "SELECT interest_id FROM interest WHERE interest = :interest";
         $statement = $this->_dbh->prepare($sql);
