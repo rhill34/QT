@@ -620,9 +620,8 @@ public function postAppointment($interest, $start, $end, $userId, $driverId)
 {
     echo'test';
     //Define the query
-    $sql = "INSERT INTO appointment(userId, driverId, appntInterest, dateTimeRequested, 
-    dateTimeRequestedTill) 
-	  VALUES (:uid, :did, :aInt, :dtr, :dtrT)";
+    $sql = "INSERT INTO appointment(userId, driverId, appntInterest, dateTimeRequested, dateTimeRequestedTill)
+VALUES (:uid, :did, :aInt, :dtr, :dtrT)";
 
 //Prepare the statement
     $statement = $this->_dbh->prepare($sql);
