@@ -11,7 +11,7 @@ $interest = $db->getInterestID($_POST['interest']);
 $timeIn = $_POST['timeIn'];
 $timeOut = $_POST['timeOut'];
 $date = $_POST['date'];
-$index = $_POST['driverIndex'];
+$index = $_POST['id'];
 
 //validate UI input date and time
 $timeInErr = validTime($timeIn,$timeOut);
@@ -19,10 +19,8 @@ $dateErr = validDate($date);
 
 //id
 $id = $_SESSION['member']->getUserId();
-$driverId = $_SESSION['driver']['index'];
-$merge = new DateTime($date->format('Y-m-d') .' ' .$timeIn->format('H:i:s'));
-
-var_dump($merge);
+$driverId = $_SESSION['driver'][$index];
+//$merge = new DateTime($date->format('Y-m-d') .' ' .$timeIn->format('H:i:s'));
 
 if ($timeInErr == "") {
     if ($dateErr == "") {
