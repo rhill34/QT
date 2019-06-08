@@ -14,11 +14,13 @@ $('#submitAppt').on('click', function () {
         function(results)
         {
             $('#driverIndex').html(results);
-            if($('#driverIndex').text()=="")
+
+            if(result=="")
             {
-                window.location.replace("http://mbritt.greenriverdev.com/328/final/profile");
+                $('#route').click();
             }
-        }
+
+                }
     );
 });
 

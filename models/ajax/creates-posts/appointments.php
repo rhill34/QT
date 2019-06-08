@@ -20,7 +20,6 @@ $dateErr = validDate($date);
 $id = $_SESSION['member']->getUserId();
 $driverId = $_SESSION['driver'][$index];
 
-
 //check for errors
 if ($timeInErr == "") {
     if ($dateErr == "") {

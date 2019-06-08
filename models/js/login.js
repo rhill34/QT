@@ -18,7 +18,7 @@ $('#btn').on('click', function () {
             $('#login').html(result);
             if($('#login').text()=="")
             {
-                window.location.replace("http://mbritt.greenriverdev.com/328/final/profile");
+                $('#route').click();
             }
         }
     );
