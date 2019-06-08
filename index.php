@@ -184,16 +184,19 @@ $f3->route('GET|POST /driver', function ($f3){
 
 //profile page route
 $f3->route('GET|POST /profile', function ($f3){
-    if(!isset($_SESSION)) {
+    if(!isset($_SESSION['member'])) {
         $f3->reroute('/');
+
+    }else {
+        //check that user has reached this location after being verified
+        $valid = $_SESSION['member']->getUserId();
+        if(!isset($valid))
+        {
+            $f3->reroute('/');
+        }
     }
-    //check that user has reached this location after being verified
-    $valid = $_SESSION['member']->getUserId();
     //not valid reroute to home page which will destory their data
-    if(!isset($valid))
-    {
-        $f3->reroute('/');
-    }
+
     global $years;
     $f3->set('years', $years);
     $view = new Template();
@@ -212,6 +215,17 @@ if(!isset($_SESSION)) {
 }
 $f3->route('GET|POST /appointment', function ($f3){
     global $interests;
+    if(!isset($_SESSION['member'])) {
+        $f3->reroute('/');
+
+    }else {
+        //check that user has reached this location after being verified
+        $valid = $_SESSION['member']->getUserId();
+        if(!isset($valid))
+        {
+            $f3->reroute('/');
+        }
+    }
     $f3->set('interest', $interests);
     $view = new Template();
     echo $view->render('views/appointment.html');
