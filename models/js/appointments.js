@@ -1,3 +1,27 @@
+//submit
+$('#submitAppt').on('click', function () {
+    console.log('test');
+    let date = $('#date').val();
+    let interest = $('#interest').val();
+    let start = $('#timeIn').val();
+    let end = $('#timeOut').val();
+
+    $.post(
+        "models/ajax/creates-posts/appointments.php",
+
+        {date : date},
+        {interest : interest},
+        {start : start},
+        {end : end},
+
+        function(results)
+        {
+            $('#driverIndex').html(results);
+        }
+    );
+
+});
+
 //set on click for seach button refining result by city/state
 $('#search').on('click', function () {
     var state = $('#stateId').val();
@@ -32,4 +56,6 @@ $('#results').on('click', '.book', function () {
     );
     $('#driverIndex').attr('value', id);
 });
+
+
 

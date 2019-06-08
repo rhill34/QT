@@ -259,17 +259,13 @@ function filePlusDir($file)
  * Check selected time against
  * Current time.
  *
- * @param $time selected time
- * @return error message if the time is earlier than the current time
+ * @param $time string to rep date of Appointment assignment
+ * @return string error message if the date is earlier than the current date
  */
-function validPickTime($time)
+function validDate($date)
 {
-    if(strtotime($time) <= strtotime('now'))
-    {
-        return "Please pick a time that is at least an hour in advance.";
-    } else{
-        return "";
-    }
+    return date($date) < date("Y-m-d") ? "The date you chose is not valid. Today is " . date("l") .
+        " and the date is " . date("m/d/Y") : "";
 
 }
 
@@ -277,18 +273,22 @@ function validPickTime($time)
  * Measures the picked End time against
  * the start time
  *
- * @param $date
- * @return error message time is later than
+ * @param $start string rep of date/time for the check-in time
+ * @param $end  string rep of date/time for the check-out time
+ * @return string error message time is later than
  */
-function validDateEnd($start, $end)
+function validTime($start, $end)
 {
     //check if more time has elapsed since current time
-    if( strtotime($start) > strtotime('now') && strotime($end) > strtotime('now'))
+    if( strtotime('now') < strtotime($start))
     {
-        if (strtotime($end) <= strtotime($start))
+        if (strtotime($end) == strtotime($start))
         {
-            return "Time you chose to start is equal to the time you chose to end.
-            or the Check out time is earlier than your Checkin time";
+            return "Check In time you chose is equal to the time you chose to end.";
+        }
+        if(strtotime($start) > strtotime($end))
+        {
+            return "The Check Out time is earlier than the Checkin time you chose";
         }
         //if so it is a valid time
         return "";

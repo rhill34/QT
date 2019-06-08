@@ -6,39 +6,31 @@ require_once("../../validation.php");
 session_start();
 $db = new database();
 
-//car make old and new
-$carMake = $_POST['carmake'];
+//get UI input
+$interest = $_POST['interest'];
+$timeIn = $_POST['timeIn'];
+$timeOut = $_POST['timeOut'];
+$date = $_POST['date'];
+$index = $_POST['driverIndex'];
 
-//car model old and new
-$carModel = $_POST['carmodel'];
+//validate UI input date and time
+$timeInErr = validTime($timeIn,$timeOut);
+$dateErr = validDate($date);
 
-//car year old and new
-$carYear = $_POST['carYear'];
 //id
 $id = $_SESSION['member']->getUserId();
+$driverId = $_SESSION['driver']['index'];
+$merge = new DateTime($date->format('Y-m-d') .' ' .$timeIn->format('H:i:s'));
 
-$carMakeErr = validString($carMake);
-$carModelErr = validString($carModel);
-$carYearErr = validString($carYear);
-if ($_SESSION['member']->getCarmake() == $carMake && $_SESSION['member']->getCarModel() == $carModel &&
-    $_SESSION['member']->getCarYear() == $carYear) {
-    echo 'No changes were made';
-    return;
-}
+var_dump($merge);
 
-if ($carMakeErr == "") {
-    if ($carModelErr == "") {
-        if ($carYearErr == "") {
-            $db->updateCarInfo($id, $carMake, $carModel, $carYear);
-            $_SESSION['member']->setCarMake($carMake);
-            $_SESSION['member']->setCarModel($carModel);
-            $_SESSION['member']->setCarYear($carYear);
+if ($timeInErr == "") {
+    if ($dateErr == "") {
+        $db->updateCarInfo($id, $carMake, $carModel, $carYear);
+
         } else {
-            echo "<p> Car Year " . $carYearErr . "</p>";
+            echo "<p> Invalid Appointment date  " . $dateErr . "</p>";
         }
     } else {
-        echo "<p> Car model " . $carModelErr . "</p>";
-    }
-} else {
-    echo "<p> Car Make " . $carMakeErr . "</p>";
+        echo "<p> Invalid Check-In/Out time " . $timeInErr . "</p>";
 }

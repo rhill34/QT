@@ -599,4 +599,44 @@ class database
         $statement->bindParam(":passwords", $pass, PDO::PARAM_STR);
         $statement->execute();
     }
+//
+//CREATE TABLE appointment
+//(
+//appntId int PRIMARY KEY AUTO_INCREMENT,
+//userId int not null,
+//driverId int,
+//appntInterest int,
+//dateTimeRequested dateTime,
+//dateTimeRequestedTill dateTime,
+//actualTimeStarted dateTime,
+//actualTimeCompleted dateTime,
+//completed tinyint,
+//FOREIGN KEY (userId) REFERENCES users(userId),
+//FOREIGN KEY (driverId) REFERENCES driver(driverId),
+//FOREIGN KEY (appntInterest) REFERENCES inserest(interest_id)
+//);
+
+public function postAppointment($interest, $date, $start, $end)
+{
+    //Define the query
+    $sql = "INSERT INTO appointments(dateTimeRequested, dateTimeRequestedTill, userId) 
+	  VALUES (:dateTimeRequested, :dateTimeRequestedTill, :userId)";
+
+//Prepare the statement
+    $statement = $dbh->prepare($sql);
+
+//Bind the parameters
+    $type = 'kangaroo';
+    $name = 'Joey';
+    $color = 'purple';
+    $statement->bindParam(':dateTimeRequested', $date, PDO::PARAM_STR);
+    $statement->bindParam(':name', $name, PDO::PARAM_STR);
+    $statement->bindParam(':color', $color, PDO::PARAM_STR);
+
+//Execute
+    $statement->execute();
+    echo '<p>kangaroo added!</p>';
+}
+
+
 }
