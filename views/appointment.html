@@ -11,10 +11,10 @@
     <link rel="stylesheet"  type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="stylesheets/profile.css">
 </head>
-<body>
+    <body>
 
     <nav class="navbar navbar-light bg-light">
-        <a id="route" href="profile"><span class="navbar-brand mb-0 h1">QuickTrip Profile</span></a>
+        <a class="navbar-brand mb-0 h1" href="profile">QuickTrip Profile</a>
         <a href="logout"><span class="navbar-brand mb-0 h1">Logout</span></a>
     </nav>
 
@@ -114,6 +114,9 @@
         </div>
     </div>
 </div>
+<form class="d-none" action="profile" method="get">
+    <button id="route" href="profile"></button>
+</form>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
         integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
         crossorigin="anonymous"></script>

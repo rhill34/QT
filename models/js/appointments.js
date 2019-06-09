@@ -15,12 +15,12 @@ $('#submitAppt').on('click', function () {
         {
             $('#driverIndex').html(results);
 
-            if(result=="")
+            if($('#driverIndex').text()=="")
             {
                 $('#route').click();
             }
 
-                }
+        }
     );
 });
 

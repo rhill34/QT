@@ -618,25 +618,44 @@ class database
 
 public function postAppointment($interest, $start, $end, $userId, $driverId)
 {
-    echo'test';
     //Define the query
-    $sql = "INSERT INTO appointment(userId, driverId, appntInterest, dateTimeRequested, dateTimeRequestedTill)
-VALUES (:uid, :did, :aInt, :dtr, :dtrT)";
+    $sql = "INSERT INTO appointment(userId, driverId, appntInterest, dateTimeRequested, dateTimeRequestedTill) VALUES(:uid,:did,:aInt,:dtr,:dtrT)";
 
-//Prepare the statement
+    $driverId=(int)$driverId;
+    $userId=(int)$userId;
+    $interest= (int)$interest;
+
+    //Prepare the statement
     $statement = $this->_dbh->prepare($sql);
+    //Bind the parameters
+    $statement->bindParam(':uid', $userId, PDO::PARAM_INT);
+    $statement->bindParam(':did', $driverId, PDO::PARAM_INT);
+    $statement->bindParam(':aInt', $interest, PDO::PARAM_INT);
+    $statement->bindParam(':dtr', $start, PDO::PARAM_STR);
+    $statement->bindParam(':dtrT', $end, PDO::PARAM_STR);
 
-//Bind the parameters
-    $statement->bindParam(":uid", $userId, PDO::PARAM_STR);
-    $statement->bindParam(":did", $driverId, PDO::PARAM_STR);
-    $statement->bindParam(":aInt", $interest, PDO::PARAM_STR);
-    $statement->bindParam(":dtr", $start, PDO::PARAM_STR);
-    $statement->bindParam(":dtrT", $end, PDO::PARAM_STR);
-
-//Execute
+    //Execute
     $statement->execute();
-    echo '<p>kangaroo added!</p>';
 }
 
+public function getAppointmentsTraveler($userId)
+{
+$sql= "SELECT * FROM appointment INNER JOIN driver on appointment.driverId =driver.userId INNER JOIN interest on appointment.appntInterest = interest.interest_ii WHERE userId=:userId";
+    $statement= $this->_dbh->prepare($sql);
+    $statement->bindParam(":userId", $userId, PDO::PARAM_STR);
+    $statement->execute();
+    $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+    return $result;
+}
+
+public function getAppointmentsDriver($userId)
+{
+    $sql= "SELECT * FROM appointment INNER JOIN users On users.userId = appointment.usersIdINNER JOIN interest on appointment.appntInterest = interest.interest_id WHERE userId=:userId";
+    $statement= $this->_dbh->prepare($sql);
+    $statement->bindParam(":userId", $memberId, PDO::PARAM_STR);
+    $statement->execute();
+    $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+    return $result;
+}
 
 }
