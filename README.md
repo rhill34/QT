@@ -19,20 +19,6 @@ Connecting tourists with guides to give authentic experiences.
 
 Making the most of your layovers.
 
-## 
-
-Class Diagrams:
-
-![](img/readme/classDiagram.png)
-ER Diagrams:
-![](img/readme/ERDiagram.png)
-
----
-
-###051319 Add M.Britt informal Short Meeting:
-![](img/readme/05132019-informal.jpeg " Taken by Robert Hill")
-
----
 # Features of the QuickTrip website
 
 Our team developed QuickTrip, the on demand personal authentic tour app, for our final project. The development team was Ryan G., Michael B., and Robert H. This will discuss features included in our project.
@@ -56,3 +42,13 @@ Object Oriented Programming, or OOP, is a programming paradigm based on the conc
 ## Validation & AJAX:
 
 AJAX, or Asynchronous JavaScript and XML, is incorporated in the project with JavaScript files that handle processing user inputs. AJAX calls are validated with PHP validation function scripts in the model directory validation.php file.
+
+
+Class Diagrams:
+
+![](img/readme/classDiagram.png)
+ER Diagrams:
+![](img/readme/ERDiagram.png)
+
+---
+![](img/readme/05132019-informal.jpeg " Taken by Robert Hill")
