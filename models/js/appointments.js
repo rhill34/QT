@@ -6,10 +6,23 @@ $('#submitAppt').on('click', function () {
     var end = $('#timeOut').val();
     var driver = $('#driverIndex').attr('value');
 
+    //get current day on Client Side
+    var curday = function(sp){
+        today = new Date();
+        var dd = today.getDate();
+        var mm = today.getMonth()+1; //As January is 0.
+        var yyyy = today.getFullYear();
+
+        if(dd<10) dd='0'+dd;
+        if(mm<10) mm='0'+mm;
+        return (yyyy+sp+mm+sp+dd);
+    };
+
+    var jsDate = curday('-');
     $.post(
         "models/ajax/creates-posts/appointments.php",
 
-        {date : date, interest : interest, start : start, end : end, id:driver},
+        {date : date, interest : interest, start : start, end : end, id:driver, jsDate: jsDate},
 
         function(results)
         {
