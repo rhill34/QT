@@ -49,8 +49,9 @@
                         <p>Driver Rating: {{@SESSION.member->echoRating(@SESSION.member->getRating())}}</p>
                         <hr>
                         <p id="bio">Bio: {{@SESSION.member->getBio()}}</p>
-                        <div class="text-center">
-                        <img src="{{@SESSION.member->getProfilePic()}}" alt="Profile Pic" height="200" width="200">
+                        <div class="miniImage text-center">
+                            <img src="{{@SESSION.member->getProfilePic()}}" alt="Profile Pic" class="img-thumbnail rounded-circle w-100 h-100"
+                                 height="200" width="200">
                         </div>
                     </div>
 
@@ -65,8 +66,8 @@
                         <hr>
                         <p id="years">Car Year: {{@SESSION.member->getCarYear()}}</p>
                         <hr>
-                        <div class="text-center">
-                           <img src="{{@SESSION.member->getCarPic()}}" alt="Car Pic" height="200" width="200">
+                        <div class="miniImage text-center">
+                           <img src="{{@SESSION.member->getCarPic()}}" alt="Car Pic" class="img-thumbnail rounded-circle w-100 h-100">
                         </div>
                     </div>
 
@@ -99,32 +100,38 @@
                 <div class="col-md d-none driver">
                     <hr>
                     <h4 class="text-center m-1">Appointments</h4>
-                    <table id="driveTable">
-                        <tr>
-                            <th>Traveler Name</th>
-                            <th>Start</th>
-                            <th>End</th>
-                            <th>Option</th>
-                        </tr>
-                        <repeat
-                                group="{{ @driv }}"
-                                key="{{ @key }}"
-                                value="{{ @value }}">
-
+                    <check if="{{empty(@driv)}}">
+                       <false>
+                        <table id="driveTable">
                             <tr>
-                                <td>{{@db->echoName(@value['userId'])}}</td>
-                                <td>{{@value['dateTimeRequested']}}</td>
-                                <td>{{@value['dateTimeRequestedTill']}}</td>
-                                <td>
-                                    <form action="profile" method="post">
-                                        <input class="d-none" type="text" name="appt" value="{{@value['appntId']}}">
-                                        <button class="btn btn-success" type="submit">Picked UP</button>
-                                    </form>
-                                </td>
+                                <th>Traveler Name</th>
+                                <th>Start</th>
+                                <th>End</th>
+                                <th>Option</th>
                             </tr>
+                            <repeat
+                                    group="{{ @driv }}"
+                                    key="{{ @key }}"
+                                    value="{{ @value }}">
 
-                        </repeat>
-                    </table>
+                                <tr>
+                                    <td>{{@db->echoName(@value['userId'])}}</td>
+                                    <td>{{@value['dateTimeRequested']}}</td>
+                                    <td>{{@value['dateTimeRequestedTill']}}</td>
+                                    <td>
+                                        <form action="profile" method="post">
+                                            <button class="btn btn-success" type="submit">Picked UP</button>
+                                        </form>
+                                    </td>
+                                </tr>
+
+                            </repeat>
+                        </table>
+                       </false>
+                        <true>
+                            <h5 class="text-center">No current Appointments at this time.</h5>
+                        </true>
+                    </check>
                 </div>
             </div>
             <!--Traveler----------------------------------------------------------------------->
@@ -159,34 +166,41 @@
                 <div class="col-md traveler">
                     <hr>
                     <h4 class="text-center m-1">Appointments</h4>
-                    <table id="travTable">
-                        <tr>
-                            <th>Driver Name</th>
-                            <th>Car Info</th>
-                            <th>Start</th>
-                            <th>End</th>
-                            <th>Option</th>
-                        </tr>
-                        <repeat
-                                group="{{ @trav }}"
-                                key="{{ @key }}"
-                                value="{{ @value }}">
-
+                    <check if="{{empty(@trav)}}">
+                        <false>
+                        <table id="travTable">
                             <tr>
-                                <td>{{@db->echoName(@value['driverId'])}}</td>
-                                <td>{{@value['carMake'] . " ". @value['carModel']. " " . @value['carYear']}}</td>
-                                <td>{{@value['dateTimeRequested']}}</td>
-                                <td>{{@value['dateTimeRequestedTill']}}</td>
-                                <td>
-                                    <form action="profile" method="post">
-                                        <input class="d-none" type="text" name="appt" value="{{@value['appntId']}}">
-                                        <button class="btn btn-danger" type="submit">Cancel</button>
-                                    </form>
-                                </td>
+                                <th>Driver Name</th>
+                                <th>Car Info</th>
+                                <th>Start</th>
+                                <th>End</th>
+                                <th>Option</th>
                             </tr>
+                            <repeat
+                                    group="{{ @trav }}"
+                                    key="{{ @key }}"
+                                    value="{{ @value }}">
 
-                        </repeat>
-                    </table>
+                                <tr>
+                                    <td>{{@db->echoName(@value['driverId'])}}</td>
+                                    <td>{{@value['carMake'] . " ". @value['carModel']. " " . @value['carYear']}}</td>
+                                    <td>{{@value['dateTimeRequested']}}</td>
+                                    <td>{{@value['dateTimeRequestedTill']}}</td>
+                                    <td>
+                                        <form action="profile" method="post">
+                                            <input class="d-none" type="text" name="appt" value="{{@value['appntId']}}">
+                                            <button class="btn btn-danger" type="submit">Cancel</button>
+                                        </form>
+                                    </td>
+                                </tr>
+
+                            </repeat>
+                        </table>
+                        </false>
+                        <true>
+                            <h5 class="text-center">No Current QuickTrips Booked</h5>
+                        </true>
+                    </check>
                 </div>
             </div>
         </div>

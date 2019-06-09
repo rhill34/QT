@@ -638,24 +638,65 @@ public function postAppointment($interest, $start, $end, $userId, $driverId)
     $statement->execute();
 }
 
-public function getAppointmentsTraveler($userId)
-{
-$sql= "SELECT * FROM appointment INNER JOIN driver on appointment.driverId =driver.userId INNER JOIN interest on appointment.appntInterest = interest.interest_ii WHERE userId=:userId";
-    $statement= $this->_dbh->prepare($sql);
-    $statement->bindParam(":userId", $userId, PDO::PARAM_STR);
-    $statement->execute();
-    $result = $statement->fetchAll(PDO::FETCH_ASSOC);
-    return $result;
-}
+    /**
+     * Retrieves the appointment for the travelers
+     * @param $userId Int id of the traveler
+     * @return Array of sql returned
+         */
+    public function getAppointmentsTraveler($userId)
+    {
+    $sql= "SELECT appointment.appntId, appointment.driverId,dateTimeRequested,dateTimeRequestedTill,city,state,carMake,carModel,carYear,
+    interest FROM appointment INNER JOIN driver on appointment.driverId =driver.userId INNER JOIN interest 
+    on appointment.appntInterest = interest.interest_id WHERE appointment.userId=:userId";
+        $statement= $this->_dbh->prepare($sql);
+        $statement->bindParam(":userId", $userId, PDO::PARAM_STR);
+        $statement->execute();
+        $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
+    }
 
-public function getAppointmentsDriver($userId)
-{
-    $sql= "SELECT * FROM appointment INNER JOIN users On users.userId = appointment.usersIdINNER JOIN interest on appointment.appntInterest = interest.interest_id WHERE userId=:userId";
-    $statement= $this->_dbh->prepare($sql);
-    $statement->bindParam(":userId", $memberId, PDO::PARAM_STR);
-    $statement->execute();
-    $result = $statement->fetchAll(PDO::FETCH_ASSOC);
-    return $result;
-}
+    /**
+     * Retrieve the  appointments for drivers
+     * @param $userId Int id of the driver
+     * @return Array for driver appointments
+     */
+    public function getAppointmentsDriver($userId)
+    {
+        $sql= "SELECT appointment.appntId, appointment.userId,dateTimeRequested,dateTimeRequestedTill,city,state,carMake,carModel,carYear,
+        interest FROM appointment INNER JOIN driver on appointment.driverId =driver.userId INNER JOIN interest 
+        on appointment.appntInterest = interest.interest_id WHERE appointment.driverId=:userId";
+        $statement= $this->_dbh->prepare($sql);
+        $statement->bindParam(":userId", $userId, PDO::PARAM_STR);
+        $statement->execute();
+        $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
+    }
+
+    /**
+     * Returns name of user requested
+     * @param $userId Int user id requested
+     * @return string Name of the user requested
+     */
+    public function echoName($userId)
+    {
+        $sql= "SELECT firstName, lastName FROM users where userId=:userId";
+        $statement= $this->_dbh->prepare($sql);
+        $statement->bindParam(":userId", $userId, PDO::PARAM_STR);
+        $statement->execute();
+        $result = $statement->fetch(PDO::FETCH_ASSOC);
+        return $result['firstName']. " " . $result['lastName'];
+    }
+
+    /**
+     * Delte appointment selected form appointments table
+     * @param $appntId Int id of appointment to be deleted
+     */
+    public function cancelAppointment($appntId)
+    {
+        $sql= "DELETE FROM appointment WHERE appntId=:appt";
+        $statement= $this->_dbh->prepare($sql);
+        $statement->bindParam(":appt", $appntId, PDO::PARAM_STR);
+        $statement->execute();
+    }
 
 }
