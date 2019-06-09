@@ -40,9 +40,13 @@ $('#pass').keypress(function(event){
             function(result)
             {
                 $('#login').html(result);
+                // if($('#login').text()=="")
+                // {
+                //     window.location.replace("http://mbritt.greenriverdev.com/328/final/profile");
+                // }
                 if($('#login').text()=="")
                 {
-                    window.location.replace("http://mbritt.greenriverdev.com/328/final/profile");
+                    $('#route').click();
                 }
             }
         );

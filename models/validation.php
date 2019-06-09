@@ -256,16 +256,16 @@ function filePlusDir($file)
 
 
 /**
- * Check selected time against
- * Current time.
+ * Check selected date against
+ * Current date.
  *
  * @param $time string to rep date of Appointment assignment
  * @return string error message if the date is earlier than the current date
  */
-function validDate($date)
+function validDate($jdate, $clientToday)
 {
-    return date($date) < date("Y-m-d") ? "The date you chose is not valid. Today is " . date("l") .
-        " and the date is " . date("m/d/Y") : "";
+return (strtotime("$jdate") < strtotime("$clientToday")) ?
+    "The date you chose is not valid. Today is " . date("m/d/Y", strtotime("$clientToday")) : "";
 
 }
 
