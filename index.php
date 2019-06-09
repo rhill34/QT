@@ -184,6 +184,7 @@ $f3->route('GET|POST /driver', function ($f3){
 
 //profile page route
 $f3->route('GET|POST /profile', function ($f3){
+    global $db;
     if(!isset($_SESSION['member'])) {
         $f3->reroute('/');
 
@@ -194,6 +195,18 @@ $f3->route('GET|POST /profile', function ($f3){
         {
             $f3->reroute('/');
         }
+        $trav =$db->getAppointmentsTraveler($valid);
+        $f3->set('db', $db);
+        $f3->set('trav', $trav);
+        if($_SESSION['member'] instanceof User_Driver)
+        {
+            $driv = $db->getAppointmentsDriver($valid);
+            $f3->set('driv',$driv);
+        }
+    }
+
+    if($_SERVER['REQUEST_METHOD'] == 'POST') {
+       $db->cancelAppointment($_POST['appt']);
     }
     //not valid reroute to home page which will destory their data
 

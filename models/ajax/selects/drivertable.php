@@ -53,7 +53,7 @@ if($results) {
         </div>';
 
         //add driver id to array
-        $array.array_push($array,$row["driverId"]);
+        $array.array_push($array,$row["userId"]);
 
         //add driver pice to array
         $pictureArray.array_push($pictureArray,$row['profilePic']);

@@ -6,6 +6,7 @@
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet"  type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="stylesheets/profile.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
     <title>Profile</title>
 </head>
 <body>
@@ -86,7 +87,6 @@
                                data-toggle="modal" data-target="#modalLoginForm">Edit Car Information</a>
                         </div>
                     </div>
-
                 </true>
                 <false>
                     <div class="col-md-12 border rounded p-2 driver text-center d-none">
@@ -95,7 +95,38 @@
                 </false>
             </check>
 
+            <div class="col-md  border rounded p-2 d-none driver">
+                <div class="col-md d-none driver">
+                    <hr>
+                    <h4 class="text-center m-1">Appointments</h4>
+                    <table id="driveTable">
+                        <tr>
+                            <th>Traveler Name</th>
+                            <th>Start</th>
+                            <th>End</th>
+                            <th>Option</th>
+                        </tr>
+                        <repeat
+                                group="{{ @driv }}"
+                                key="{{ @key }}"
+                                value="{{ @value }}">
 
+                            <tr>
+                                <td>{{@db->echoName(@value['userId'])}}</td>
+                                <td>{{@value['dateTimeRequested']}}</td>
+                                <td>{{@value['dateTimeRequestedTill']}}</td>
+                                <td>
+                                    <form action="profile" method="post">
+                                        <input class="d-none" type="text" name="appt" value="{{@value['appntId']}}">
+                                        <button class="btn btn-success" type="submit">Picked UP</button>
+                                    </form>
+                                </td>
+                            </tr>
+
+                        </repeat>
+                    </table>
+                </div>
+            </div>
             <!--Traveler----------------------------------------------------------------------->
             <div class="col-md border rounded p-2 traveler">
                 <div class="form-row">
@@ -124,12 +155,43 @@
                 <hr>
                 <button id="passUpdate" class="btn btn-primary" role="button"
                         data-toggle="modal" data-target="#modalLoginForm4">Update Password</button>
+
+                <div class="col-md traveler">
+                    <hr>
+                    <h4 class="text-center m-1">Appointments</h4>
+                    <table id="travTable">
+                        <tr>
+                            <th>Driver Name</th>
+                            <th>Car Info</th>
+                            <th>Start</th>
+                            <th>End</th>
+                            <th>Option</th>
+                        </tr>
+                        <repeat
+                                group="{{ @trav }}"
+                                key="{{ @key }}"
+                                value="{{ @value }}">
+
+                            <tr>
+                                <td>{{@db->echoName(@value['driverId'])}}</td>
+                                <td>{{@value['carMake'] . " ". @value['carModel']. " " . @value['carYear']}}</td>
+                                <td>{{@value['dateTimeRequested']}}</td>
+                                <td>{{@value['dateTimeRequestedTill']}}</td>
+                                <td>
+                                    <form action="profile" method="post">
+                                        <input class="d-none" type="text" name="appt" value="{{@value['appntId']}}">
+                                        <button class="btn btn-danger" type="submit">Cancel</button>
+                                    </form>
+                                </td>
+                            </tr>
+
+                        </repeat>
+                    </table>
+                </div>
             </div>
         </div>
+        <!--Traveler Appointments TODO-->
 
-
-        <!--Driver Appointments TODO-->
-        <div class="col-md  border rounded p-2 d-none driver"></div>
     </div>
     </div>
 
@@ -347,5 +409,14 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 <script src="models/js/profile.js"></script>
 <script src="//geodata.solutions/includes/countrystatecity.js"></script>
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
+<script>
+    $(document).ready( function () {
+        $('#travTable').DataTable();
+    } );
+    $(document).ready( function () {
+        $('#driveTable').DataTable();
+    } );
+</script>
 </body>
 </html>
